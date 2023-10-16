@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Oct 16, 2023, 11:42:57 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="datasecurity" name="th.ac.ku.kps.eng.cpe.datasecurity.model.Scoreboard" optimistic-lock="none" table="scoreboard">
+        <id name="scoreId" type="java.lang.Integer">
+            <column name="scoreId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.datasecurity.model.User" fetch="select" name="user">
+            <column name="userId" not-null="true"/>
+        </many-to-one>
+        <property name="level" type="string">
+            <column length="8" name="level" not-null="true"/>
+        </property>
+        <property name="score" type="int">
+            <column name="score" not-null="true"/>
+        </property>
+        <property name="time" type="java.lang.Integer">
+            <column name="time"/>
+        </property>
+    </class>
+</hibernate-mapping>

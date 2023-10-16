@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Oct 16, 2023, 11:42:57 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="datasecurity" name="th.ac.ku.kps.eng.cpe.datasecurity.model.Type" optimistic-lock="none" table="type">
+        <id name="typeId" type="java.lang.Integer">
+            <column name="typeId"/>
+            <generator class="identity"/>
+        </id>
+        <property name="typeName" type="string">
+            <column length="50" name="typeName" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="ciphers" table="cipher">
+            <key>
+                <column name="typeId" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.datasecurity.model.Cipher"/>
+        </bag>
+    </class>
+</hibernate-mapping>
