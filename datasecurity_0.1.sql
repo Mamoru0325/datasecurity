@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2023 at 06:32 AM
+-- Generation Time: Oct 16, 2023 at 06:43 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -110,7 +110,6 @@ CREATE TABLE `user` (
 --
 
 CREATE TABLE `userroles` (
-  `userRoleId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `roleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -155,8 +154,7 @@ ALTER TABLE `user`
 -- Indexes for table `userroles`
 --
 ALTER TABLE `userroles`
-  ADD PRIMARY KEY (`userRoleId`),
-  ADD UNIQUE KEY `userId_2` (`userId`,`roleId`),
+  ADD PRIMARY KEY (`userId`,`roleId`),
   ADD KEY `userId` (`userId`,`roleId`),
   ADD KEY `roleId` (`roleId`);
 
@@ -195,12 +193,6 @@ ALTER TABLE `user`
   MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `userroles`
---
-ALTER TABLE `userroles`
-  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- Constraints for dumped tables
 --
 
@@ -220,8 +212,8 @@ ALTER TABLE `scoreboard`
 -- Constraints for table `userroles`
 --
 ALTER TABLE `userroles`
-  ADD CONSTRAINT `userroles_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `role` (`roleId`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `userroles_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `userroles_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `userroles_ibfk_2` FOREIGN KEY (`roleId`) REFERENCES `role` (`roleId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
