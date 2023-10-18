@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan("th.ac.ku.kps.eng.cpe.datasecurity")
-//@EnableJpaRepositories("th.ac.ku.kps.eng.cpe.datasecurity.repository")
+@EnableJpaRepositories("th.ac.ku.kps.eng.cpe.datasecurity.repository")
 public class ProjectApplication {
 
 	public static void main(String[] args) {
