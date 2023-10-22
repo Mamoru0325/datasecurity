@@ -152,7 +152,7 @@ public class AuthRestController {
 				.collect(Collectors.toList());
 
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(
-				new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
+				new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), jwtCookie.getValue(), roles));
 	}
 
 	@PostMapping("/signout")

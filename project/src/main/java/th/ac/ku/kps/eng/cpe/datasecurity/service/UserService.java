@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import th.ac.ku.kps.eng.cpe.datasecurity.model.Role;
 import th.ac.ku.kps.eng.cpe.datasecurity.model.User;
@@ -53,17 +54,11 @@ public class UserService implements UserDetailsService {
 	}
 
 	@Override
+	@Transactional
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
 		User user = userRepository.findByEmail(email);
-		if(user == null) {
-			throw new UsernameNotFoundException("Email not found in the database");
-		}
-		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		user.getRoles().forEach(role -> {
-			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-		});
-		return UserDetailsImpl.build(user);
+
+		    return UserDetailsImpl.build(user);
 	}
 	
 	public void registerNewAccount(User user,String roleName) throws AccountAlreadyExistException{
