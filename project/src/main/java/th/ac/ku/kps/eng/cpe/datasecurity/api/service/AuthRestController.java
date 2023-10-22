@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,12 +33,13 @@ import th.ac.ku.kps.eng.cpe.datasecurity.model.dto.LoginDTO;
 import th.ac.ku.kps.eng.cpe.datasecurity.model.dto.SignupDTO;
 import th.ac.ku.kps.eng.cpe.datasecurity.security.exception.AccountAlreadyExistException;
 import th.ac.ku.kps.eng.cpe.datasecurity.security.jwt.JwtUtils;
-import th.ac.ku.kps.eng.cpe.datasecurity.security.jwt.response.JwtResponse;
+import th.ac.ku.kps.eng.cpe.datasecurity.security.jwt.response.MessageResponse;
+import th.ac.ku.kps.eng.cpe.datasecurity.security.jwt.response.UserInfoResponse;
 import th.ac.ku.kps.eng.cpe.datasecurity.security.service.UserDetailsImpl;
 import th.ac.ku.kps.eng.cpe.datasecurity.service.UserService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @CrossOrigin("http://localhost:8081/")
 public class AuthRestController {
 	@Autowired
@@ -47,7 +50,7 @@ public class AuthRestController {
 	AuthenticationManager authenticationManager;
 	@Autowired
 	PasswordEncoder encoder;
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		Response<ObjectNode> res = new Response<>();
@@ -66,7 +69,7 @@ public class AuthRestController {
 		res.setBody(responObject);
 		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
 	}
-	
+
 	@PostMapping("/signup")
 	public ResponseEntity<Response<SignupDTO>> registerUser(@Valid @RequestBody SignupDTO user) {
 		Response<SignupDTO> res = new Response<>();
@@ -90,7 +93,7 @@ public class AuthRestController {
 			return new ResponseEntity<Response<SignupDTO>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@PostMapping("/signup/staff")
 	public ResponseEntity<Response<SignupDTO>> registerStaff(@Valid @RequestBody SignupDTO user) {
 		Response<SignupDTO> res = new Response<>();
@@ -115,22 +118,48 @@ public class AuthRestController {
 			return new ResponseEntity<Response<SignupDTO>>(res, res.getHttpStatus());
 		}
 	}
-	
+
+//	@PostMapping("/signin")
+//	public ResponseEntity<Response<JwtResponse>> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
+//		Response<JwtResponse> res = new Response<>();
+//		UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
+//				loginRequest.getPassword());
+//		final Authentication authentication = authenticationManager.authenticate(authReq);
+//		SecurityContextHolder.getContext().setAuthentication(authentication);
+//		String jwt = jwtUtils.generateToken(authentication);
+//		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
+//				.collect(Collectors.toList());
+//		res.setBody(new JwtResponse(jwt, userDetails.getUsername(), roles));
+//		res.setHttpStatus(HttpStatus.OK);
+//		res.setMessage("ok");
+//		return new ResponseEntity<Response<JwtResponse>>(res, res.getHttpStatus());
+//	}
+
 	@PostMapping("/signin")
-	public ResponseEntity<Response<JwtResponse>> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
-		Response<JwtResponse> res = new Response<>();
-		UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
-				loginRequest.getPassword());
-		final Authentication authentication = authenticationManager.authenticate(authReq);
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
+
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateToken(authentication);
+
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+		ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
-		res.setBody(new JwtResponse(jwt, userDetails.getUsername(), roles));
-		res.setHttpStatus(HttpStatus.OK);
-		res.setMessage("ok");
-		return new ResponseEntity<Response<JwtResponse>>(res, res.getHttpStatus());
+
+		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(
+				new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
+	}
+
+	@PostMapping("/signout")
+	public ResponseEntity<?> logoutUser() {
+		ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
+		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+				.body(new MessageResponse("You've been signed out!"));
 	}
 
 }
