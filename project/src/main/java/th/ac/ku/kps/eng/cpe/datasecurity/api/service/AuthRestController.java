@@ -37,7 +37,7 @@ import th.ac.ku.kps.eng.cpe.datasecurity.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin
 public class AuthRestController {
 	@Autowired
 	private UserService userService;
