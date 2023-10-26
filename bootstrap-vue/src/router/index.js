@@ -10,6 +10,12 @@ const routes = [
     component: HomeView
   },
   {
+    path: '/about',
+    name: 'about',
+    beforeEnter:checkAuth,
+    component: () => import('../views/AboutView.vue')
+  },
+  {
     path: '/profile',
     name: 'MyProfile',
     component: () => import('../components/Profile.vue')
@@ -36,7 +42,7 @@ const routes = [
       },
       {
         path: 'about',
-        name: 'about',
+        name: 'aboutuser',
         beforeEnter: requireAuth,
         component: () => import('../views/AboutView.vue')
       },
@@ -85,7 +91,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/'];
+  const publicPages = ['/login', '/register', '/','/about'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 

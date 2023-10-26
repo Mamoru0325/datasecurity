@@ -13,6 +13,9 @@
             <font-awesome-icon icon="home" /> Home
           </router-link>
         </li>
+        <li  class="nav-item" v-if="!currentUser">
+          <router-link to="/about" class="nav-link">About</router-link>
+        </li>
         <li v-if="showAdmin" class="nav-item">
           <router-link to="/admin" class="nav-link">Admin</router-link>
         </li>
@@ -49,6 +52,9 @@
         </li>
         <li v-if="showUser" class="nav-item">
           <router-link to="/user/feedback" class="nav-link">Feedback</router-link>
+        </li>
+        <li v-if="showUser" class="nav-item">
+          <router-link to="/user/about" class="nav-link">About</router-link>
         </li>
       </div>
 
