@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -121,23 +122,6 @@ public class AuthRestController {
 		}
 	}
 
-//	@PostMapping("/signin")
-//	public ResponseEntity<Response<JwtResponse>> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
-//		Response<JwtResponse> res = new Response<>();
-//		UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
-//				loginRequest.getPassword());
-//		final Authentication authentication = authenticationManager.authenticate(authReq);
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-//		String jwt = jwtUtils.generateToken(authentication);
-//		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-//		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
-//				.collect(Collectors.toList());
-//		res.setBody(new JwtResponse(jwt, userDetails.getUsername(), roles));
-//		res.setHttpStatus(HttpStatus.OK);
-//		res.setMessage("ok");
-//		return new ResponseEntity<Response<JwtResponse>>(res, res.getHttpStatus());
-//	}
-
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
 		User user = userService.findByEmail(loginRequest.getEmail());
@@ -169,6 +153,36 @@ public class AuthRestController {
 		ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
 				.body(new MessageResponse("You've been signed out!"));
+	}
+	
+	@PostMapping("/changepassword")
+	public ResponseEntity<Response<String>> changePassword (@RequestBody String rawLogin){
+		Response<String> res = new Response<>();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			JsonNode jsonNode = mapper.readTree(rawLogin);
+			String email = jsonNode.get("email").asText();
+			System.out.println(email);
+			String password = jsonNode.get("password").asText();
+			System.out.println(password);
+			if(userService.emailExists(email)) {
+				User user = userService.findByEmail(email);
+				user.setPassword(encoder.encode(password));
+				user = userService.save(user);
+				res.setBody("Change Password Complete");
+				res.setHttpStatus(HttpStatus.OK);
+				return new ResponseEntity<Response<String>> (res,res.getHttpStatus());
+			}
+			res.setBody("Don't Have This Email");
+			res.setHttpStatus(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			res.setBody(null);
+			res.setMessage(e.getMessage());
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Response<String>> (res,res.getHttpStatus());
 	}
 
 }

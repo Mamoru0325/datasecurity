@@ -3,6 +3,8 @@ package th.ac.ku.kps.eng.cpe.datasecurity.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import th.ac.ku.kps.eng.cpe.datasecurity.model.Feedback;
@@ -25,8 +27,18 @@ public class FeedbackService {
 		return feedbackRepository.findById(id).orElse(null);
 	}
 	
-	public void delete (Feedback feedback) {
-		feedbackRepository.delete(feedback);
+	public void deleteById (int id) {
+		feedbackRepository.deleteById(id);
+	}
+	
+	public List<Feedback> findAllByMonthAndYear (int page, int value, int month, int year) {
+		Pageable pageable = PageRequest.of(page-1, value);
+		return feedbackRepository.findAllByMonthAndYear(month, year, pageable);
+	}
+	
+	public List<Feedback> findAllPagination (int page, int value) {
+		Pageable pageable = PageRequest.of(page-1, value);
+		return feedbackRepository.findAllPagination(pageable);
 	}
 
 }

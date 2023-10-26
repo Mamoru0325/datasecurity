@@ -13,11 +13,11 @@ public class CipherService {
 	@Autowired
 	private CipherRepository cipherRepository;
 	
-	public Cipher save(Cipher cipher) {
+	public Cipher save (Cipher cipher) {
 		return cipherRepository.save(cipher);
 	}
 	
-	public List<Cipher> findAll(){
+	public List<Cipher> findAll (){
 		return (List<Cipher>) cipherRepository.findAll();
 	}
 	
@@ -25,8 +25,16 @@ public class CipherService {
 		return cipherRepository.findById(cipherId).orElse(null);
 	}
 	
-	public void delete(Cipher cipher) {
-		cipherRepository.delete(cipher);
+	public void deleteById (int id) {
+		cipherRepository.deleteById(id);
+	}
+	
+	public List<Cipher> find10RandomQuestion (String level) {
+		return cipherRepository.find10RandomQuestion(level);
+	}
+	
+	public List<Cipher> findByLevel (String level) {
+		return cipherRepository.findByLevel(level);
 	}
 
 }

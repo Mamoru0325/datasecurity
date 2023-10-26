@@ -1,6 +1,5 @@
 package th.ac.ku.kps.eng.cpe.datasecurity.api.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,24 +12,26 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import th.ac.ku.kps.eng.cpe.datasecurity.api.response.Response;
-import th.ac.ku.kps.eng.cpe.datasecurity.service.ScoreboardService;
+import th.ac.ku.kps.eng.cpe.datasecurity.model.User;
+import th.ac.ku.kps.eng.cpe.datasecurity.service.UserService;
 
 @RestController
-@RequestMapping("/api/scoreboard")
+@RequestMapping("/api/user")
 @CrossOrigin("http://localhost:8081/")
-public class ScoreboardRestController {
+public class UserRestController {
 	@Autowired
-	private ScoreboardService scoreboardService;
-
+	private UserService userService;
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		Response<ObjectNode> res = new Response<>();
@@ -49,35 +50,45 @@ public class ScoreboardRestController {
 		res.setBody(responObject);
 		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
 	}
-
-	@GetMapping("/scores/{level}")
+	
+	@PutMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
-	@PreAuthorize("hasRole('User') or hasRole('Admin')")
-	public ResponseEntity<Response<List<?>>> findByLevelOrderByscoreDESC (@PathVariable("level")String level) {
-		Response<List<?>> res = new Response<>();
-		ObjectMapper mapper = new ObjectMapper();
-		List<ObjectNode> responseList = new ArrayList<>();
+	@PreAuthorize("hasRole('Admin')")
+	public ResponseEntity<Response<User>> findById (@PathVariable("id")int id, @RequestBody User user){
+		Response<User> res = new Response<>();
 		try {
-			List<Object> scoreboards = scoreboardService.findByLevelOrderByscoreDESC(level, 0, 20);
-			for(Object scoreboard :scoreboards) {
-				ObjectNode responObject = mapper.createObjectNode();
-				Object[] o = (Object[]) scoreboard;
-				responObject.put("scoreId", o[0].toString());
-				responObject.put("userName", o[1].toString());
-				responObject.put("score", o[2].toString());
-				responseList.add(responObject);
-			}
-			
-			res.setBody(responseList);
+			User user2 = userService.findById(id);
+			user2.setStatus(user.getStatus());
+			user2 = userService.save(user2);
+			res.setBody(user2);
 			res.setHttpStatus(HttpStatus.OK);
 			
-		} catch (Exception e) {
+		}catch (Exception e) {
+			res.setBody(null);
 			res.setMessage(e.getMessage());
-			res.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
-
+		return new ResponseEntity<Response<User>> (res,res.getHttpStatus());
+	}
+	
+	@GetMapping("/page/{page}/value/{value}")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Admin')")
+	public ResponseEntity<Response<List<User>>> findAllByRole (@PathVariable("page")int page, @PathVariable("value")int value) {
+		Response<List<User>> res = new Response<>();
+		try {
+			List<User> users = userService.findAllByRole(page, value, "ROLE_Admin");
+			res.setBody(users);
+			res.setHttpStatus(HttpStatus.OK);
+			
+		}catch (Exception e) {
+			res.setBody(null);
+			res.setMessage(e.getMessage());
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Response<List<User>>>(res,res.getHttpStatus());
 	}
 
 }

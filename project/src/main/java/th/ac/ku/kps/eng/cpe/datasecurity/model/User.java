@@ -2,9 +2,7 @@ package th.ac.ku.kps.eng.cpe.datasecurity.model;
 // Generated Oct 16, 2023, 11:42:57 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -54,6 +52,13 @@ public class User implements java.io.Serializable {
 		this.password = user.getPassword();
 		this.username = user.getUsername();
 		this.phoneNumber = user.getPhoneNumber();
+	}
+	
+	public void clone (User user) {
+		this.email = user.getEmail();
+		this.username = user.getUsername();
+		this.phoneNumber = user.getPhoneNumber();
+		this.status = user.getStatus();
 	}
 
 	public Integer getUserId() {

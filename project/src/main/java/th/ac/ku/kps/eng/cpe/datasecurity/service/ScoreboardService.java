@@ -15,23 +15,23 @@ public class ScoreboardService {
 	@Autowired
 	private ScoreboardRepository scoreboardRepository;
 
-	public Scoreboard save(Scoreboard scoreboard) {
+	public Scoreboard save (Scoreboard scoreboard) {
 		return scoreboardRepository.save(scoreboard);
 	}
 
-	public List<Scoreboard> findAll() {
+	public List<Scoreboard> findAll () {
 		return (List<Scoreboard>) scoreboardRepository.findAll();
 	}
 
-	public Scoreboard findById(int scoreboardId) {
+	public Scoreboard findById (int scoreboardId) {
 		return scoreboardRepository.findById(scoreboardId).orElse(null);
 	}
 
-	public void delete(Scoreboard scoreboard) {
-		scoreboardRepository.delete(scoreboard);
+	public void deleteById (int id) {
+		scoreboardRepository.deleteById(id);
 	}
 
-	public List<Object> findByLevelOrderByscoreDESC(String level, int page, int value) {
+	public List<Object> findByLevelOrderByscoreDESC (String level, int page, int value) {
 		Pageable pageable = PageRequest.of(page, value);
 		return scoreboardRepository.findByLevelOrderByscoreDESC(level, pageable);
 	}

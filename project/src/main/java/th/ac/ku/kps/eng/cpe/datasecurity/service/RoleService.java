@@ -25,8 +25,8 @@ public class RoleService {
 		return roleRepository.findById(roleId).orElse(null);
 	}
 	
-	public void delete (Role role) {
-		roleRepository.delete(role);
+	public void deleteById (int id) {
+		roleRepository.deleteById(id);
 	}
 	
 	public Role findByRoleName (String roleName) {

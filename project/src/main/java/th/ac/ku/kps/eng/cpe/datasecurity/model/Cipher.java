@@ -25,6 +25,12 @@ public class Cipher implements java.io.Serializable {
 		this.cipherKey = cipherKey;
 		this.level = level;
 	}
+	
+	public void clone(Cipher cipher) {
+		this.plainText = cipher.plainText;
+		this.cipherKey = cipher.cipherKey;
+		this.level = cipher.level;
+	}
 
 	public Integer getCipherId() {
 		return this.cipherId;

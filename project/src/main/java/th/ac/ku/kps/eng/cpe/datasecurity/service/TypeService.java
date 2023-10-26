@@ -25,8 +25,8 @@ public class TypeService {
 		return typeRepository.findById(typeId).orElse(null);
 	}
 	
-	public void delete (Type type) {
-		typeRepository.delete(type);
+	public void deleteById (int id) {
+		typeRepository.deleteById(id);
 	}
 
 }

@@ -1,11 +1,11 @@
 package th.ac.ku.kps.eng.cpe.datasecurity.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,31 +37,31 @@ public class UserService implements UserDetailsService {
 		return userRepository.findById(userId).orElse(null);
 	}
 	
-	public void delete (User user) {
-		userRepository.delete(user);
+	public void deleteById (int id) {
+		userRepository.deleteById(id);
 	}
 	
 	public User findByEmail (String email) {
 		return userRepository.findByEmail(email);
 	}
 	
-	private boolean emailExists(String email) {
+	public boolean emailExists(String email) {
 		return userRepository.findByEmail(email) != null;
 	}
 	
-	private boolean userNameExists(String userName) {
+	public boolean userNameExists (String userName) {
 		return userRepository.findByUserName(userName) != null;
 	}
 
 	@Override
 	@Transactional
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername (String email) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(email);
 
 		    return UserDetailsImpl.build(user);
 	}
 	
-	public User registerNewAccount(User user,String roleName) throws AccountAlreadyExistException{
+	public User registerNewAccount (User user,String roleName) throws AccountAlreadyExistException{
 		if (emailExists(user.getEmail())) {
             throw new AccountAlreadyExistException("There is an account with that email address: " + user.getEmail());
         }else if(userNameExists(user.getUsername())) {
@@ -73,6 +73,15 @@ public class UserService implements UserDetailsService {
 			user = save(user);
 			return user;
         }
+	}
+	
+	public List<User> findAllByRole (int page, int value, String role) {
+		Pageable pageable = PageRequest.of(page-1, value);
+		return userRepository.findAllByRole(role, pageable);
+	}
+	
+	public User findByUserName (String username) {
+		return userRepository.findByUserName(username);
 	}
 
 }

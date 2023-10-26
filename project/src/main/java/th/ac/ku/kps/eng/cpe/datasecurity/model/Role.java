@@ -2,9 +2,7 @@ package th.ac.ku.kps.eng.cpe.datasecurity.model;
 // Generated Oct 16, 2023, 11:42:57 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
