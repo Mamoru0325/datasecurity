@@ -33,20 +33,25 @@
             </tbody>
         </table>
         <br>
-        <MyButtonBar />
+        <MyButtonbarBar class="bottom"/>
     </div>
 </template>
 <script>
 import MyNavBar from '@/components/MyNavBar.vue'
-import MyButtonBar from '@/components/MyButtonBar.vue'
+import MyButtonbarBar from '@/components/MyButtonBar.vue'
 export default {
   name: 'ScoreView',
   components: {
     MyNavBar,
-    MyButtonBar
+    MyButtonbarBar
   }
 }
 </script>
-<style lang="">
-    
+<style scoped>
+.bottom {
+  position:absolute; 
+  bottom:0; 
+
+  width:100%;
+}
 </style>

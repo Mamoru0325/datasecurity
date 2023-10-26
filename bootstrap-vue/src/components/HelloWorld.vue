@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1 style="text-align: center;">{{ msg }}</h1>
     <br>
     <div class="row">
       <div class="card" style="width: 22rem; margin: auto; border: 1px solid #000;">

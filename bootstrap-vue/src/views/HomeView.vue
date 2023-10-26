@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <MyNavBar />
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <br>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 90%;margin: auto;">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img src="https://html.com/wp-content/uploads/flamingo.webp" class="d-block w-100"  height="500" alt="...">
@@ -32,14 +33,25 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import MyNavBar from '@/components/MyNavBar.vue'
 import MyButtonBar from '@/components/MyButtonBar.vue'
+import MyNavBar from '@/components/MyNavBar.vue'
 export default {
   name: 'HomeView',
   components: {
     HelloWorld,
-    MyNavBar,
-    MyButtonBar
+    MyButtonBar,
+    MyNavBar
   }
 }
 </script>
+<style scoped>
+.bottom {
+  position:absolute; 
+  bottom:0; 
+  
+  text-align:center; 
+  width:100%;
+
+  border:1px solid green; 
+}
+</style>

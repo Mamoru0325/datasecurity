@@ -10,13 +10,13 @@
 
 <script>
 // @ is an alias to /src
-import MyNavBar from '@/components/MyNavBar.vue'
 import MyButtonBar from '@/components/MyButtonBar.vue'
+import MyNavBar from '@/components/MyNavBar.vue'
 export default {
   name: 'HomeView',
   components: {
-    MyNavBar,
-    MyButtonBar
+    MyButtonBar,
+    MyNavBar
   }
 }
 </script>

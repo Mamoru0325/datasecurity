@@ -2,7 +2,7 @@
     <div>
         <MyNavBar />
         <br>
-        <h1>เกมถอดรหัส</h1>
+        <h1 style="text-align: center;">เกมถอดรหัส</h1>
         <br>
         <div style="text-align: left; margin-left: 25%">
             <h2 >กฎการเล่น</h2>

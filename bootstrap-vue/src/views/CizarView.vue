@@ -53,19 +53,19 @@ p {
     </div>
     <br>
 
-    <MyButtonBar />
+    <MyButtonbar />
   </div>
 </template>
   
 <script>
 // @ is an alias to /src
+import MyButtonbar from '@/components/MyButtonBar.vue'
 import MyNavBar from '@/components/MyNavBar.vue'
-import MyButtonBar from '@/components/MyButtonBar.vue'
 export default {
   name: 'CizarView',
   components: {
-    MyNavBar,
-    MyButtonBar
+    MyButtonbar,
+    MyNavBar
   }
 }
 </script>

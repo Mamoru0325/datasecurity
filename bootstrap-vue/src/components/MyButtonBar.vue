@@ -1,14 +1,14 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #e3f2fd;height: 100px;">
-        <div class="container-fluid">
-            <div style="width: 22rem; margin: auto;">
-                asdsadasd
+    <nav class="navbar navbar-expand navbar-dark bg-dark" style="color: aliceblue;">
+        <div class="container-fluid" style="margin-top: 1%;margin-bottom: 1%;">
+            <div style="width: 50%;margin-left: 5%;">
+                <h3 style="text-align: left;">คณะวิศวกรรมศาสตร์ กำแพงแสน</h3>
+                <p style="text-align: left;">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตกำแพงแสน เลขที่ 1 ม. 6 ต.กำแพงแสน อ.กำแพงแสน จ.นครปฐม 73140 
+                    โทรศัพท์ : 034 – 351897, 09-2378-5995, 09-2378-5656
+                </p>
             </div>
-            <div style="width: 22rem; margin: auto;">
+            <div style="margin: auto;">
                 asdasdasdasd
-            </div>
-            <div style="width: 22rem; margin: auto;">
-                asdasdasdsad
             </div>
         </div>
     </nav>
@@ -16,6 +16,6 @@
 
 <script>
 export default {
-    name: 'MyButtonBar'
+    name: 'MyButtonbarBar'
 }
 </script>

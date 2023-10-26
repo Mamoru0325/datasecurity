@@ -1,48 +1,116 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #e3f2fd;">
-        <div class="container-fluid">
-            <a class="navbar-brand" style="pointer-events: none">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <RouterLink type="btn btn-light" class="nav-link " aria-current="page" to="/"><a style="color:#000000">หน้าหลัก</a></RouterLink>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
-                            data-bs-toggle="dropdown"  style="color:#000000">
-                            เกมถอดรหัส
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><RouterLink class="dropdown-item" to="/game"><a class="dropdown-item" >หน้ารวม</a></RouterLink></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><RouterLink class="dropdown-item" to="/"><a class="dropdown-item" >ระดับง่าย</a></RouterLink></li>
-                            <li><RouterLink class="dropdown-item" to="#"><a class="dropdown-item" >ระดับกลาง</a></RouterLink></li>
-                            <li><RouterLink class="dropdown-item" to="#"><a class="dropdown-item" >ระดับยาก</a></RouterLink></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <RouterLink type="btn btn-light" class="nav-link" to="/score"><a style="color:#000000">อันดับคะแนน</a></RouterLink>
-                    </li>
-                    <li class="nav-item">
-                        <RouterLink type="btn btn-light" class="nav-link" to="/about"><a style="color:#000000">เกี่ยวกับเรา</a></RouterLink>
-                    </li>
-                </ul>
-                
-                <RouterLink type="btn btn-light" class="nav-link" to="#"><a style="color:#000000">LogOut</a></RouterLink>
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="/" class="navbar-brand">เกมถอดรหัส</a>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+      <div class="navbar-nav mr-auto" >
+        <li class="nav-item" v-if="!currentUser">
+          <router-link to="/" class="nav-link">
+            <font-awesome-icon icon="home" /> Home
+          </router-link>
+        </li>
+        <li class="nav-item" v-if="showUser">
+          <router-link to="/user" class="nav-link">
+            <font-awesome-icon icon="home" /> Home
+          </router-link>
+        </li>
+        <li v-if="showAdmin" class="nav-item">
+          <router-link to="/admin" class="nav-link">Admin</router-link>
+        </li>
+        <li v-if="showAdmin" class="nav-item">
+          <router-link to="/admin/Question" class="nav-link">Question</router-link>
+        </li>
+        <li v-if="showAdmin" class="nav-item">
+          <router-link to="/admin/feedback" class="nav-link">Feedback</router-link>
+        </li>
+        <li v-if="showUser" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/user/game" id="navbarDropdown" data-bs-toggle="dropdown">
+            เกมถอดรหัส
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item">หน้ารวม</a></RouterLink>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item">ระดับง่าย</a></RouterLink>
+            </li>
+            <li>
+              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item">ระดับกลาง</a></RouterLink>
+            </li>
+            <li>
+              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item">ระดับยาก</a></RouterLink>
+            </li>
+          </ul>
+        </li>
+        <li v-if="showUser" class="nav-item">
+          <router-link to="/user/score" class="nav-link">Score</router-link>
+        </li>
+        <li v-if="showUser" class="nav-item">
+          <router-link to="/user/feedback" class="nav-link">Feedback</router-link>
+        </li>
+      </div>
 
-            </div>
+      <div style="margin-left: auto;">
+        <div v-if="!currentUser" class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <router-link to="/register" class="nav-link">
+              <font-awesome-icon icon="user-plus" /> Sign Up
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link">
+              <font-awesome-icon icon="sign-in-alt" /> Login
+            </router-link>
+          </li>
         </div>
-    </nav>
+
+        <div v-if="currentUser" class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <font-awesome-icon icon="user" />
+              {{ currentUser.username }}
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" @click.prevent="logOut">
+              <font-awesome-icon icon="sign-out-alt" /> LogOut
+            </a>
+          </li>
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
 export default {
-    name: 'MyNavBar'
+  name: 'MyNavBar',
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showAdmin() {
+      if (this.currentUser && this.currentUser.roles[0] === 'ROLE_Admin') {
+        return true;
+      }
+
+      return false;
+    },
+    showUser() {
+      if (this.currentUser && this.currentUser.roles[0] === 'ROLE_User') {
+        return true;
+      }
+
+      return false;
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('auth/signout');
+      this.$router.push('/login');
+    }
+  }
 }
 </script>
