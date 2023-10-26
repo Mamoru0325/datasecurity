@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import store from '@/store/index.js';
 
 const routes = [
   {
@@ -75,7 +76,7 @@ const routes = [
         beforeEnter: requireAuth,
         component: () => import('../views/FeedbackView.vue')
       }]
-  },{ path: '/:pathMatch(.*)*', component: HomeView }
+  },{ path: '/:pathMatch(.*)*', component: () => import('../components/Error404.vue')}
 ]
 
 const router = createRouter({
@@ -100,8 +101,13 @@ router.beforeEach((to, from, next) => {
 function checkAuth(to, from, next) {
   const loggedIn = localStorage.getItem('user');
   if (loggedIn) {
+    if(store.state.auth.user.roles[0]  === 'ROLE_User')
     next({
       path: "/user",
+    });
+    if(store.state.auth.user.roles[0]  === 'ROLE_Admin')
+    next({
+      path: "/admin",
     });
   } else {
     next();

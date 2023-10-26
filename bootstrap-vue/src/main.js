@@ -11,5 +11,5 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from './plugins/font-awesome'
 
 
-createApp(App).use(router).use(bootstrap).use(store).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
+createApp(App).use(bootstrap).use(store).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
 
