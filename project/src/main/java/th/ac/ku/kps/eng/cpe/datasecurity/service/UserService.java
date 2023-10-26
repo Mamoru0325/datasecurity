@@ -61,7 +61,7 @@ public class UserService implements UserDetailsService {
 		    return UserDetailsImpl.build(user);
 	}
 	
-	public void registerNewAccount(User user,String roleName) throws AccountAlreadyExistException{
+	public User registerNewAccount(User user,String roleName) throws AccountAlreadyExistException{
 		if (emailExists(user.getEmail())) {
             throw new AccountAlreadyExistException("There is an account with that email address: " + user.getEmail());
         }else if(userNameExists(user.getUsername())) {
@@ -71,6 +71,7 @@ public class UserService implements UserDetailsService {
 			Role role = roleService.findByRoleName(roleName);
 			user.getRoles().add(role);
 			user = save(user);
+			return user;
         }
 	}
 
