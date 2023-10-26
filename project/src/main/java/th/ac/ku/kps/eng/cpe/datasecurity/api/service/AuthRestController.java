@@ -71,53 +71,53 @@ public class AuthRestController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<Response<SignupDTO>> registerUser(@Valid @RequestBody SignupDTO user) {
-		Response<SignupDTO> res = new Response<>();
+	public ResponseEntity<Response<User>> registerUser(@Valid @RequestBody SignupDTO user) {
+		Response<User> res = new Response<>();
 		try {
 			String roleName = "ROLE_User";
 			User _user = new User();
 			_user.signup(user);
 			_user.setPassword(encoder.encode(_user.getPassword()));
 			_user.setStatus("yes");
-			userService.registerNewAccount(_user, roleName);
+			User __user = userService.registerNewAccount(_user, roleName);
 			res.setMessage("Register Success");
-			res.setBody(user);
+			res.setBody(__user);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<SignupDTO>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
 		} catch (AccountAlreadyExistException uaeEx) {
 			res.setMessage("An account for that username/email already exists.");
 			res.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-			return new ResponseEntity<Response<SignupDTO>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<SignupDTO>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
 		}
 	}
 
 	@PostMapping("/signup/staff")
-	public ResponseEntity<Response<SignupDTO>> registerStaff(@Valid @RequestBody SignupDTO user) {
-		Response<SignupDTO> res = new Response<>();
+	public ResponseEntity<Response<User>> registerStaff(@Valid @RequestBody SignupDTO user) {
+		Response<User> res = new Response<>();
 		try {
 			String roleName = "ROLE_Admin";
 			User _user = new User();
 			_user.signup(user);
 			_user.setPassword(encoder.encode(_user.getPassword()));
 			_user.setStatus("no");
-			userService.registerNewAccount(_user, roleName);
+			User __user = userService.registerNewAccount(_user, roleName);
 			res.setMessage("Register Success");
-			res.setBody(user);
+			res.setBody(__user);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<SignupDTO>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
 		} catch (AccountAlreadyExistException uaeEx) {
 			res.setMessage("An account for that username/email already exists.");
 			res.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-			return new ResponseEntity<Response<SignupDTO>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setMessage(ex.getLocalizedMessage());
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<SignupDTO>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
 		}
 	}
 
@@ -140,9 +140,16 @@ public class AuthRestController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
-
+		User user = userService.findByEmail(loginRequest.getEmail());
+		if(user.getStatus().equals("no")) {
+			Response<User> res = new Response<>();
+			res.setMessage("You don't have AUTHORIZED");
+			res.setHttpStatus(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+		}
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+		
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
