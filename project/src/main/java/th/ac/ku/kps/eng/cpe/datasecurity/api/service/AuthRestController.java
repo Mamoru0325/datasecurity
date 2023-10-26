@@ -78,6 +78,7 @@ public class AuthRestController {
 			User _user = new User();
 			_user.signup(user);
 			_user.setPassword(encoder.encode(_user.getPassword()));
+			_user.setStatus("yes");
 			userService.registerNewAccount(_user, roleName);
 			res.setMessage("Register Success");
 			res.setBody(user);
@@ -102,6 +103,7 @@ public class AuthRestController {
 			User _user = new User();
 			_user.signup(user);
 			_user.setPassword(encoder.encode(_user.getPassword()));
+			_user.setStatus("no");
 			userService.registerNewAccount(_user, roleName);
 			res.setMessage("Register Success");
 			res.setBody(user);
