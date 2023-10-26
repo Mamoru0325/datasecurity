@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Oct 26, 2023, 1:21:36 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="datasecurity" name="th.ac.ku.kps.eng.cpe.datasecurity.model.Feedback" optimistic-lock="none" table="feedback">
+        <id name="feedbackId" type="java.lang.Integer">
+            <column name="feedbackId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.datasecurity.model.User" fetch="select" name="user">
+            <column name="userId" not-null="true"/>
+        </many-to-one>
+        <property name="date" type="date">
+            <column length="10" name="date" not-null="true"/>
+        </property>
+        <property name="text" type="string">
+            <column length="65535" name="text" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

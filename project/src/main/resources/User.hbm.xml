@@ -18,6 +18,15 @@
         <property name="phoneNumber" type="string">
             <column length="11" name="phoneNumber" not-null="true"/>
         </property>
+        <property name="status" type="string">
+            <column length="4" name="status" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="feedbacks" table="feedback">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.datasecurity.model.Feedback"/>
+        </bag>
         <bag fetch="select" inverse="false" lazy="true" name="roles" table="userroles">
             <key>
                 <column name="userId" not-null="true"/>

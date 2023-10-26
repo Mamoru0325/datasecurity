@@ -20,6 +20,9 @@ public class User implements java.io.Serializable {
 	private String password;
 	private String username;
 	private String phoneNumber;
+	private String status;
+	@JsonIgnore
+	private List<Feedback> feedbacks = new ArrayList<Feedback>();
 	@JsonIgnore
 	private List<Role> roles = new ArrayList<Role>();
 	@JsonIgnore
@@ -34,16 +37,19 @@ public class User implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public User(String email, String username, String phoneNumber, List<Role> roles, List<Scoreboard> scoreboards) {
-		super();
+	public User(String email, String password, String username, String phoneNumber, String status,
+			List<Feedback> feedbacks, List<Role> roles, List<Scoreboard> scoreboards) {
 		this.email = email;
+		this.password = password;
 		this.username = username;
 		this.phoneNumber = phoneNumber;
+		this.status = status;
+		this.feedbacks = feedbacks;
 		this.roles = roles;
 		this.scoreboards = scoreboards;
 	}
-	
-	public void signup (SignupDTO user) {
+
+	public void signup(SignupDTO user) {
 		this.email = user.getEmail();
 		this.password = user.getPassword();
 		this.username = user.getUsername();
@@ -106,5 +112,20 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public List<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(List<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
 
 }
