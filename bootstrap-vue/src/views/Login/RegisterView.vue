@@ -113,7 +113,7 @@ export default {
                 },
                 phoneNumber: { required, min: minLength(10), max: maxLength(10), $autoDirty: true },
                 username: { required, max: maxLength(30), $autoDirty: true },
-                password: { required, min: minLength(8), max: maxLength(30), $autoDirty: true },
+                password: { required, min: minLength(6), max: maxLength(30), $autoDirty: true },
                 password2: { required, sameAs: sameAs(this.form.password) },
             },
         };
