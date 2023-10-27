@@ -10,6 +10,8 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from './plugins/font-awesome'
 import 'bootstrap/dist/js/bootstrap.bundle.js'
+import '@mdi/font/css/materialdesignicons.css'
+import 'vuetify/styles'
 
 createApp(App).use(bootstrap).use(store).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
 
