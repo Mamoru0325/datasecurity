@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Oct 27, 2023, 9:37:47 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="datasecurity" name="th.ac.ku.kps.eng.cpe.datasecurity.model.Refreshtoken" optimistic-lock="none" table="refreshtoken">
+        <id name="refreshtokenId" type="java.lang.Integer">
+            <column name="refreshtokenId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.datasecurity.model.User" fetch="select" name="user">
+            <column name="userId" not-null="true"/>
+        </many-to-one>
+        <property name="token" type="string">
+            <column length="200" name="token" not-null="true"/>
+        </property>
+        <property name="expiryDate" type="timestamp">
+            <column length="19" name="expiryDate" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

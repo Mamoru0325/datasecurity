@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,12 +18,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import th.ac.ku.kps.eng.cpe.datasecurity.security.jwt.AuthEntryPointJwt;
 import th.ac.ku.kps.eng.cpe.datasecurity.security.jwt.AuthTokenFilter;
+import th.ac.ku.kps.eng.cpe.datasecurity.service.UserService;
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private UserService userService;
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
 
@@ -42,7 +42,7 @@ public class SecurityConfig {
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-		authProvider.setUserDetailsService(userDetailsService);
+		authProvider.setUserDetailsService(userService);
 		authProvider.setPasswordEncoder(passwordEncoder());
 
 		return authProvider;
@@ -61,7 +61,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						.antMatchers("/api/auth/**").permitAll()
 						.antMatchers("/**").permitAll()
-						.antMatchers("/api/**").permitAll()
+						.antMatchers("/api/user/**").hasAuthority("Admin")
 						.anyRequest().authenticated());
 
 		http.authenticationProvider(authenticationProvider());

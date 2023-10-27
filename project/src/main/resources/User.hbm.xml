@@ -41,5 +41,11 @@
             </key>
             <one-to-many class="th.ac.ku.kps.eng.cpe.datasecurity.model.Scoreboard"/>
         </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="refreshtokens" table="refreshtoken">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.datasecurity.model.Refreshtoken"/>
+        </bag>
     </class>
 </hibernate-mapping>

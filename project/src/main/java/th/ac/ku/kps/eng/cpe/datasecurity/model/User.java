@@ -26,6 +26,8 @@ public class User implements java.io.Serializable {
 	private List<Role> roles = new ArrayList<Role>();
 	@JsonIgnore
 	private List<Scoreboard> scoreboards = new ArrayList<Scoreboard>();
+	@JsonIgnore
+	private List<Refreshtoken> refreshtokens = new ArrayList<Refreshtoken>();
 
 	public User() {
 	}
@@ -37,7 +39,7 @@ public class User implements java.io.Serializable {
 	}
 
 	public User(String email, String password, String username, String phoneNumber, String status,
-			List<Feedback> feedbacks, List<Role> roles, List<Scoreboard> scoreboards) {
+			List<Feedback> feedbacks, List<Role> roles, List<Scoreboard> scoreboards, List<Refreshtoken> refreshtokens) {
 		this.email = email;
 		this.password = password;
 		this.username = username;
@@ -46,6 +48,7 @@ public class User implements java.io.Serializable {
 		this.feedbacks = feedbacks;
 		this.roles = roles;
 		this.scoreboards = scoreboards;
+		this.refreshtokens = refreshtokens;
 	}
 
 	public void signup(SignupDTO user) {
@@ -132,6 +135,14 @@ public class User implements java.io.Serializable {
 
 	public void setFeedbacks(List<Feedback> feedbacks) {
 		this.feedbacks = feedbacks;
+	}
+
+	public List<Refreshtoken> getRefreshtokens() {
+		return refreshtokens;
+	}
+
+	public void setRefreshtokens(List<Refreshtoken> refreshtokens) {
+		this.refreshtokens = refreshtokens;
 	}
 
 }
