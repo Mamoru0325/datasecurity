@@ -52,7 +52,6 @@ public class ScoreboardRestController {
 
 	@GetMapping("/scores/{level}")
 	@SecurityRequirement(name = "Bearer Authentication")
-	@PreAuthorize("hasRole('User') or hasRole('Admin')")
 	public ResponseEntity<Response<List<?>>> findByLevelOrderByscoreDESC (@PathVariable("level")String level) {
 		Response<List<?>> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
