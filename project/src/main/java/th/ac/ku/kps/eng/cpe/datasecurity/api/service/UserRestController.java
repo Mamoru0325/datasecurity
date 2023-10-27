@@ -78,7 +78,7 @@ public class UserRestController {
 	public ResponseEntity<Response<List<User>>> findAllByRole (@PathVariable("page")int page, @PathVariable("value")int value) {
 		Response<List<User>> res = new Response<>();
 		try {
-			List<User> users = userService.findAllByRole(page, value, "ROLE_Admin");
+			List<User> users = userService.findAllByRole(page, value, "ROLE_Admin", "no");
 			res.setBody(users);
 			res.setHttpStatus(HttpStatus.OK);
 			
