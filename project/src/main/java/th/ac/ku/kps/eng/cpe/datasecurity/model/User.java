@@ -15,6 +15,7 @@ public class User implements java.io.Serializable {
 
 	private Integer userId;
 	private String email;
+	@JsonIgnore
 	private String password;
 	private String username;
 	private String phoneNumber;

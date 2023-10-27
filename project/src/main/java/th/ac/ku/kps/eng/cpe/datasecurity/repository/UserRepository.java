@@ -19,7 +19,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query("from User u where u.username = :username")
 	public User findByUserName(@Param("username")String username);
 	
-	@Query("select u from User u inner join u.roles r where r.roleName = :roleName")
-	public List<User> findAllByRole (@Param("role")String role, Pageable pageable);
+	@Query("select u from User u inner join u.roles r where r.roleName = :role and  u.status = :status")
+	public List<User> findAllByRole (@Param("role")String role, @Param("status")String status, Pageable pageable);
 
 }

@@ -75,9 +75,9 @@ public class UserService implements UserDetailsService {
         }
 	}
 	
-	public List<User> findAllByRole (int page, int value, String role) {
+	public List<User> findAllByRole (int page, int value, String role, String status) {
 		Pageable pageable = PageRequest.of(page-1, value);
-		return userRepository.findAllByRole(role, pageable);
+		return userRepository.findAllByRole(role, status, pageable);
 	}
 	
 	public User findByUserName (String username) {
