@@ -13,11 +13,16 @@
             <font-awesome-icon icon="home" /> Home
           </router-link>
         </li>
+        <li class="nav-item" v-if="showAdmin">
+          <router-link to="/admin" class="nav-link">
+            <font-awesome-icon icon="home" /> Home
+          </router-link>
+        </li>
         <li class="nav-item" v-if="!currentUser">
           <router-link to="/about" class="nav-link">About</router-link>
         </li>
         <li v-if="showAdmin" class="nav-item">
-          <router-link to="/admin" class="nav-link">Admin</router-link>
+          <router-link to="/admin/admin" class="nav-link">Admin</router-link>
         </li>
         <li v-if="showAdmin" class="nav-item">
           <router-link to="/admin/Question" class="nav-link">Question</router-link>

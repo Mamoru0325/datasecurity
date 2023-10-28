@@ -40,6 +40,11 @@ const routes = [
         beforeEnter: requireAuth,
         component: HomeView
       }, {
+        path: 'admin',
+        name: 'adminad',
+        beforeEnter: requireAuth,
+        component: () => import('../views/admin/AddadminView.vue')
+      },{
         path: 'feedback',
         name: 'adminfeedback',
         beforeEnter: requireAuth,
