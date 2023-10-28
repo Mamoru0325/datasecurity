@@ -18,5 +18,11 @@ public interface FeedbackRepository extends CrudRepository<Feedback, Integer> {
 	
 	@Query("from Feedback fb order by fb.date desc")
 	public List<Feedback> findAllPagination (Pageable pageable);
+	
+	@Query("select year(fb.date) from Feedback fb group by year(fb.date)")
+	public List<Integer> findYearInFeedback();
+	
+	@Query("select month(fb.date) from Feedback fb group by month(fb.date)")
+	public List<Integer> findMonthInFeedback();
 
 }

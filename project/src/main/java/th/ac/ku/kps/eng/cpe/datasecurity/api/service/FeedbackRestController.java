@@ -94,6 +94,7 @@ public class FeedbackRestController {
 			for (Feedback feedback : feedbacks) {
 				User user = feedback.getUser();
 				ObjectNode responseObject = mapper.valueToTree(feedback);
+				System.out.println(feedback.getDate());
 				responseObject.put("username", user.getUsername());
 				responseList.add(responseObject);
 			}
@@ -135,6 +136,44 @@ public class FeedbackRestController {
 		}
 
 		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
+	}
+	
+	@GetMapping("/year")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Admin')")
+	public ResponseEntity<Response<List<Integer>>> findYearInFeedback (){
+		Response<List<Integer>> res = new Response<>();
+		try {
+			List<Integer> year = feedbackService.findYearInFeedback();
+			res.setBody(year);
+			res.setHttpStatus(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			res.setBody(null);
+			res.setMessage(e.getMessage());
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Response<List<Integer>>>(res,res.getHttpStatus());
+	}
+	
+	@GetMapping("/month")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Admin')")
+	public ResponseEntity<Response<List<Integer>>> findMonthInFeedback (){
+		Response<List<Integer>> res = new Response<>();
+		try {
+			List<Integer> month = feedbackService.findMonthInFeedback();
+			res.setBody(month);
+			res.setHttpStatus(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			res.setBody(null);
+			res.setMessage(e.getMessage());
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Response<List<Integer>>>(res,res.getHttpStatus());
 	}
 
 }

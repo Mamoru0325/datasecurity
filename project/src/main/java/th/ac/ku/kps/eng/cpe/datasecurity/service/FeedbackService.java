@@ -40,5 +40,13 @@ public class FeedbackService {
 		Pageable pageable = PageRequest.of(page-1, value);
 		return feedbackRepository.findAllPagination(pageable);
 	}
+	
+	public List<Integer> findYearInFeedback () {
+		return feedbackRepository.findYearInFeedback();
+	}
+	
+	public List<Integer> findMonthInFeedback () {
+		return feedbackRepository.findMonthInFeedback();
+	}
 
 }
