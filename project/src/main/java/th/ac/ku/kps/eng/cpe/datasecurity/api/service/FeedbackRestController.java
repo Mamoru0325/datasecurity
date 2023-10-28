@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import th.ac.ku.kps.eng.cpe.datasecurity.api.response.Response;
 import th.ac.ku.kps.eng.cpe.datasecurity.model.Feedback;
@@ -67,6 +66,7 @@ public class FeedbackRestController {
 		try {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			User user = userService.findByUserName(username);
+			System.out.println(feedback.getText());
 			feedback.setDate(new Date());
 			feedback.setUser(user);
 			feedback = feedbackService.save(feedback);
