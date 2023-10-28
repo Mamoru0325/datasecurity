@@ -40,10 +40,11 @@ export default {
       this.v$.$touch();
       if (!this.v$.$error) {
         let feedback = {
-          text: this.email,
+          text: this.text
         };
-        const token = this.$store.state.auth.user.token;
-        axios.post(`http://localhost:8080/api/feedback/`, feedback, { headers: { "Content-Type": "application/json","Cookie": 'datasecurity='+token } },{withCredentials : true})
+        console.log(feedback)
+        const token = this.$store.state.auth.user.accessToken;
+        axios.post(`http://localhost:8080/api/feedback/`,feedback, { headers: { "Content-Type": "application/json","Authorization": 'Bearer '+token } })
           .then(() => {
             alert("send Feedback success")
             this.$router.push("/user");

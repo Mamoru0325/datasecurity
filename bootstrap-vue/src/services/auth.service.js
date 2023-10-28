@@ -11,7 +11,8 @@ class AuthService {
       }), { headers: { "Content-Type": "application/json" }})
       .then(response => {
         console.log(response)
-        if (response.data.token) {
+        if (response.data.accessToken) {
+          console.log("response")
           localStorage.setItem('user', JSON.stringify(response.data));
         }
 
@@ -21,7 +22,6 @@ class AuthService {
 
   signout() {
     localStorage.removeItem('user');
-    return axios.post(API_URL + 'signout');
   }
 
   register(user) {

@@ -63,11 +63,11 @@ export default {
       if (this.score === "ระดับยาก") {
         this.id = "hard"
       }
-      const token = this.$store.state.auth.user.token;
+      const token = this.$store.state.auth.user.accessToken;
       console.log(token)
       console.log(this.id)
       
-      axios.get(`http://localhost:8080/api/scoreboard/scores/` + this.id , { headers: { "Content-Type": "application/json" } })
+      axios.get(`http://localhost:8080/api/scoreboard/scores/` + this.id , { headers: { "Content-Type": "application/json" ,"Authorization": 'Bearer '+token } })
             .then((response) => {
               this.data = response.data.body
               
