@@ -222,7 +222,7 @@ public class CipherRestController {
 					int[] pi = new int[key.length];
 					
 					for(int i=0;i<key.length;i++) {
-						System.out.println(pi[i]);
+						pi[i] = Integer.parseInt(key[i]);
 					}
 					
 					Permutation_Cipher pc = new Permutation_Cipher(pi);
