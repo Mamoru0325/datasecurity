@@ -6,19 +6,13 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    beforeEnter:checkAuth,
+    beforeEnter: checkAuth,
     component: HomeView
-  }, 
-  {
-    path: '/timeslow/:no/:time/:point',
-    name: 'timeslow',
-    beforeEnter: requireAuth,
-    component: () => import('../views/TimeslowView.vue')
   },
   {
     path: '/about',
     name: 'about',
-    beforeEnter:checkAuth,
+    beforeEnter: checkAuth,
     component: () => import('../views/AboutView.vue')
   },
   {
@@ -28,24 +22,24 @@ const routes = [
   },
   {
     path: '/login',
-    beforeEnter:checkAuth,
+    beforeEnter: checkAuth,
     component: () => import('../views/Login/LoginView.vue'),
     // beforeEnter: checkLogin
   },
   {
     path: '/register',
-    beforeEnter:checkAuth,
+    beforeEnter: checkAuth,
     component: () => import('../views/Login/RegisterView.vue')
   },
   {
-    path: '/admin/', 
+    path: '/admin/',
     children: [
       {
         path: '',
         name: 'adminhome',
         beforeEnter: requireAuth,
         component: HomeView
-      },{
+      }, {
         path: 'feedback',
         name: 'adminfeedback',
         beforeEnter: requireAuth,
@@ -54,13 +48,19 @@ const routes = [
     ]
   },
   {
-    path: '/user/', 
+    path: '/user/',
     children: [
       {
         path: '',
         name: 'userhome',
         beforeEnter: requireAuth,
         component: HomeView
+      },
+      {
+        path: 'timeslow/:no/:time/:point',
+        name: 'timeslow',
+        beforeEnter: requireAuth,
+        component: () => import('../views/TimeslowView.vue')
       },
       {
         path: 'about',
@@ -104,7 +104,7 @@ const routes = [
         beforeEnter: requireAuth,
         component: () => import('../views/FeedbackView.vue')
       }]
-  },{ path: '/:pathMatch(.*)*', component: () => import('../components/Error404.vue')}
+  }, { path: '/:pathMatch(.*)*', component: () => import('../components/Error404.vue') }
 ]
 
 const router = createRouter({
@@ -113,7 +113,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/','/about'];
+  const publicPages = ['/login', '/register', '/', '/about'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 
@@ -129,14 +129,14 @@ router.beforeEach((to, from, next) => {
 function checkAuth(to, from, next) {
   const loggedIn = localStorage.getItem('user');
   if (loggedIn) {
-    if(store.state.auth.user.roles[0]  === 'ROLE_User')
-    next({
-      path: "/user",
-    });
-    if(store.state.auth.user.roles[0]  === 'ROLE_Admin')
-    next({
-      path: "/admin",
-    });
+    if (store.state.auth.user.roles[0] === 'ROLE_User')
+      next({
+        path: "/user",
+      });
+    if (store.state.auth.user.roles[0] === 'ROLE_Admin')
+      next({
+        path: "/admin",
+      });
   } else {
     next();
   }
