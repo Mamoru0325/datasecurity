@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Oct 16, 2023, 11:42:57 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="datasecurity" name="th.ac.ku.kps.eng.cpe.datasecurity.model.Cipher" optimistic-lock="none" table="cipher">
+        <id name="cipherId" type="java.lang.Integer">
+            <column name="cipherId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="th.ac.ku.kps.eng.cpe.datasecurity.model.Type" fetch="select" name="type">
+            <column name="typeId" not-null="true"/>
+        </many-to-one>
+        <property name="plainText" type="string">
+            <column length="50" name="plainText" not-null="true"/>
+        </property>
+        <property name="cipherKey" type="string">
+            <column length="50" name="cipherKey" not-null="true"/>
+        </property>
+        <property name="level" type="string">
+            <column length="8" name="level" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

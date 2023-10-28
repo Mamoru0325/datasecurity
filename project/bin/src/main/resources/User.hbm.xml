@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Oct 16, 2023, 11:42:57 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="datasecurity" name="th.ac.ku.kps.eng.cpe.datasecurity.model.User" optimistic-lock="none" table="user">
+        <id name="userId" type="java.lang.Integer">
+            <column name="userId"/>
+            <generator class="identity"/>
+        </id>
+        <property name="email" type="string">
+            <column length="50" name="email" not-null="true"/>
+        </property>
+        <property name="password" type="string">
+            <column length="200" name="password" not-null="true"/>
+        </property>
+        <property name="username" type="string">
+            <column length="50" name="username" not-null="true"/>
+        </property>
+        <property name="phoneNumber" type="string">
+            <column length="11" name="phoneNumber" not-null="true"/>
+        </property>
+        <property name="status" type="string">
+            <column length="4" name="status" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="feedbacks" table="feedback">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.datasecurity.model.Feedback"/>
+        </bag>
+        <bag fetch="select" inverse="false" lazy="true" name="roles" table="userroles">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <many-to-many entity-name="th.ac.ku.kps.eng.cpe.datasecurity.model.Role">
+                <column name="roleId" not-null="true"/>
+            </many-to-many>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="scoreboards" table="scoreboard">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.datasecurity.model.Scoreboard"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="refreshtokens" table="refreshtoken">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="th.ac.ku.kps.eng.cpe.datasecurity.model.Refreshtoken"/>
+        </bag>
+    </class>
+</hibernate-mapping>
