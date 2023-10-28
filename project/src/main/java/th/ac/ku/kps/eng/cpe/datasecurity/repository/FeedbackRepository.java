@@ -2,7 +2,6 @@ package th.ac.ku.kps.eng.cpe.datasecurity.repository;
 
 import java.util.List;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,10 +13,10 @@ import th.ac.ku.kps.eng.cpe.datasecurity.model.Feedback;
 public interface FeedbackRepository extends CrudRepository<Feedback, Integer> {
 	
 	@Query("from Feedback fb where month(fb.date) = :month and year(fb.date) = :year")
-	public List<Feedback> findAllByMonthAndYear (@Param("month")int month, @Param("year")int year, Pageable pageable);
+	public List<Feedback> findAllByMonthAndYear (@Param("month")int month, @Param("year")int year);
 	
 	@Query("from Feedback fb order by fb.date desc")
-	public List<Feedback> findAllPagination (Pageable pageable);
+	public List<Feedback> findAllOrderByDesc();
 	
 	@Query("select year(fb.date) from Feedback fb group by year(fb.date)")
 	public List<Integer> findYearInFeedback();

@@ -82,15 +82,15 @@ public class FeedbackRestController {
 		return new ResponseEntity<Response<Feedback>>(res, res.getHttpStatus());
 	}
 
-	@GetMapping("/page/{page}/value/{value}")
+	@GetMapping("/")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<List<?>>> findAll(@PathVariable("page") int page, @PathVariable("value") int value) {
+	public ResponseEntity<Response<List<?>>> findAll() {
 		Response<List<?>> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
 		List<ObjectNode> responseList = new ArrayList<>();
 		try {
-			List<Feedback> feedbacks = feedbackService.findAllPagination(page, value);
+			List<Feedback> feedbacks = feedbackService.findAllOrderByDesc();
 			for (Feedback feedback : feedbacks) {
 				User user = feedback.getUser();
 				ObjectNode responseObject = mapper.valueToTree(feedback);
@@ -110,16 +110,15 @@ public class FeedbackRestController {
 		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
 	}
 
-	@GetMapping("/page/{page}/value/{value}/month/{month}/year/{year}")
+	@GetMapping("/month/{month}/year/{year}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<List<?>>> findByMonthAndYear(@PathVariable("page") int page,
-			@PathVariable("value") int value, @PathVariable("month") int month, @PathVariable("year") int year) {
+	public ResponseEntity<Response<List<?>>> findByMonthAndYear(@PathVariable("month") int month, @PathVariable("year") int year) {
 		Response<List<?>> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
 		List<ObjectNode> responseList = new ArrayList<>();
 		try {
-			List<Feedback> feedbacks = feedbackService.findAllByMonthAndYear(page, value, month, year);
+			List<Feedback> feedbacks = feedbackService.findAllByMonthAndYear(month, year);
 			for (Feedback feedback : feedbacks) {
 				User user = feedback.getUser();
 				ObjectNode responseObject = mapper.valueToTree(feedback);

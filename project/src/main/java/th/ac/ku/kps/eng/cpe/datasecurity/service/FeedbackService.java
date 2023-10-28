@@ -3,8 +3,6 @@ package th.ac.ku.kps.eng.cpe.datasecurity.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import th.ac.ku.kps.eng.cpe.datasecurity.model.Feedback;
@@ -31,14 +29,8 @@ public class FeedbackService {
 		feedbackRepository.deleteById(id);
 	}
 	
-	public List<Feedback> findAllByMonthAndYear (int page, int value, int month, int year) {
-		Pageable pageable = PageRequest.of(page-1, value);
-		return feedbackRepository.findAllByMonthAndYear(month, year, pageable);
-	}
-	
-	public List<Feedback> findAllPagination (int page, int value) {
-		Pageable pageable = PageRequest.of(page-1, value);
-		return feedbackRepository.findAllPagination(pageable);
+	public List<Feedback> findAllByMonthAndYear (int month, int year) {
+		return feedbackRepository.findAllByMonthAndYear(month, year);
 	}
 	
 	public List<Integer> findYearInFeedback () {
@@ -47,6 +39,10 @@ public class FeedbackService {
 	
 	public List<Integer> findMonthInFeedback () {
 		return feedbackRepository.findMonthInFeedback();
+	}
+	
+	public List<Feedback> findAllOrderByDesc () {
+		return feedbackRepository.findAllOrderByDesc();	
 	}
 
 }

@@ -72,13 +72,13 @@ public class UserRestController {
 		return new ResponseEntity<Response<User>> (res,res.getHttpStatus());
 	}
 	
-	@GetMapping("/page/{page}/value/{value}")
+	@GetMapping("/")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<List<User>>> findAllByRole (@PathVariable("page")int page, @PathVariable("value")int value) {
+	public ResponseEntity<Response<List<User>>> findAllByRole () {
 		Response<List<User>> res = new Response<>();
 		try {
-			List<User> users = userService.findAllByRole(page, value, "ROLE_Admin", "no");
+			List<User> users = userService.findAllByRole("ROLE_Admin", "no");
 			res.setBody(users);
 			res.setHttpStatus(HttpStatus.OK);
 			
