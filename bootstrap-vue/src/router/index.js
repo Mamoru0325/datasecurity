@@ -8,12 +8,13 @@ const routes = [
     name: 'home',
     beforeEnter:checkAuth,
     component: HomeView
-  }, {
-        path: 'timeslow/:no/:time/:point',
-        name: 'timeslow',
-        beforeEnter: requireAuth,
-        component: () => import('../views/TimeslowView.vue')
-      },
+  }, 
+  {
+    path: '/timeslow/:no/:time/:point',
+    name: 'timeslow',
+    beforeEnter: requireAuth,
+    component: () => import('../views/TimeslowView.vue')
+  },
   {
     path: '/about',
     name: 'about',
@@ -35,6 +36,22 @@ const routes = [
     path: '/register',
     beforeEnter:checkAuth,
     component: () => import('../views/Login/RegisterView.vue')
+  },
+  {
+    path: '/admin/', 
+    children: [
+      {
+        path: '',
+        name: 'adminhome',
+        beforeEnter: requireAuth,
+        component: HomeView
+      },{
+        path: 'feedback',
+        name: 'adminfeedback',
+        beforeEnter: requireAuth,
+        component: () => import('../views/admin/FeedbackView.vue')
+      }
+    ]
   },
   {
     path: '/user/', 
