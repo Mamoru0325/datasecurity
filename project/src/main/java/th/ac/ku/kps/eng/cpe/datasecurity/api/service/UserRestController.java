@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import th.ac.ku.kps.eng.cpe.datasecurity.api.response.Response;
 import th.ac.ku.kps.eng.cpe.datasecurity.model.User;
@@ -53,7 +53,7 @@ public class UserRestController {
 	
 	@PutMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
-	@PreAuthorize("hasRole('Admin')")
+//	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Response<User>> findById (@PathVariable("id")int id, @RequestBody User user){
 		Response<User> res = new Response<>();
 		try {
@@ -72,13 +72,13 @@ public class UserRestController {
 		return new ResponseEntity<Response<User>> (res,res.getHttpStatus());
 	}
 	
-	@GetMapping("/page/{page}/value/{value}")
+	@GetMapping("/")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<List<User>>> findAllByRole (@PathVariable("page")int page, @PathVariable("value")int value) {
+	public ResponseEntity<Response<List<User>>> findAllByRole () {
 		Response<List<User>> res = new Response<>();
 		try {
-			List<User> users = userService.findAllByRole(page, value, "ROLE_Admin", "no");
+			List<User> users = userService.findAllByRole("ROLE_Admin", "no");
 			res.setBody(users);
 			res.setHttpStatus(HttpStatus.OK);
 			

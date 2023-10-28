@@ -4,8 +4,6 @@ package th.ac.ku.kps.eng.cpe.datasecurity.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -75,9 +73,8 @@ public class UserService implements UserDetailsService {
         }
 	}
 	
-	public List<User> findAllByRole (int page, int value, String role, String status) {
-		Pageable pageable = PageRequest.of(page-1, value);
-		return userRepository.findAllByRole(role, status, pageable);
+	public List<User> findAllByRole (String role, String status) {
+		return userRepository.findAllByRole(role, status);
 	}
 	
 	public User findByUserName (String username) {

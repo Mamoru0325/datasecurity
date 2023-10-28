@@ -7,7 +7,7 @@
     </header>
     <p>
       <strong>Token:</strong>
-      {{currentUser.token}}
+      {{currentUser.accessToken}}
     </p>
     <p>
       <strong>Id:</strong>

@@ -16,13 +16,13 @@ import th.ac.ku.kps.eng.cpe.datasecurity.model.User;
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
-	private long id;
+	private int id;
 	private String email;
 	private String username;
 	private String password;
 	private Collection<SimpleGrantedAuthority> authorities;
 	
-	public UserDetailsImpl(long id, String email, String username, String password,
+	public UserDetailsImpl(int id, String email, String username, String password,
 			Collection<SimpleGrantedAuthority> authorities) {
 		super();
 		this.id = id;
@@ -80,11 +80,11 @@ public class UserDetailsImpl implements UserDetails {
 		return true;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

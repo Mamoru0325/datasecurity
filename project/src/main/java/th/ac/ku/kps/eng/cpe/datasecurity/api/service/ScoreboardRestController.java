@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -53,13 +52,13 @@ public class ScoreboardRestController {
 	@GetMapping("/scores/{level}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User') or hasRole('Admin')")
-	public ResponseEntity<Response<List<?>>> findByLevelOrderByscoreDESC (@PathVariable("level")String level) {
+	public ResponseEntity<Response<List<?>>> findByLevelOrderByscoreDESC(@PathVariable("level") String level) {
 		Response<List<?>> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
 		List<ObjectNode> responseList = new ArrayList<>();
 		try {
 			List<Object> scoreboards = scoreboardService.findByLevelOrderByscoreDESC(level, 0, 20);
-			for(Object scoreboard :scoreboards) {
+			for (Object scoreboard : scoreboards) {
 				ObjectNode responObject = mapper.createObjectNode();
 				Object[] o = (Object[]) scoreboard;
 				responObject.put("scoreId", o[0].toString());
@@ -67,15 +66,15 @@ public class ScoreboardRestController {
 				responObject.put("score", o[2].toString());
 				responseList.add(responObject);
 			}
-			
+
 			res.setBody(responseList);
 			res.setHttpStatus(HttpStatus.OK);
-			
+
 		} catch (Exception e) {
 			res.setMessage(e.getMessage());
 			res.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
 
 	}

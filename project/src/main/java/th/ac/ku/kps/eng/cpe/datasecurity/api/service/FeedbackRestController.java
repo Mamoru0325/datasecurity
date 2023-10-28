@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import th.ac.ku.kps.eng.cpe.datasecurity.api.response.Response;
 import th.ac.ku.kps.eng.cpe.datasecurity.model.Feedback;
@@ -67,6 +66,7 @@ public class FeedbackRestController {
 		try {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			User user = userService.findByUserName(username);
+			System.out.println(feedback.getText());
 			feedback.setDate(new Date());
 			feedback.setUser(user);
 			feedback = feedbackService.save(feedback);
@@ -82,15 +82,43 @@ public class FeedbackRestController {
 		return new ResponseEntity<Response<Feedback>>(res, res.getHttpStatus());
 	}
 
-	@GetMapping("/page/{page}/value/{value}")
+	@GetMapping("/")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<List<?>>> findAll(@PathVariable("page") int page, @PathVariable("value") int value) {
+	public ResponseEntity<Response<List<?>>> findAll() {
 		Response<List<?>> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
 		List<ObjectNode> responseList = new ArrayList<>();
 		try {
-			List<Feedback> feedbacks = feedbackService.findAllPagination(page, value);
+			List<Feedback> feedbacks = feedbackService.findAllOrderByDesc();
+			for (Feedback feedback : feedbacks) {
+				User user = feedback.getUser();
+				ObjectNode responseObject = mapper.valueToTree(feedback);
+				System.out.println(feedback.getDate());
+				responseObject.put("username", user.getUsername());
+				responseList.add(responseObject);
+			}
+			res.setBody(responseList);
+			res.setHttpStatus(HttpStatus.OK);
+
+		} catch (Exception e) {
+			res.setBody(null);
+			res.setMessage(e.getMessage());
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
+	}
+
+	@GetMapping("/month/{month}/year/{year}")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Admin')")
+	public ResponseEntity<Response<List<?>>> findByMonthAndYear(@PathVariable("month") int month, @PathVariable("year") int year) {
+		Response<List<?>> res = new Response<>();
+		ObjectMapper mapper = new ObjectMapper();
+		List<ObjectNode> responseList = new ArrayList<>();
+		try {
+			List<Feedback> feedbacks = feedbackService.findAllByMonthAndYear(month, year);
 			for (Feedback feedback : feedbacks) {
 				User user = feedback.getUser();
 				ObjectNode responseObject = mapper.valueToTree(feedback);
@@ -108,33 +136,43 @@ public class FeedbackRestController {
 
 		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
 	}
-
-	@GetMapping("/page/{page}/value/{value}/month/{month}/year/{year}")
+	
+	@GetMapping("/year")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<List<?>>> findByMonthAndYear(@PathVariable("page") int page,
-			@PathVariable("value") int value, @PathVariable("month") int month, @PathVariable("year") int year) {
-		Response<List<?>> res = new Response<>();
-		ObjectMapper mapper = new ObjectMapper();
-		List<ObjectNode> responseList = new ArrayList<>();
+	public ResponseEntity<Response<List<Integer>>> findYearInFeedback (){
+		Response<List<Integer>> res = new Response<>();
 		try {
-			List<Feedback> feedbacks = feedbackService.findAllByMonthAndYear(page, value, month, year);
-			for (Feedback feedback : feedbacks) {
-				User user = feedback.getUser();
-				ObjectNode responseObject = mapper.valueToTree(feedback);
-				responseObject.put("username", user.getUsername());
-				responseList.add(responseObject);
-			}
-			res.setBody(responseList);
+			List<Integer> year = feedbackService.findYearInFeedback();
+			res.setBody(year);
 			res.setHttpStatus(HttpStatus.OK);
-
+			
 		} catch (Exception e) {
 			res.setBody(null);
 			res.setMessage(e.getMessage());
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 		}
-
-		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
+		
+		return new ResponseEntity<Response<List<Integer>>>(res,res.getHttpStatus());
+	}
+	
+	@GetMapping("/month")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Admin')")
+	public ResponseEntity<Response<List<Integer>>> findMonthInFeedback (){
+		Response<List<Integer>> res = new Response<>();
+		try {
+			List<Integer> month = feedbackService.findMonthInFeedback();
+			res.setBody(month);
+			res.setHttpStatus(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			res.setBody(null);
+			res.setMessage(e.getMessage());
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Response<List<Integer>>>(res,res.getHttpStatus());
 	}
 
 }

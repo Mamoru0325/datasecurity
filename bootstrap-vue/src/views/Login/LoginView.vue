@@ -79,7 +79,7 @@ export default {
                     required,
                     email, $autoDirty: true,
                 },
-                password: { required, min: minLength(8), max: maxLength(30), $autoDirty: true }
+                password: { required, min: minLength(6), max: maxLength(30), $autoDirty: true }
             },
         };
     },
