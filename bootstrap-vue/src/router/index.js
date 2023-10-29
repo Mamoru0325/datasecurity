@@ -49,6 +49,11 @@ const routes = [
         name: 'adminfeedback',
         beforeEnter: requireAuth,
         component: () => import('../views/admin/FeedbackView.vue')
+      },{
+        path: 'question',
+        name: 'adminquestion',
+        beforeEnter: requireAuth,
+        component: () => import('../views/admin/FeedbackView.vue')
       }
     ]
   },
