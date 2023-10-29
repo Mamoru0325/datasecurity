@@ -205,6 +205,7 @@ public class CipherRestController {
 				responObject.put("cipherId", cipher.getCipherId());
 				responObject.put("type", cipher.getType().getTypeName());
 				responObject.put("level", cipher.getLevel());
+				responObject.put("plaintext", cipher.getPlainText());
 				if (cipher.getType().getTypeName().equals("caesar")) {
 
 					Shift_Cipher sc = new Shift_Cipher();
