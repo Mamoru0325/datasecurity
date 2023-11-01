@@ -25,7 +25,7 @@
           <router-link to="/admin/admin" class="nav-link">Admin</router-link>
         </li>
         <li v-if="showAdmin" class="nav-item">
-          <router-link to="/admin/Question" class="nav-link">Question</router-link>
+          <router-link to="/admin/question" class="nav-link">Question</router-link>
         </li>
         <li v-if="showAdmin" class="nav-item">
           <router-link to="/admin/feedback" class="nav-link">Feedback</router-link>

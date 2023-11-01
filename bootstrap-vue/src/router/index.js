@@ -51,10 +51,21 @@ const routes = [
         component: () => import('../views/admin/FeedbackView.vue')
       },{
         path: 'question',
-        name: 'adminquestion',
-        beforeEnter: requireAuth,
-        component: () => import('../views/admin/FeedbackView.vue')
+        children: [
+          {
+            path: '',
+            name: 'adminquestion',
+            beforeEnter: requireAuth,
+            component: () => import('../views/admin/AdminQuestionView.vue')
+          },{
+            path: 'type/:type',
+            name: 'typequestion',
+            beforeEnter: requireAuth,
+            component: () => import('../views/admin/TypeQuestionView.vue')
+          }
+        ]
       }
+      
     ]
   },
   {
