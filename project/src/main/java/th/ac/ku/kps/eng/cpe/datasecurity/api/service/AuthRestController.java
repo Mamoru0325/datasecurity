@@ -138,7 +138,7 @@ public class AuthRestController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
-		User user = userService.findByEmail(loginRequest.getEmail());
+		User user = userService.findByUserName(loginRequest.getUsername());
 		if (user.getStatus().equals("no")) {
 			Response<User> res = new Response<>();
 			res.setMessage("You don't have AUTHORIZED");
@@ -146,21 +146,21 @@ public class AuthRestController {
 			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
 		}
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
+				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
 		String jwt = jwtUtils.generateJwtToken(authentication);
-
+		
+		System.out.println(jwt);
+		
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
 		Refreshtoken refreshToken = refreshtokenService.createRefreshToken(userDetails.getId());
 
 		return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
-				userDetails.getUsername(), userDetails.getEmail(), roles));
+				userDetails.getName(), userDetails.getUsername(), roles));
 	}
 
 	@PostMapping("/signout")
@@ -184,8 +184,8 @@ public class AuthRestController {
 			System.out.println(email);
 			String password = jsonNode.get("password").asText();
 			System.out.println(password);
-			if (userService.emailExists(email)) {
-				User user = userService.findByEmail(email);
+			if (userService.userNameExists(email)) {
+				User user = userService.findByUserName(email);
 				user.setPassword(encoder.encode(password));
 				user = userService.save(user);
 				res.setBody("Change Password Complete");
@@ -217,11 +217,11 @@ public class AuthRestController {
 				.map(Refreshtoken::getUser).map(user -> {
 					Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 
-					final Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), null,
+					final Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), null,
 							authorities);
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 					User _user = new User();
-					_user.setEmail(user.getEmail());
+					_user.setUsername(user.getUsername());
 					String token = jwtTokenUtil.generateToken(authentication);
 //	          String token = jwtUtils.generateTokenFromUsername(user.getUsername());
 //	          return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshtoken));

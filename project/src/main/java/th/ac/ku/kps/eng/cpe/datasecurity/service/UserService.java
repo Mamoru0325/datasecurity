@@ -39,12 +39,12 @@ public class UserService implements UserDetailsService {
 		userRepository.deleteById(id);
 	}
 	
-	public User findByEmail (String email) {
-		return userRepository.findByEmail(email);
+	public User findByName (String email) {
+		return userRepository.findByName(email);
 	}
 	
-	public boolean emailExists(String email) {
-		return userRepository.findByEmail(email) != null;
+	public boolean nameExists(String email) {
+		return userRepository.findByName(email) != null;
 	}
 	
 	public boolean userNameExists (String userName) {
@@ -54,16 +54,16 @@ public class UserService implements UserDetailsService {
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername (String email) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(email);
+		User user = findByUserName(email);
 
 		    return UserDetailsImpl.build(user);
 	}
 	
 	public User registerNewAccount (User user,String roleName) throws AccountAlreadyExistException{
-		if (emailExists(user.getEmail())) {
-            throw new AccountAlreadyExistException("There is an account with that email address: " + user.getEmail());
-        }else if(userNameExists(user.getUsername())) {
-        	throw new AccountAlreadyExistException("There is an account with that userName : " + user.getUsername());
+		if (userNameExists(user.getUsername())) {
+            throw new AccountAlreadyExistException("There is an account with that email address: " + user.getUsername());
+        }else if(nameExists(user.getName())) {
+        	throw new AccountAlreadyExistException("There is an account with that userName : " + user.getName());
         }
 		else {
 			Role role = roleService.findByRoleName(roleName);

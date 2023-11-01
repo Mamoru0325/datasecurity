@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 public class LoginDTO {
 	@Email
-	private String email;
+	private String username;
 	@NotBlank
 	private String password;
 	
@@ -13,18 +13,18 @@ public class LoginDTO {
 		super();
 	}
 
-	public LoginDTO(@Email String email, @NotBlank String password) {
+	public LoginDTO(@Email String username, @NotBlank String password) {
 		super();
-		this.email = email;
+		this.username = username;
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

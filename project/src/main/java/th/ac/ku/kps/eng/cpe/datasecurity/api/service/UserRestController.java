@@ -53,7 +53,7 @@ public class UserRestController {
 	
 	@PutMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
-	@PreAuthorize("hasRole('Admin')")
+//	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Response<User>> findById (@PathVariable("id")int id, @RequestBody User user){
 		Response<User> res = new Response<>();
 		try {

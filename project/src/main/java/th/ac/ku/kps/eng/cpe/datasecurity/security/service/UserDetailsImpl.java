@@ -17,17 +17,17 @@ public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
-	private String email;
 	private String username;
+	private String name;
 	private String password;
 	private Collection<SimpleGrantedAuthority> authorities;
 	
-	public UserDetailsImpl(int id, String email, String username, String password,
+	public UserDetailsImpl(int id, String username, String name, String password,
 			Collection<SimpleGrantedAuthority> authorities) {
 		super();
 		this.id = id;
-		this.email = email;
 		this.username = username;
+		this.name = name;
 		this.password = password;
 		this.authorities = authorities;
 	}
@@ -35,7 +35,7 @@ public class UserDetailsImpl implements UserDetails {
 	public static UserDetails build(User user) {
 		List<SimpleGrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRoleName()))
 				.collect(Collectors.toList());	
-		return new UserDetailsImpl(user.getUserId(), user.getEmail(), user.getUsername(), user.getPassword(), authorities);
+		return new UserDetailsImpl(user.getUserId(), user.getUsername(), user.getName(), user.getPassword(), authorities);
 	}
 
 	@Override
@@ -88,14 +88,6 @@ public class UserDetailsImpl implements UserDetails {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -106,6 +98,14 @@ public class UserDetailsImpl implements UserDetails {
 
 	public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	
