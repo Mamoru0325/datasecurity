@@ -51,7 +51,7 @@ public class CipherRestController {
 	private UserService userService;
 	@Autowired
 	private ScoreboardService scoreboardService;
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		Response<ObjectNode> res = new Response<>();
@@ -70,18 +70,78 @@ public class CipherRestController {
 		res.setBody(responObject);
 		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
 	}
-	
-	@PostMapping("/")
+
+	@PostMapping("/precreate")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<?>> createQuestion (@RequestBody String question) {
+	public ResponseEntity<Response<?>> preCreate(@RequestBody String question) {
 		Response<ObjectNode> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode responseObject = mapper.createObjectNode();
-		
+
 		try {
 			JsonNode jsonNode = mapper.readTree(question);
-			int  typeId = jsonNode.get("type").asInt();
+			int typeId = jsonNode.get("type").asInt();
+			Type type = typeService.findById(typeId);
+			Cipher cipher = mapper.readValue(question, Cipher.class);
+			cipher.setType(type);
+
+			String cipherText = new String();
+
+			if (type.getTypeName().equals("caesar")) {
+
+				Shift_Cipher sc = new Shift_Cipher();
+				cipherText = sc.encrypt(cipher.getPlainText(), Integer.parseInt(cipher.getCipherKey()));
+
+			} else if (type.getTypeName().equals("vigenere")) {
+
+				Vigenere_Cipher vc = new Vigenere_Cipher();
+				cipherText = vc.encrypt(cipher.getPlainText(), cipher.getCipherKey());
+
+			} else if (type.getTypeName().equals("permutation")) {
+
+				String[] key = cipher.getCipherKey().split(",");
+
+				int[] pi = new int[key.length];
+
+				for (int i = 0; i < key.length; i++) {
+					pi[i] = Integer.parseInt(key[i]);
+				}
+
+				Permutation_Cipher pc = new Permutation_Cipher(pi);
+				cipherText = pc.encrypt(cipher.getPlainText());
+
+			}
+
+			responseObject.put("plainText", cipher.getPlainText());
+			responseObject.put("cipherKey", cipher.getCipherKey());
+			responseObject.put("level", cipher.getLevel());
+			responseObject.put("type", type.getTypeName());
+			responseObject.put("cipherText", cipherText);
+			res.setBody(responseObject);
+			res.setHttpStatus(HttpStatus.OK);
+
+		} catch (Exception e) {
+
+			res.setMessage(e.getMessage());
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Response<?>>(res, res.getHttpStatus());
+	}
+
+	@PostMapping("/")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Admin')")
+	public ResponseEntity<Response<?>> createQuestion(@RequestBody String question) {
+		Response<ObjectNode> res = new Response<>();
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode responseObject = mapper.createObjectNode();
+
+		try {
+			JsonNode jsonNode = mapper.readTree(question);
+			int typeId = jsonNode.get("type").asInt();
 			Type type = typeService.findById(typeId);
 			Cipher cipher = mapper.readValue(question, Cipher.class);
 			cipher.setType(type);
@@ -90,25 +150,25 @@ public class CipherRestController {
 			responseObject.put("type", type.getTypeName());
 			res.setBody(responseObject);
 			res.setHttpStatus(HttpStatus.OK);
-			
+
 		} catch (Exception e) {
-			
+
 			res.setMessage(e.getMessage());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-		} 
-		
+		}
+
 		return new ResponseEntity<Response<?>>(res, res.getHttpStatus());
 	}
-	
+
 	@PutMapping("/")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<?>> updateQuestion (@RequestBody String question) {
+	public ResponseEntity<Response<?>> updateQuestion(@RequestBody String question) {
 		Response<ObjectNode> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode responseObject = mapper.createObjectNode();
-		
+
 		try {
 			JsonNode jsonNode = mapper.readTree(question);
 			int typeId = jsonNode.get("type").asInt();
@@ -123,41 +183,41 @@ public class CipherRestController {
 			responseObject.put("type", type.getTypeName());
 			res.setBody(responseObject);
 			res.setHttpStatus(HttpStatus.OK);
-			
+
 		} catch (Exception e) {
-			
+
 			res.setMessage(e.getMessage());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-		} 
-		
+		}
+
 		return new ResponseEntity<Response<?>>(res, res.getHttpStatus());
 	}
-	
+
 	@GetMapping("/{level}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<List<Cipher>>> findByLevel (@PathVariable("level")String level) {
+	public ResponseEntity<Response<List<Cipher>>> findByLevel(@PathVariable("level") String level) {
 		Response<List<Cipher>> res = new Response<>();
 		try {
 			List<Cipher> ciphers = cipherService.findByLevel(level);
 			res.setBody(ciphers);
 			res.setHttpStatus(HttpStatus.OK);
-			
+
 		} catch (Exception e) {
-			
+
 			res.setMessage(e.getMessage());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			
+
 		}
 		return new ResponseEntity<Response<List<Cipher>>>(res, res.getHttpStatus());
 	}
-	
+
 	@GetMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<?>> findById (@PathVariable("id")int id) {
+	public ResponseEntity<Response<?>> findById(@PathVariable("id") int id) {
 		Response<ObjectNode> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode responseObject = mapper.createObjectNode();
@@ -167,41 +227,41 @@ public class CipherRestController {
 			responseObject.put("type", cipher.getType().getTypeName());
 			res.setBody(responseObject);
 			res.setHttpStatus(HttpStatus.OK);
-			
+
 		} catch (Exception e) {
-			
+
 			res.setMessage(e.getMessage());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			
+
 		}
 		return new ResponseEntity<Response<?>>(res, res.getHttpStatus());
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<String>> deleteById (@PathVariable("id")int id) {
+	public ResponseEntity<Response<String>> deleteById(@PathVariable("id") int id) {
 		Response<String> res = new Response<>();
 		try {
 			cipherService.deleteById(id);
 			res.setBody("delete cipher" + id + "complete");
 			res.setHttpStatus(HttpStatus.OK);
-			
+
 		} catch (Exception e) {
-			
+
 			res.setMessage(e.getMessage());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			
+
 		}
 		return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 	}
-	
+
 	@GetMapping("/question/{level}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User') or hasRole('Admin')")
-	public ResponseEntity<Response<List<?>>> find10RandomQuestion (@PathVariable("level")String level) {
+	public ResponseEntity<Response<List<?>>> find10RandomQuestion(@PathVariable("level") String level) {
 		Response<List<?>> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
 		List<ObjectNode> responseList = new ArrayList<>();
@@ -211,8 +271,8 @@ public class CipherRestController {
 			Scoreboard scoreboard = new Scoreboard(user, level, 0);
 			scoreboard = scoreboardService.save(scoreboard);
 			List<Cipher> ciphers = cipherService.find10RandomQuestion(level);
-			
-			for(Cipher cipher :ciphers) {
+
+			for (Cipher cipher : ciphers) {
 				String cipherText = new String();
 				ObjectNode responObject = mapper.createObjectNode();
 				responObject.put("cipherId", cipher.getCipherId());
@@ -223,60 +283,61 @@ public class CipherRestController {
 
 					Shift_Cipher sc = new Shift_Cipher();
 					cipherText = sc.encrypt(cipher.getPlainText(), Integer.parseInt(cipher.getCipherKey()));
-					
+
 				} else if (cipher.getType().getTypeName().equals("vigenere")) {
-					
+
 					Vigenere_Cipher vc = new Vigenere_Cipher();
 					cipherText = vc.encrypt(cipher.getPlainText(), cipher.getCipherKey());
-					
+
 				} else if (cipher.getType().getTypeName().equals("permutation")) {
-					
+
 					String[] key = cipher.getCipherKey().split(",");
-					
+
 					int[] pi = new int[key.length];
-					
-					for(int i=0;i<key.length;i++) {
+
+					for (int i = 0; i < key.length; i++) {
 						pi[i] = Integer.parseInt(key[i]);
 					}
-					
+
 					Permutation_Cipher pc = new Permutation_Cipher(pi);
 					cipherText = pc.encrypt(cipher.getPlainText());
-					
+
 				}
 				responObject.put("cipherText", cipherText);
 
 				responseList.add(responObject);
 			}
-			
+
 			res.setBody(responseList);
 			res.setHttpStatus(HttpStatus.OK);
-			
+
 		} catch (Exception e) {
 			res.setMessage(e.getMessage());
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
 	}
-	
+
 	@GetMapping("/{level}/{typeId}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
-	public ResponseEntity<Response<List<Cipher>>> findByLevelAndType (@PathVariable("level")String level, @PathVariable("typeId")int typeId) {
+	public ResponseEntity<Response<List<Cipher>>> findByLevelAndType(@PathVariable("level") String level,
+			@PathVariable("typeId") int typeId) {
 		Response<List<Cipher>> res = new Response<List<Cipher>>();
 		try {
 			Type type = typeService.findById(typeId);
 			List<Cipher> ciphers = cipherService.findByLevelAndType(level, type);
 			res.setBody(ciphers);
 			res.setHttpStatus(HttpStatus.OK);
-			
+
 		} catch (Exception e) {
 			res.setBody(null);
 			res.setMessage(e.getMessage());
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Response<List<Cipher>>>(res,res.getHttpStatus());
+		return new ResponseEntity<Response<List<Cipher>>>(res, res.getHttpStatus());
 	}
 
 }
