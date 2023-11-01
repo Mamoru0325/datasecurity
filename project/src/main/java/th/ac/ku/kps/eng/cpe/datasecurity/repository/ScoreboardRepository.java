@@ -15,4 +15,5 @@ public interface ScoreboardRepository extends CrudRepository<Scoreboard, Integer
 
 	@Query("select s.scoreId, u.username, max(s.score) from Scoreboard s inner join s.user u where s.level = :level group by u.userId order by max(s.score) desc")
 	public List<Object> findByLevelOrderByscoreDESC(@Param("level") String level, Pageable pageable);
+	
 }

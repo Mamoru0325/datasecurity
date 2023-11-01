@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,9 +31,13 @@ import th.ac.ku.kps.eng.cpe.datasecurity.ciphercode.Permutation_Cipher;
 import th.ac.ku.kps.eng.cpe.datasecurity.ciphercode.Shift_Cipher;
 import th.ac.ku.kps.eng.cpe.datasecurity.ciphercode.Vigenere_Cipher;
 import th.ac.ku.kps.eng.cpe.datasecurity.model.Cipher;
+import th.ac.ku.kps.eng.cpe.datasecurity.model.Scoreboard;
 import th.ac.ku.kps.eng.cpe.datasecurity.model.Type;
+import th.ac.ku.kps.eng.cpe.datasecurity.model.User;
 import th.ac.ku.kps.eng.cpe.datasecurity.service.CipherService;
+import th.ac.ku.kps.eng.cpe.datasecurity.service.ScoreboardService;
 import th.ac.ku.kps.eng.cpe.datasecurity.service.TypeService;
+import th.ac.ku.kps.eng.cpe.datasecurity.service.UserService;
 
 @RestController
 @RequestMapping("/api/cipher")
@@ -42,6 +47,10 @@ public class CipherRestController {
 	private CipherService cipherService;
 	@Autowired
 	private TypeService typeService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private ScoreboardService scoreboardService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -197,12 +206,17 @@ public class CipherRestController {
 		ObjectMapper mapper = new ObjectMapper();
 		List<ObjectNode> responseList = new ArrayList<>();
 		try {
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			User user = userService.findByUserName(username);
+			Scoreboard scoreboard = new Scoreboard(user, level, 0);
+			scoreboard = scoreboardService.save(scoreboard);
 			List<Cipher> ciphers = cipherService.find10RandomQuestion(level);
 			
 			for(Cipher cipher :ciphers) {
 				String cipherText = new String();
 				ObjectNode responObject = mapper.createObjectNode();
 				responObject.put("cipherId", cipher.getCipherId());
+				responObject.put("scoreboardId", scoreboard.getScoreId());
 				responObject.put("type", cipher.getType().getTypeName());
 				responObject.put("level", cipher.getLevel());
 				if (cipher.getType().getTypeName().equals("caesar")) {

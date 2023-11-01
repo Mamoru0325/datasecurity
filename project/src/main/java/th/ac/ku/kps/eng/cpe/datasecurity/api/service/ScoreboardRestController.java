@@ -13,15 +13,22 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import th.ac.ku.kps.eng.cpe.datasecurity.api.response.Response;
+import th.ac.ku.kps.eng.cpe.datasecurity.model.Cipher;
+import th.ac.ku.kps.eng.cpe.datasecurity.model.Scoreboard;
+import th.ac.ku.kps.eng.cpe.datasecurity.service.CipherService;
 import th.ac.ku.kps.eng.cpe.datasecurity.service.ScoreboardService;
+
 
 @RestController
 @RequestMapping("/api/scoreboard")
@@ -29,6 +36,8 @@ import th.ac.ku.kps.eng.cpe.datasecurity.service.ScoreboardService;
 public class ScoreboardRestController {
 	@Autowired
 	private ScoreboardService scoreboardService;
+	@Autowired
+	private CipherService cipherService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -47,6 +56,41 @@ public class ScoreboardRestController {
 		res.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
 		res.setBody(responObject);
 		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
+	}
+
+	@PostMapping("/")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User') or hasRole('Admin')")
+	public ResponseEntity<Response<?>> create(@RequestBody String rawScore) {
+		Response<ObjectNode> res = new Response<>();
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode objectNode = mapper.createObjectNode();
+		try {
+			JsonNode jsonNode = mapper.readTree(rawScore);
+
+			int scoreboardId = jsonNode.get("scoreboardId").asInt();
+			Scoreboard scoreboard = scoreboardService.findById(scoreboardId);
+
+			int cipherId = jsonNode.get("cipherId").asInt();
+			Cipher cipher = cipherService.findById(cipherId);
+			String plainText = jsonNode.get("plainText").asText();
+
+			int time = jsonNode.get("time").asInt();
+
+			if (cipher.getPlainText().equals(plainText)) {
+				scoreboard.setScore(scoreboard.getScore() + time);
+				scoreboard = scoreboardService.save(scoreboard);
+			}
+
+			res.setBody(objectNode);
+			res.setHttpStatus(HttpStatus.OK);
+
+		} catch (Exception e) {
+			res.setBody(null);
+			res.setMessage(e.getMessage());
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Response<?>>(res, res.getHttpStatus());
 	}
 
 	@GetMapping("/scores/{level}")
@@ -77,6 +121,24 @@ public class ScoreboardRestController {
 
 		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
 
+	}
+
+	@GetMapping("/{scoreId}")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User') or hasRole('Admin')")
+	public ResponseEntity<Response<Scoreboard>> findById(@PathVariable("scoreId") int scoreId) {
+		Response<Scoreboard> res = new Response<>();
+		try {
+			Scoreboard scoreboard = scoreboardService.findById(scoreId);
+			res.setBody(scoreboard);
+			res.setHttpStatus(HttpStatus.OK);
+
+		} catch (Exception e) {
+			res.setBody(null);
+			res.setMessage(e.getMessage());
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Response<Scoreboard>>(res, res.getHttpStatus());
 	}
 
 }
