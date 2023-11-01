@@ -79,9 +79,9 @@
 
         <div v-if="currentUser" class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
+            <router-link to="#" class="nav-link" >
               <font-awesome-icon icon="user" />
-              {{ currentUser.username }}
+              {{ currentUser.name }}
             </router-link>
           </li>
           <li class="nav-item">

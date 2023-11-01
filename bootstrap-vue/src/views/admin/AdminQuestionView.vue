@@ -44,7 +44,6 @@ export default {
         MyButtonBar
     },methods:{
         getLink(values){
-            console.log(values)
             this.$router.push("/admin/question/type/"+values);
         }
     }

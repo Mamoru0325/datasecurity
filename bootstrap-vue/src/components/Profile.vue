@@ -2,7 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h3>
-        <strong>{{currentUser.username}}</strong> Profile
+        <strong>{{currentUser.name}}</strong> Profile
       </h3>
     </header>
     <p>
@@ -14,8 +14,8 @@
       {{currentUser.id}}
     </p>
     <p>
-      <strong>Email:</strong>
-      {{currentUser.email}}
+      <strong>username:</strong>
+      {{currentUser.username}}
     </p>
     <strong>Authorities:</strong>
     <ul>

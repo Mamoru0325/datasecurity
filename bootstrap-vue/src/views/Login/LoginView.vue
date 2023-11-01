@@ -17,10 +17,10 @@
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form3Example3">Email address</label>
-                            <input type="email" name="email" class="form-control form-control-lg" v-model="form.email"
-                                :class="v$.form.email.$error === true ? 'text-fields-error' : 'text-fields'"
+                            <input type="email" name="username" class="form-control form-control-lg" v-model="form.username"
+                                :class="v$.form.username.$error === true ? 'text-fields-error' : 'text-fields'"
                                 placeholder="Enter a valid email address" />
-                            <p1 class="text-red-500 text-xs font-thin" v-for="error of v$.form.email.$errors"
+                            <p1 class="text-red-500 text-xs font-thin" v-for="error of v$.form.username.$errors"
                                 :key="error.$uid">
                                 {{ error.$message }}
                             </p1>
@@ -67,7 +67,7 @@ export default {
         return {
             v$: useVuelidate(),
             form: {
-                email: "",
+                username: "",
                 password: ""
             }
         }
@@ -75,7 +75,7 @@ export default {
     validations() {
         return {
             form: {
-                email: {
+                username: {
                     required,
                     email, $autoDirty: true,
                 },
@@ -97,7 +97,7 @@ export default {
             this.v$.$touch();
             if (!this.v$.$error) {
                 let user = {
-                    email: this.form.email,
+                    username: this.form.username,
                     password: this.form.password,
                 };
 

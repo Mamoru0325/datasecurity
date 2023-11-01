@@ -7,7 +7,7 @@
           <!-- Section Heading-->
           <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s"
             style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <h1>คณะผู้ออกแบบ <span> Team</span></h1>
+            <h1>คณะผู้ออกแบบ</h1>
             <p>คณะทีมที่ได้ทำการออกแบบและพัฒนาเว็บไซต์แห่งนี้ เพื่อจุดประสงค์ช่วยพัฒนาความเข้าใจและวิธีการใช้งานมากยิ่งขึ้นเกี่ยวกับการถอดรหัส</p>
             <div class="line"></div>
           </div>
