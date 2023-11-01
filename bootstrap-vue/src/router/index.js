@@ -62,6 +62,16 @@ const routes = [
             name: 'typequestion',
             beforeEnter: requireAuth,
             component: () => import('../views/admin/TypeQuestionView.vue')
+          },{
+            path: 'add/:type',
+            name: 'Addquestion',
+            beforeEnter: requireAuth,
+            component: () => import('../views/admin/CreateQuestionView.vue')
+          },{
+            path: 'edit/:type',
+            name: 'Editquestion',
+            beforeEnter: requireAuth,
+            component: () => import('../views/admin/EditQuestionView.vue')
           }
         ]
       }

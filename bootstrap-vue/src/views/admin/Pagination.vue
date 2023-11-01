@@ -3,8 +3,8 @@
         <button @click="goToPage(1)" :disabled="currentPage === 1">First</button>
         <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">Previous</button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages">Next</button>
-        <button @click="goToPage(totalPages)" :disabled="currentPage === totalPages">Last</button>
+        <button @click="goToPage(currentPage + 1)" :disabled="currentPage >= totalPages">Next</button>
+        <button @click="goToPage(totalPages)" :disabled="currentPage >= totalPages">Last</button>
     </div>
 </template>
   
@@ -24,7 +24,7 @@ export default {
     }
 };
 </script>
-<style>
+<style scoped>
 .pagination {
   display: flex;
   justify-content: center;

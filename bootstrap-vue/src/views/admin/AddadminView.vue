@@ -12,10 +12,10 @@
             <table  cellspacing="0">
                 <thead style="border: 100cm;">
                     <tr>
-                        <th scope="col" style="text-align: center">#</th>
+                        <th scope="col" style="text-align: center;width: 8%;" >#</th>
                         <th scope="col">Username</th>
                         <th scope="col">phoneNumber</th>
-                        <th scope="col" >เพิ่มแอดมิน</th>
+                        <th scope="col" style="width: 18%;" >Add</th>
                     </tr>
                 </thead>
                 <tbody v-for="(item, index) in paginatedData" :key="index">

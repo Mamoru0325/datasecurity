@@ -214,7 +214,7 @@ public class CipherRestController {
 		return new ResponseEntity<Response<List<Cipher>>>(res, res.getHttpStatus());
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Response<?>> findById(@PathVariable("id") int id) {
