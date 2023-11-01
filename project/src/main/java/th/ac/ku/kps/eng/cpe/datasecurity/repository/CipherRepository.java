@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import th.ac.ku.kps.eng.cpe.datasecurity.model.Cipher;
+import th.ac.ku.kps.eng.cpe.datasecurity.model.Type;
 
 @Repository
 public interface CipherRepository extends CrudRepository<Cipher, Integer> {
@@ -17,5 +18,8 @@ public interface CipherRepository extends CrudRepository<Cipher, Integer> {
 	
 	@Query("from Cipher c where c.level = :level")
 	public List<Cipher> findByLevel (@Param("level")String level);
+	
+	@Query("select c from Cipher c inner join c.type t where c.level = :level and t = :type")
+	public List<Cipher> findByLevelAndType(@Param("level")String level, @Param("type")Type type);
 
 }

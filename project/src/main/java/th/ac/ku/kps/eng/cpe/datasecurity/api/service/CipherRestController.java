@@ -205,7 +205,6 @@ public class CipherRestController {
 				responObject.put("cipherId", cipher.getCipherId());
 				responObject.put("type", cipher.getType().getTypeName());
 				responObject.put("level", cipher.getLevel());
-				responObject.put("plaintext", cipher.getPlainText());
 				if (cipher.getType().getTypeName().equals("caesar")) {
 
 					Shift_Cipher sc = new Shift_Cipher();
@@ -245,6 +244,25 @@ public class CipherRestController {
 		}
 		
 		return new ResponseEntity<Response<List<?>>>(res, res.getHttpStatus());
+	}
+	
+	@GetMapping("/{level}/{typeId}")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Admin')")
+	public ResponseEntity<Response<List<Cipher>>> findByLevelAndType (@PathVariable("level")String level, @PathVariable("typeId")int typeId) {
+		Response<List<Cipher>> res = new Response<List<Cipher>>();
+		try {
+			Type type = typeService.findById(typeId);
+			List<Cipher> ciphers = cipherService.findByLevelAndType(level, type);
+			res.setBody(ciphers);
+			res.setHttpStatus(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			res.setBody(null);
+			res.setMessage(e.getMessage());
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Response<List<Cipher>>>(res,res.getHttpStatus());
 	}
 
 }

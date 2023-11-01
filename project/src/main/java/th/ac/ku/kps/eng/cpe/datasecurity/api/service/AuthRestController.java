@@ -152,8 +152,6 @@ public class AuthRestController {
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		
-		System.out.println(jwt);
-		
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
@@ -180,12 +178,10 @@ public class AuthRestController {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			JsonNode jsonNode = mapper.readTree(rawLogin);
-			String email = jsonNode.get("email").asText();
-			System.out.println(email);
+			String username = jsonNode.get("username").asText();
 			String password = jsonNode.get("password").asText();
-			System.out.println(password);
-			if (userService.userNameExists(email)) {
-				User user = userService.findByUserName(email);
+			if (userService.userNameExists(username)) {
+				User user = userService.findByUserName(username);
 				user.setPassword(encoder.encode(password));
 				user = userService.save(user);
 				res.setBody("Change Password Complete");

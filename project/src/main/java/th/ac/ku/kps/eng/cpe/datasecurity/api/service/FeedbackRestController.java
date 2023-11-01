@@ -66,7 +66,6 @@ public class FeedbackRestController {
 		try {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			User user = userService.findByUserName(username);
-			System.out.println(feedback.getText());
 			feedback.setDate(new Date());
 			feedback.setUser(user);
 			feedback = feedbackService.save(feedback);
@@ -94,7 +93,6 @@ public class FeedbackRestController {
 			for (Feedback feedback : feedbacks) {
 				User user = feedback.getUser();
 				ObjectNode responseObject = mapper.valueToTree(feedback);
-				System.out.println(feedback.getDate());
 				responseObject.put("username", user.getUsername());
 				responseList.add(responseObject);
 			}

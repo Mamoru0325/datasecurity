@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.ac.ku.kps.eng.cpe.datasecurity.model.Cipher;
+import th.ac.ku.kps.eng.cpe.datasecurity.model.Type;
 import th.ac.ku.kps.eng.cpe.datasecurity.repository.CipherRepository;
 
 @Service
@@ -35,6 +36,10 @@ public class CipherService {
 	
 	public List<Cipher> findByLevel (String level) {
 		return cipherRepository.findByLevel(level);
+	}
+	
+	public List<Cipher> findByLevelAndType(String level, Type type) {
+		return cipherRepository.findByLevelAndType(level, type);
 	}
 
 }
