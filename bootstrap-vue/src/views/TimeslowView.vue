@@ -90,98 +90,121 @@ import axios from 'axios';
 //import Countdown from 'vue3-countdown'
 
 export default {
-    name: 'GameView',
-    props: ['aboutNo'],
-    components: {
-        MyNavBar,
-        MyButtonBar,
-   //    Pagination
-        //Countdown
-    },
-    data() {
-        let interval = setInterval(() => {
-            if (this.timer === 0) {
-                clearInterval(interval)
-            } else {
-                this.timer--
-                console.log(this.timer)
-                localStorage.setItem('timer', this.timer);
-            }
-        }, 1000)
+  name: 'GameView',
+  props: ['aboutNo'],
+  components: {
+    MyNavBar,
+    MyButtonBar,
+    //    Pagination
+    //Countdown
+  },
+  data() {
+    let interval = setInterval(() => {
+      if (this.timer === 0) {
+        clearInterval(interval)
+      } else {
+        this.timer--
+        console.log(this.timer)
+        localStorage.setItem('timer', this.timer);
+      }
+    }, 1000)
 
-        return {
-            timerset:localStorage.setItem('timer',180),
-            timer: localStorage.getItem("timer"),
-            score: "ระดับง่าย",
-            datas: [],
-            data:[],
-            no: localStorage.getItem("no"),
-            startInt: 0,
-            currentPage: 1,
-            itemsPerPage: 1,
-            totalItems: 100,
-        }
-        //console.log(this.$route.params.time)
+    return {
+      timerset: localStorage.setItem('timer', 180),
+      timer: localStorage.getItem("timer"),
+      score: "ระดับง่าย",
+      datas: [],
+      data: [],
+      no: localStorage.getItem("no"),
+      startInt: 0,
+      currentPage: 1,
+      itemsPerPage: 1,
+      totalItems: 100,
+    }
+    //console.log(this.$route.params.time)
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.datas.length / this.itemsPerPage);
     },
-    computed: {
-        totalPages() {
-            return Math.ceil(this.datas.length / this.itemsPerPage);
-        },
-        paginatedData() {
-            const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-            const endIndex = startIndex + this.itemsPerPage;
-            //var retrievedObject = localStorage.getItem('datas');
-            //this.datas = JSON.parse(retrievedObject);
-            console.log(startIndex);
-            console.log(endIndex);
-            return this.datas.slice(startIndex, endIndex);
-        }
-    }, methods: {
-        async createFeedback() {
-            let x = localStorage.getItem("timer");
-            console.log("createFeedback"+ document.getElementById("ans").value);
-             let point = {
-                scoreboardId: this.datas[this.no - 1].scoreboardId,
-                cipherId:this.datas[this.no - 1].cipherId,
-                plainText:document.getElementById("ans").value,
-                time:x,
-            };
-            console.log("point"+JSON.stringify(point));
-            this.saveno = Number(localStorage.getItem("no")) + 1;
-            console.log("saveno" + this.saveno)
-            localStorage.setItem('no', this.saveno);
-            console.log("p-" + this.timer)
-            localStorage.setItem('timer', this.timer);
-            console.log("p-" + x + "no " + localStorage.getItem("no"))
-            var y = document.getElementById("ans").value;
-            console.log("vale" + y);
-            alert("check" + y);
-            this.datas[this.no - 1].plaintext = document.getElementById("ans").value;
-            localStorage.setItem('datas', JSON.stringify(this.datas));
-            console.log(this.datas[this.no - 1].cipherText);
-            //const token = this.$store.state.auth.user.accessToken;
+    paginatedData() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      //var retrievedObject = localStorage.getItem('datas');
+      //this.datas = JSON.parse(retrievedObject);
+      console.log(startIndex);
+      console.log(endIndex);
+      return this.datas.slice(startIndex, endIndex);
+    }
+  }, methods: {
+    async createFeedback() {
+      let x = localStorage.getItem("timer");
+      console.log("createFeedback" + document.getElementById("ans").value);
+      let point = {
+        scoreboardId: this.datas[this.no - 1].scoreboardId,
+        cipherId: this.datas[this.no - 1].cipherId,
+        plainText: document.getElementById("ans").value,
+        time: x,
+      };
+      console.log("point" + JSON.stringify(point));
+      this.saveno = Number(localStorage.getItem("no")) + 1;
+      const token = this.$store.state.auth.user.accessToken;
+      if (Number(localStorage.getItem("no")) + 1 > 10) {
+        console.log("============================");
+        alert(this.datas[this.no - 1].scoreboardId);
+        axios.get(`http://localhost:8080/api/scoreboard/` + this.datas[this.no - 1].scoreboardId, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+          .then((response) => {
+            this.data = response.data.body
+
+            console.log("point" + this.data.score);
             
-            axios.post(`http://localhost:8080/api/cipher/precreate`,point)
-          .then(() => {
-            alert("send Feedback success")
+            localStorage.setItem('point',  this.data.score);
+            //localStorage.removeItem("timer");
+            //localStorage.removeItem("no");
+            alert("send Feedback success data")
+            localStorage.removeItem("datas");
+            location.href = "/user/scorepoint"
             //this.$router.push("/user");
           },
             (error) => {
-              alert("send Feedback unsuccess");
+              //alert("send Feedback unsuccess");
               console.log(error)
             })
 
-        }, changePage(newPage) {
-            this.currentPage = newPage;
-            this.startInt = (this.currentPage - 1) * this.itemsPerPage;
-        }, async getData() {
-            var retrievedObject = localStorage.getItem('datas');
-            console.log('retrievedObject: ', JSON.parse(retrievedObject));
-            this.datas = JSON.parse(retrievedObject);
-            const token = this.$store.state.auth.user.accessToken;
+      }
+      console.log("saveno" + this.saveno)
+      localStorage.setItem('no', this.saveno);
+      console.log("p-" + this.timer)
+      localStorage.setItem('timer', this.timer);
+      console.log("p-" + x + "no " + localStorage.getItem("no"))
+      var y = document.getElementById("ans").value;
+      console.log("vale" + y);
+      //alert("check" + y);
+      this.datas[this.no - 1].plaintext = document.getElementById("ans").value;
+      localStorage.setItem('datas', JSON.stringify(this.datas));
+      console.log(this.datas[this.no - 1].cipherText);
+
+      axios.post(`http://localhost:8080/api/scoreboard/`, point, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+        .then(() => {
+          //alert("send Feedback success")
+          //this.$router.push("/user");
+        },
+          (error) => {
+            //alert("send Feedback unsuccess");
+            console.log(error)
+          })
+
+    }, changePage(newPage) {
+      this.currentPage = newPage;
+      this.startInt = (this.currentPage - 1) * this.itemsPerPage;
+    }, async getData() {
+      var retrievedObject = localStorage.getItem('datas');
+      console.log('retrievedObject: ', JSON.parse(retrievedObject));
+      this.datas = JSON.parse(retrievedObject);
+      const token = this.$store.state.auth.user.accessToken;
       console.log(token)
       console.log(this.id)
-      
+
       axios.get(`http://localhost:8080/api/scoreboard/scores/` + "easy", { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
         .then((response) => {
           this.data = response.data.body
@@ -189,118 +212,102 @@ export default {
           console.log(this.data[0])
         },
           (error) => {
-            alert("username or password is already used");
+            //alert("username or password is already used");
             console.log(error)
           })
-    
 
-            // if (this.score === 'ระดับง่าย') {
-            //     this.id = "easy"
-            // }
-            // if (this.score === "ระดับปานกลาง") {
-            //     this.id = "moderate"
-            // }
-            // if (this.score === "ระดับยาก") {
-            //     this.id = "hard"
-            // }
-            // const token = this.$store.state.auth.user.accessToken;
-            // axios.get(`http://localhost:8080/api/cipher/question/`+ this.id, { headers: { "Content-Type": "application/json" , "Authorization": 'Bearer ' + token } })
-            //     .then((response) => {
-            //         this.datas = response.data.body
 
-            //         //console.log(this.datas[0].type)
-            //     },
-            //         (error) => {
-            //             alert("username or password is already used");
-            //             console.log(error)
-            //         })
-            const myTimeout = setTimeout(myGreeting, 180000);
-            function myGreeting() {
-                this.saveno = Number(localStorage.getItem("no")) + 1;
-            console.log("saveno" + this.saveno)
-            localStorage.setItem('no', this.saveno);
-            console.log("p-" + this.timer)
-            localStorage.setItem('timer', this.timer);
-            let x = localStorage.getItem("timer");
-            console.log("p-" + x + "no " + localStorage.getItem("no"))
-            var y = document.getElementById("ans").value;
-            console.log("vale" + y);
-            alert("check" + y);
-            //this.datas[this.no - 1].plaintext = document.getElementById("ans").value;
-            localStorage.setItem('datas', JSON.stringify(this.datas));
-            console.log(this.datas[this.no - 1].cipherText);
-                location.href = "/user/timeslow/1/1800/0"
-            }
-            console.log(myTimeout);
-        }
-        
-    }, mounted() {
-        this.getData()
+     
+      const myTimeout = setTimeout(myGreeting, 180000);
+      function myGreeting() {
+        this.saveno = Number(localStorage.getItem("no")) + 1;
+        console.log("saveno" + this.saveno)
+        localStorage.setItem('no', this.saveno);
+        console.log("p-" + this.timer)
+        localStorage.setItem('timer', this.timer);
+        let x = localStorage.getItem("timer");
+        console.log("p-" + x + "no " + localStorage.getItem("no"))
+        var y = document.getElementById("ans").value;
+        console.log("vale" + y);
+        //alert("check" + y);
+        //this.datas[this.no - 1].plaintext = document.getElementById("ans").value;
+        localStorage.setItem('datas', JSON.stringify(this.datas));
+        console.log(this.datas[this.no - 1].cipherText);
+        location.href = "/user/timeslow/1/1800/0"
+      }
+      console.log(myTimeout);
     }
+
+  }, mounted() {
+    this.getData()
+  }
 
 }
 </script>
 <style scoped>
-table{
-    width: 60%;
+table {
+  width: 60%;
 }
+
 .bottom {
-    position: absolute;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
 
-    text-align: center;
-    width: 100%;
+  text-align: center;
+  width: 100%;
 
-    border: 1px solid green;
+  border: 1px solid green;
 }
-#outer { 
-            display: flex; 
-            flex-direction: column; 
-            flex-wrap: wrap; 
-            height: 700px; 
-            width: 2400px; 
-        } 
+
+#outer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 700px;
+  width: 2400px;
+}
+
 h1 {
-    margin: 0 0 20px;
-    font-weight: 400;
-    color: #1c87c9;
+  margin: 0 0 20px;
+  font-weight: 400;
+  color: #1c87c9;
 }
 
 form {
-    padding: 25px;
-    margin: 25px;
-    box-shadow: 0 2px 5px #f5f5f5;
-    background: #f5f5f5;
+  padding: 25px;
+  margin: 25px;
+  box-shadow: 0 2px 5px #f5f5f5;
+  background: #f5f5f5;
 }
 
 input,
 textarea {
-    width: calc(100%);
-    padding: 8px;
-    margin-bottom: 20px;
-    border: 1px solid #1c87c9;
-    outline: none;
+  width: calc(100%);
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #1c87c9;
+  outline: none;
 }
 
 input::placeholder {
-    color: #666;
+  color: #666;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background: #1c87c9;
-    font-size: 16px;
-    font-weight: 400;
-    color: #fff;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #1c87c9;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
 }
 
 button:hover {
-    background: #2371a0;
+  background: #2371a0;
 }
 
 p {
-    margin-left: 5%;
+  margin-left: 5%;
 }
 </style>

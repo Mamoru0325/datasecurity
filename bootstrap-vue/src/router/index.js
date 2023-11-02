@@ -99,6 +99,12 @@ const routes = [
         component: () => import('../views/TimeslowView.vue')
       },
       {
+        path: 'scorepoint',
+        name: 'scorepoint',
+        beforeEnter: requireAuth,
+        component: () => import('../views/ScorePointView.vue')
+      },
+      {
         path: 'about',
         name: 'aboutuser',
         beforeEnter: requireAuth,
