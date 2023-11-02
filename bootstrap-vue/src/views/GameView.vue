@@ -24,8 +24,13 @@
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
-                    <a class href="/user/timeslow/1/1800/0"  @click="timerstart" >
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class href="/user/timeslow/1"  @click="timerstart" >
                         3 นาที
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class href="/user/timeslow/2"  @click="timerstart" >
+                        5 นาที
                     </a>
                     </div>
                 </div>
@@ -41,6 +46,14 @@
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class href="/user/timeslow/1"  @click="timerstart2" >
+                        3 นาที
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class href="/user/timeslow/2"  @click="timerstart2" >
+                        5 นาที
+                    </a>
                     </div>
                 </div>
             </div>
@@ -55,6 +68,14 @@
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class href="/user/timeslow/1"  @click="timerstart3" >
+                        3 นาที
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class href="/user/timeslow/2"  @click="timerstart3" >
+                        5 นาที
+                    </a>
                     </div>
                 </div>
             </div>
@@ -86,17 +107,65 @@ export default {
     }, methods: {
         async timerstart() {
             localStorage.setItem('no',1);
-            localStorage.setItem('timer',1800);
-            if (this.score === 'ระดับง่าย') {
-                this.id = "easy"
-            }
-            if (this.score === "ระดับปานกลาง") {
-                this.id = "moderate"
-            }
-            if (this.score === "ระดับยาก") {
-                this.id = "hard"
-            }
+            //localStorage.setItem('timer',1800);
+           
             this.id = "easy"
+            const token = this.$store.state.auth.user.accessToken;
+            //console.log(token)
+            axios.get(`http://localhost:8080/api/cipher/question/`+ this.id, { headers: { "Content-Type": "application/json" , "Authorization": 'Bearer ' + token } })
+                .then((response) => {
+                    this.datas = response.data.body;
+                    console.log("obj"+this.datas);
+                    alert("---");
+                    for (let i = 0; i < 3; i++) {
+                       // this.datas[i].plaintext="";
+                    }
+                    console.log("obj"+this.datas);
+                    localStorage.setItem('datas', JSON.stringify(this.datas));
+                    
+                    // Retrieve the object from storage
+                    var retrievedObject = localStorage.getItem('datas');
+
+                    console.log('retrievedObject: ', JSON.parse(retrievedObject));
+                    //console.log(this.datas[0].type)
+                },
+                    (error) => {
+                        alert("username or password is already used");
+                        console.log(error)
+                    })
+        },async timerstart2() {
+            localStorage.setItem('no',1);
+            //localStorage.setItem('timer',1800);
+           
+            this.id = "moderate"
+            const token = this.$store.state.auth.user.accessToken;
+            //console.log(token)
+            axios.get(`http://localhost:8080/api/cipher/question/`+ this.id, { headers: { "Content-Type": "application/json" , "Authorization": 'Bearer ' + token } })
+                .then((response) => {
+                    this.datas = response.data.body;
+                    console.log("obj"+this.datas);
+                    alert("---");
+                    for (let i = 0; i < 3; i++) {
+                       // this.datas[i].plaintext="";
+                    }
+                    console.log("obj"+this.datas);
+                    localStorage.setItem('datas', JSON.stringify(this.datas));
+                    
+                    // Retrieve the object from storage
+                    var retrievedObject = localStorage.getItem('datas');
+
+                    console.log('retrievedObject: ', JSON.parse(retrievedObject));
+                    //console.log(this.datas[0].type)
+                },
+                    (error) => {
+                        alert("username or password is already used");
+                        console.log(error)
+                    })
+        },async timerstart3() {
+            localStorage.setItem('no',1);
+            localStorage.setItem('timer',1800);
+           
+            this.id = "hard"
             const token = this.$store.state.auth.user.accessToken;
             //console.log(token)
             axios.get(`http://localhost:8080/api/cipher/question/`+ this.id, { headers: { "Content-Type": "application/json" , "Authorization": 'Bearer ' + token } })

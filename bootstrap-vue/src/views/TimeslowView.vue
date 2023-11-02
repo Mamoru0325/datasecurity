@@ -47,7 +47,7 @@
     <!-- <pagination :currentPage="currentPage" :totalPages="totalPages" @page-changed="changePage" /> -->
         <textarea rows="3" id="ans" value=""></textarea>
         
-        <a   @click="createFeedback" href="/user/timeslow/1/1800/0">Submit</a>
+        <a   @click="createFeedback" href="/user/timeslow/1">Submit</a>
       </div>
         
         <br>
@@ -120,6 +120,7 @@ export default {
       currentPage: 1,
       itemsPerPage: 1,
       totalItems: 100,
+      level:this.$route.params.no,
     }
     //console.log(this.$route.params.time)
   },
@@ -145,7 +146,12 @@ export default {
         cipherId: this.datas[this.no - 1].cipherId,
         plainText: document.getElementById("ans").value,
         time: x,
+        
       };
+      // if(this.$route.params.no==1){
+      //   this.point.time=this.point.time+120;
+      // }
+      
       console.log("point" + JSON.stringify(point));
       this.saveno = Number(localStorage.getItem("no")) + 1;
       const token = this.$store.state.auth.user.accessToken;

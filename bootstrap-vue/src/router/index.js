@@ -93,7 +93,7 @@ const routes = [
         component: HomeView
       },
       {
-        path: 'timeslow/:no/:time/:point',
+        path: 'timeslow/:no',
         name: 'timeslow',
         beforeEnter: requireAuth,
         component: () => import('../views/TimeslowView.vue')
