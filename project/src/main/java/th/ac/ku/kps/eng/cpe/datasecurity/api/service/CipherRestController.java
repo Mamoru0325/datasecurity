@@ -194,7 +194,7 @@ public class CipherRestController {
 		return new ResponseEntity<Response<?>>(res, res.getHttpStatus());
 	}
 
-	@GetMapping("/{level}")
+	@GetMapping("/level/{level}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Response<List<Cipher>>> findByLevel(@PathVariable("level") String level) {
@@ -214,7 +214,7 @@ public class CipherRestController {
 		return new ResponseEntity<Response<List<Cipher>>>(res, res.getHttpStatus());
 	}
 
-	@GetMapping("/id/{id}")
+	@GetMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Response<?>> findById(@PathVariable("id") int id) {
