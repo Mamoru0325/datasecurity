@@ -159,11 +159,12 @@ export default {
             this.datas[this.no - 1].plaintext = document.getElementById("ans").value;
             localStorage.setItem('datas', JSON.stringify(this.datas));
             console.log(this.datas[this.no - 1].cipherText);
-            const token = this.$store.state.auth.user.accessToken;
-            axios.post(`http://localhost:8080/api/cipher/precreate`,point, { headers: { "Content-Type": "application/json","Authorization": 'Bearer '+token } })
+            //const token = this.$store.state.auth.user.accessToken;
+            
+            axios.post(`http://localhost:8080/api/cipher/precreate`,point)
           .then(() => {
             alert("send Feedback success")
-            this.$router.push("/user");
+            //this.$router.push("/user");
           },
             (error) => {
               alert("send Feedback unsuccess");
