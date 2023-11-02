@@ -1,5 +1,8 @@
 <template>
     <div class="container-fluid " style="background-color: blanchedalmond;height: 100;">
+        <div style="text-align: right;">
+            <button style="font-size:30px;" @click="closeweb()"><font-awesome-icon icon="close" /></button>
+        </div>
         <div class="row d-flex justify-content-center align-items-center">
 
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1" style="background-color: blanchedalmond;height: 110vh">
@@ -164,9 +167,9 @@ export default {
                     }
                 );
             }
+        },closeweb(){
+            this.$router.push("/");
         }
-
-
     }
 }
 </script>
