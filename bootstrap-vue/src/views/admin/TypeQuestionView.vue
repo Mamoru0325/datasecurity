@@ -73,7 +73,7 @@ export default {
       data: [],
       startInt: 0,
       currentPage: 1,
-      itemsPerPage: 8,
+      itemsPerPage: 5,
     }
   },
   computed: {
