@@ -93,20 +93,20 @@ public class ScoreboardRestController {
 		return new ResponseEntity<Response<?>>(res, res.getHttpStatus());
 	}
 
-	@GetMapping("/scores/{level}")
+	@GetMapping("/scores/{level}/value/{value}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User') or hasRole('Admin')")
-	public ResponseEntity<Response<List<?>>> findByLevelOrderByscoreDESC(@PathVariable("level") String level) {
+	public ResponseEntity<Response<List<?>>> findByLevelOrderByscoreDESC(@PathVariable("level") String level, @PathVariable("value") int value) {
 		Response<List<?>> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
 		List<ObjectNode> responseList = new ArrayList<>();
 		try {
-			List<Object> scoreboards = scoreboardService.findByLevelOrderByscoreDESC(level, 0, 20);
+			List<Object> scoreboards = scoreboardService.findByLevelOrderByscoreDESC(level, 0, value);
 			for (Object scoreboard : scoreboards) {
 				ObjectNode responObject = mapper.createObjectNode();
 				Object[] o = (Object[]) scoreboard;
 				responObject.put("scoreId", o[0].toString());
-				responObject.put("userName", o[1].toString());
+				responObject.put("name", o[1].toString());
 				responObject.put("score", o[2].toString());
 				responseList.add(responObject);
 			}
