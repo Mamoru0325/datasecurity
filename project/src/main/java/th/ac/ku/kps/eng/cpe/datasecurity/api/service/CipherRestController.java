@@ -86,38 +86,54 @@ public class CipherRestController {
 			Cipher cipher = mapper.readValue(question, Cipher.class);
 			cipher.setType(type);
 
-			String cipherText = new String();
+			StringBuilder cipherText = new StringBuilder();
 
 			if (type.getTypeName().equals("caesar")) {
-
+				
+				String[] plainText = cipher.getPlainText().split(" ");
 				Shift_Cipher sc = new Shift_Cipher();
-				cipherText = sc.encrypt(cipher.getPlainText(), Integer.parseInt(cipher.getCipherKey()));
+				
+				for(int i = 0; i < plainText.length; i++) {
+					cipherText.append(sc.encrypt(plainText[i], Integer.parseInt(cipher.getCipherKey())));
+					if(i < plainText.length) {
+						cipherText.append(" ");
+					}
+				}
 
 			} else if (type.getTypeName().equals("vigenere")) {
-
+				
+				String[] plainText = cipher.getPlainText().split(" ");
 				Vigenere_Cipher vc = new Vigenere_Cipher();
-				cipherText = vc.encrypt(cipher.getPlainText(), cipher.getCipherKey());
+				
+				for(int i = 0; i < plainText.length; i++) {
+					cipherText.append(vc.encrypt(plainText[i], cipher.getCipherKey()));
+					if(i < plainText.length) {
+						cipherText.append(" ");
+					}
+				}
 
 			} else if (type.getTypeName().equals("permutation")) {
 
 				String[] key = cipher.getCipherKey().split(",");
+				String plainText = cipher.getPlainText().replace(" ", "");
 
 				int[] pi = new int[key.length];
 
 				for (int i = 0; i < key.length; i++) {
 					pi[i] = Integer.parseInt(key[i]);
 				}
-
+				
 				Permutation_Cipher pc = new Permutation_Cipher(pi);
-				cipherText = pc.encrypt(cipher.getPlainText());
 
+					cipherText.append(pc.encrypt(plainText));
+		
 			}
 
 			responseObject.put("plainText", cipher.getPlainText());
 			responseObject.put("cipherKey", cipher.getCipherKey());
 			responseObject.put("level", cipher.getLevel());
 			responseObject.put("type", type.getTypeName());
-			responseObject.put("cipherText", cipherText);
+			responseObject.put("cipherText", cipherText.toString());
 			res.setBody(responseObject);
 			res.setHttpStatus(HttpStatus.OK);
 
@@ -273,25 +289,41 @@ public class CipherRestController {
 			List<Cipher> ciphers = cipherService.find10RandomQuestion(level);
 
 			for (Cipher cipher : ciphers) {
-				String cipherText = new String();
 				ObjectNode responObject = mapper.createObjectNode();
 				responObject.put("cipherId", cipher.getCipherId());
 				responObject.put("scoreboardId", scoreboard.getScoreId());
 				responObject.put("type", cipher.getType().getTypeName());
 				responObject.put("level", cipher.getLevel());
-				if (cipher.getType().getTypeName().equals("caesar")) {
+				StringBuilder cipherText = new StringBuilder();
 
+				if (cipher.getType().getTypeName().equals("caesar")) {
+					
+					String[] plainText = cipher.getPlainText().split(" ");
 					Shift_Cipher sc = new Shift_Cipher();
-					cipherText = sc.encrypt(cipher.getPlainText(), Integer.parseInt(cipher.getCipherKey()));
+					
+					for(int i = 0; i < plainText.length; i++) {
+						cipherText.append(sc.encrypt(plainText[i], Integer.parseInt(cipher.getCipherKey())));
+						if(i < plainText.length) {
+							cipherText.append(" ");
+						}
+					}
 
 				} else if (cipher.getType().getTypeName().equals("vigenere")) {
-
+					
+					String[] plainText = cipher.getPlainText().split(" ");
 					Vigenere_Cipher vc = new Vigenere_Cipher();
-					cipherText = vc.encrypt(cipher.getPlainText(), cipher.getCipherKey());
+					
+					for(int i = 0; i < plainText.length; i++) {
+						cipherText.append(vc.encrypt(plainText[i], cipher.getCipherKey()));
+						if(i < plainText.length) {
+							cipherText.append(" ");
+						}
+					}
 
 				} else if (cipher.getType().getTypeName().equals("permutation")) {
 
 					String[] key = cipher.getCipherKey().split(",");
+					String plainText = cipher.getPlainText().replace(" ", "");
 
 					int[] pi = new int[key.length];
 
@@ -300,10 +332,10 @@ public class CipherRestController {
 					}
 
 					Permutation_Cipher pc = new Permutation_Cipher(pi);
-					cipherText = pc.encrypt(cipher.getPlainText());
+					cipherText.append(pc.encrypt(plainText));
 
 				}
-				responObject.put("cipherText", cipherText);
+				responObject.put("cipherText", cipherText.toString());
 
 				responseList.add(responObject);
 			}
