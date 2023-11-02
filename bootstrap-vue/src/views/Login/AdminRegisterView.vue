@@ -6,7 +6,8 @@
                 <form>
 
                     <div class="divider d-flex align-items-center my-4">
-                        <p class="text-center fw-bold mx-3 mb-0" style="font-size: 3ch;color: black;">User Register Form</p>
+                        <p class="text-center fw-bold mx-3 mb-0" style="font-size: 3ch;color: black;">Admin Register Form
+                        </p>
                     </div>
 
                     <!-- Email input -->
@@ -72,8 +73,8 @@
                             style="padding-left: 2.5rem; padding-right: 2.5rem;" id="submit">Submit</a>
                         <p class="small fw-bold mt-2 pt-1 mb-0" style="color: #000000;">Have an account? <a href="/login"
                                 class="link-danger">Login</a></p>
-                        <p class="small fw-bold mt-2 pt-1 mb-0" style="color: #000000;">Want to Admin Register : <a
-                                href="/register/admin" class="link-danger">adminRegister</a></p>
+                        <p class="small fw-bold mt-2 pt-1 mb-0" style="color: #000000;">Want to User Register : <a href="/register/user"
+                                class="link-danger">userRegister</a></p>
                     </div>
 
                 </form>
@@ -93,7 +94,7 @@ import { required, email, minLength, maxLength, sameAs } from "@vuelidate/valida
 
 export default {
 
-    name: 'RegisterView',
+    name: 'AdminRegisterView',
     data() {
         return {
             v$: useVuelidate(),
@@ -143,7 +144,7 @@ export default {
                     phoneNumber: this.form.phoneNumber
                 };
 
-                this.$store.dispatch("auth/register", data).then(
+                this.$store.dispatch("auth/staffregister", data).then(
                     (data) => {
                         this.message = data.message;
                         this.successful = true;

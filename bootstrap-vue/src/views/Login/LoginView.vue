@@ -1,5 +1,6 @@
 <template>
     <section class="vh-100" style="background-color: blanchedalmond;">
+        <button style="font-size:24px"><font-awesome-icon icon="close" /></button>
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-md-9 col-lg-6 col-xl-5">
@@ -44,8 +45,9 @@
                         <div class="text-center text-lg-start mt-4 pt-2">
                             <a type="button" class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;" @click="login">Login</a>
-                            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register"
-                                    class="link-danger">Register</a></p>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register/user"
+                                    class="link-danger">UserRegister</a> / <a href="/register/admin"
+                                    class="link-danger">AdminRegister</a></p>
                         </div>
 
                     </form>
@@ -106,6 +108,7 @@ export default {
                         this.$router.push("/user");
                     },
                     (error) => {
+                        alert("Email or Password wrong")
                         this.loading = false;
                         this.message =
                             (error.response &&

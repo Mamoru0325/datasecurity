@@ -27,9 +27,14 @@ const routes = [
     // beforeEnter: checkLogin
   },
   {
-    path: '/register',
+    path: '/register/user',
     beforeEnter: checkAuth,
     component: () => import('../views/Login/RegisterView.vue')
+  },
+  {
+    path: '/register/admin',
+    beforeEnter: checkAuth,
+    component: () => import('../views/Login/AdminRegisterView.vue')
   },
   {
     path: '/admin/',
@@ -144,7 +149,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/', '/about'];
+  const publicPages = ['/login', '/register/user', '/', '/about','/register/admin'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 

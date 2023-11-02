@@ -142,7 +142,7 @@ export default {
         }, setValues() {
             this.id = this.$route.params.type
             const token = this.$store.state.auth.user.accessToken;
-            axios.get("http://localhost:8080/api/cipher/id/"+this.id, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+            axios.get("http://localhost:8080/api/cipher/"+this.id, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
                 .then((response) => {
                     this.type = response.data.body.type
                     this.plainText = response.data.body.plainText

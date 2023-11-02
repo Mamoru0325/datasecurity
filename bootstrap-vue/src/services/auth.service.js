@@ -32,6 +32,15 @@ class AuthService {
       phoneNumber: user.phoneNumber
     }), { headers: { "Content-Type": "application/json" } });
   }
+
+  staffregister(user) {
+    return axios.post(API_URL + 'signup/staff', JSON.stringify({
+      email: user.email,
+      password: user.password,
+      username: user.username,
+      phoneNumber: user.phoneNumber
+    }), { headers: { "Content-Type": "application/json" } });
+  }
 }
 
 export default new AuthService();
