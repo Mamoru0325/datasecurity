@@ -118,6 +118,7 @@ export default {
       if(this.month && this.year){
         axios.get("http://localhost:8080/api/feedback/month/"+this.month+" /year/"+this.year , { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
           .then((response) => {
+            console.log(response.data.body);
             this.data = response.data.body
           },
             (error) => {
@@ -127,6 +128,7 @@ export default {
       }else{
         axios.get("http://localhost:8080/api/feedback/" , { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
           .then((response) => {
+            console.log(response.data.body);
             this.data = response.data.body
           },
             (error) => {
