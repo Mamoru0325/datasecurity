@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color:#fff9f5;height: 90vb;">
     <MyNavBar />
     <h1 style="text-align: center;margin-top: 1%;">ข้อเสนอแนะแก่ผู้พัฒนา</h1>
     <div style="margin-left: 20%;margin-right: 20%;">

@@ -1,10 +1,10 @@
 <template>
-  <div class="home">
+  <div class="home" style="background-color:#fff9f5;">
     <MyNavBar />
     <br>
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 90%;margin: auto;">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
+      <div class="carousel-inner" >
+        <div class="carousel-item active" >
           <img src="https://html.com/wp-content/uploads/flamingo.webp" class="d-block w-100"  height="500" alt="...">
         </div>
         <div class="carousel-item">
