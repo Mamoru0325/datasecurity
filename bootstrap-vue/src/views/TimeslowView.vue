@@ -1,6 +1,6 @@
 <template lang="">
   <MyNavBar />
-  <div class="center">
+  <div class="center" style="background-color:#DBD9Da" >
     <div class="row">
       <div class="col-8">
         <br>
@@ -8,29 +8,32 @@
         <h1 style="text-align: center;color:red;">เวลาคงเหลือ - {{this.timer}}</h1>
         <h1 style="text-align: center;color:blue;">คุณได้คะเเนน- {{this.score2}}</h1>
         <br>
-        <div style="text-align: left; margin-left: 20%" >
+        <div style="text-align: left; margin-left: 20%;background-color:#fff;border-radius:20px;" >
             <h2 >กฎการเล่น</h2>
-            <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
-            <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
-            <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
+            
+            <p>- พิมพ์คำตอบลงในช่องว่าง</p>
+            <p>- กดส่งข้อมูลได้เลย</p>
+            <p style="color:red;">*เมื่อเริ่มเเล้ว ต์เมื่อเริ่มแล้วกรุณา เช็คคำตอบทุกครั้งก่อนที่จะกดตกลงเพราะไม่สามารถย้อนกลับได้ </p>
           <h2 v-for="(da, index) in this.datas" :key="da">
                 <div v-if="index+1 == this.no">
-                โจทย์{{ index+1 }} {{da.type}} {{da.cipherText}}
+                โจทย์ <br> ข้อที่ {{ index+1 }} ชนิดการเข้ารหัส {{da.type}} ข้อความที่ต้องถอด"{{da.cipherText}}"
                 </div>  
           </h2>
         
           <h2>จงเติมคำตอบ</h2>
         </div>
-          <div style="text-align:center;margin-left: 20%">
-            <textarea rows="3" id="ans" value=""></textarea>
+          <div style="text-align:center;margin-left: 20%;">
+            <textarea rows="3" id="ans" value="" style="background-color:#fdfcdc ;"></textarea>
             
             <button @click="createFeedback()" >Submit</button>
           </div>
         <br>
         <br>
       </div>
+      
       <div class="col-4" v-if="check">
-        <table class="table table-striped">
+        
+        <table class="table table-striped" style="margin-left:20%;margin-top:10%;">
           <thead style="border: 100cm;">
             <tr>
               <th scope="col">#</th>

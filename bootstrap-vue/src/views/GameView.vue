@@ -6,10 +6,10 @@
         <br>
         <div style="text-align: left; margin-left: 25%">
             <h2 >กฎการเล่น</h2>
-            <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
-            <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
-            <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
-            <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
+            <p>- ศึกษาวิธีการเข้ารหัส - ถอดรหัส ก่อนเริ่มเล่นน</p>
+            <p>- เรื่องระดับความยาก โดยมี - ระดับ Easy Normal Hard</p>
+            <p>- เลือกเวลาที่ต้องการคือ ข้อละ 3 นาที เเละ 5 นาที </p>
+            <p style="color:red;">*เมื่อเริ่มเเล้ว ต์เมื่อเริ่มแล้วกรุณา เช็คคำตอบทุกครั้งก่อนที่จะกดตกลงเพราะไม่สามารถย้อนกลับได้ </p>
         </div>
         <br>
         <div >
