@@ -1,12 +1,12 @@
 <template>
-    <div class="container-fluid " style="background-color: blanchedalmond;height: 100;">
+    <div class="container-fluid " style="background-color: blanchedalmond;">
         <div style="text-align: right;">
             <button style="font-size:30px;" @click="closeweb()"><font-awesome-icon icon="close" /></button>
         </div>
         <div class="row d-flex justify-content-center align-items-center">
 
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1" style="background-color: blanchedalmond;height: 110vh">
-                <form>
+            <div style="background-color: blanchedalmond;">
+                <form class="fo">
 
                     <div class="divider d-flex align-items-center my-4">
                         <p class="text-center fw-bold mx-3 mb-0" style="font-size: 3ch;color: black;">User Register Form</p>
@@ -167,7 +167,7 @@ export default {
                     }
                 );
             }
-        },closeweb(){
+        }, closeweb() {
             this.$router.push("/");
         }
     }
@@ -188,5 +188,20 @@ export default {
 
 p {
     color: #f90000;
+}
+
+.fo {
+    color: rgb(0, 0, 0);
+    background-color: #85c7e2;
+    border-radius: 5px;
+
+    width: 600px;
+    padding: 50px;
+    margin: 100px auto;
+
+    -webkit-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 3px 18px 0px rgba(0, 0, 0, 0.75);
+
 }
 </style>

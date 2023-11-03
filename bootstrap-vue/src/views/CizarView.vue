@@ -50,6 +50,7 @@ p {
       <h5 style="text-align: center;">Cipher Text : d e f g h i j k l m n o p q r s t u v w x y z a b c (กรณี key = 3)
       </h5><br>
       <p>&ensp;เช่น Love You --- oryh brx<br></p>
+      <hr>
       <h4>การถอดรหัสข้อมูล Caesar <br></h4>
       <p>ซึ่งวิธีนี้เมื่อมีการขโมย Cipher Text สามารถถอดได้ไม่ยากนัก เนื่องจากมีคำตอบที่เป็นไปทั้งหมด 25 คำตอบ <br>
         • ซึ่งสามารถทดสอบการแทนที่ตัวอักษรไปเรื่อยๆ ก็จะเจอข้อความที่สามารถอ่านได้ <br>
@@ -59,6 +60,7 @@ p {
         &ensp;เลื่อนกลับ 2 ตำแหน่ง : mpwf zpv <br>
         &ensp;เลื่อนกลับ 3 ตำแหน่ง : love you ก็จะเจอคำที่สามารถอ่านได้</p>
     </div>
+    <hr>
     <div>
       <h4>แบบฝึกหัดเพื่อทดสอบความเข้าใจ <span style="color: red;"> (ลำดับตัวอักษร a b c d e f g h I j k l m n o p q r s t
           u v w x y z) </span> <br></h4>
