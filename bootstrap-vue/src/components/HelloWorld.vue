@@ -1,33 +1,36 @@
 <template>
   <div class="hello">
-    <h1 style="text-align: center;">{{ msg }}</h1>
+    <h1 style="text-align: center;">ยินดีต้อนรับสู่ เว็บเกมถอดรหัส</h1>
     <br>
     <div class="row">
       <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
-        <img src="https://html.com/wp-content/uploads/flamingo.webp" class="card-img-top" alt="..." style="margin-top: 3%">
+        <img src="https://html.com/wp-content/uploads/flamingo.webp" class="card-img-top" alt="..."
+          style="margin-top: 3%">
         <div class="card-body">
           <h5 class="card-title">การถอดรหัสแบบซีซาร์</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-            <RouterLink to="/cizar"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <p class="card-text"> เป็นการแทนค่าแต่ละตัวอักษรด้วยสัญลักษณ์เพียงตัวเดียว เป็นวิธีทีง่ายที่สุด
+            ใช้มาตั้งแต่สมัยจูเลียส ซีซาร์</p>
+          <RouterLink to="/user/cizar" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
         </div>
       </div>
       <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
-        <img src="https://html.com/wp-content/uploads/flamingo.webp" class="card-img-top" alt="..." style="margin-top: 3%">
+        <img src="https://html.com/wp-content/uploads/flamingo.webp" class="card-img-top" alt="..."
+          style="margin-top: 3%">
         <div class="card-body">
           <h5 class="card-title">การถอดรหัสแบบ Vigenere</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
             content.</p>
-            <RouterLink to="/vigenere"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <RouterLink to="/vigenere" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
         </div>
       </div>
       <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
-        <img src="https://html.com/wp-content/uploads/flamingo.webp" class="card-img-top" alt="..." style="margin-top: 3%">
+        <img src="https://html.com/wp-content/uploads/flamingo.webp" class="card-img-top" alt="..."
+          style="margin-top: 3%">
         <div class="card-body">
           <h5 class="card-title">การถอดรหัสแบบ Permutation</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
             content.</p>
-          <RouterLink to="/permutation"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <RouterLink to="/permutation" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
         </div>
       </div>
     </div>
@@ -38,11 +41,16 @@
 import { RouterLink } from 'vue-router';
 
 export default {
-    name: 'HelloWorld',
-    props: {
-        msg: String
-    },
-    components: { RouterLink }
+  name: 'HelloWorld',
+  props: {
+    msg: String
+  },
+  components: { RouterLink },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
+  }
 }
 </script>
 
@@ -64,5 +72,4 @@ li {
 
 a {
   color: #42b983;
-}
-</style>
+}</style>

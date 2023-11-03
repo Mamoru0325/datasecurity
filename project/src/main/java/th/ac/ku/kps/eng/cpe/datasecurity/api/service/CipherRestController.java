@@ -73,7 +73,7 @@ public class CipherRestController {
 
 	@PostMapping("/precreate")
 	@SecurityRequirement(name = "Bearer Authentication")
-	@PreAuthorize("hasRole('Admin')")
+	@PreAuthorize("hasRole('User') or hasRole('Admin')")
 	public ResponseEntity<Response<?>> preCreate(@RequestBody String question) {
 		Response<ObjectNode> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
