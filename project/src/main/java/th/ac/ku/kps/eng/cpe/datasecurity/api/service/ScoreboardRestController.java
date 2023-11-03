@@ -74,12 +74,11 @@ public class ScoreboardRestController {
 			int cipherId = jsonNode.get("cipherId").asInt();
 			Cipher cipher = cipherService.findById(cipherId);
 			String plainText = jsonNode.get("plainText").asText();
-			int multiplier = jsonNode.get("multiplier").asInt();
 
 			int time = jsonNode.get("time").asInt();
 
 			if (cipher.getPlainText().equals(plainText)) {
-				scoreboard.setScore(scoreboard.getScore() + (time * multiplier));
+				scoreboard.setScore(scoreboard.getScore() + time);
 				scoreboard = scoreboardService.save(scoreboard);
 			}
 
