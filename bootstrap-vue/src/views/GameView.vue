@@ -4,34 +4,36 @@
         <br>
         <h1 style="text-align: center;">เกมถอดรหัส</h1>
         <br>
-        <div style="text-align: left; margin-left: 25%">
-            <h2 >กฎการเล่น</h2>
-            <p>- ศึกษาวิธีการเข้ารหัส - ถอดรหัส ก่อนเริ่มเล่นน</p>
-            <p>- เรื่องระดับความยาก โดยมี - ระดับ Easy Normal Hard</p>
-            <p>- เลือกเวลาที่ต้องการคือ ข้อละ 3 นาที เเละ 5 นาที </p>
-            <p style="color:red;">*เมื่อเริ่มเเล้ว ต์เมื่อเริ่มแล้วกรุณา เช็คคำตอบทุกครั้งก่อนที่จะกดตกลงเพราะไม่สามารถย้อนกลับได้ </p>
+        <div style="text-align: left; margin-left: 22%;">
+            <h2 style="font-size:30;margin-left: 5%">กฎการเล่น</h2>
+            <p style="font-size:20px">- ศึกษาวิธีการเข้ารหัส - ถอดรหัส ก่อนเริ่มเล่นน</p>
+            <p style="font-size:20px">- เรื่องระดับความยาก โดยมี - ระดับ Easy Normal Hard</p>
+            <p style="font-size:20px">- เลือกเวลาที่ต้องการคือ ข้อละ 3 นาที เเละ 5 นาที <span style="color: red"><br>(โดยเวลาที่มีให้เลือก 3 และ 5 นาทีเป็นความท้าทายที่ให้เลือก นั้น เมื่อเลือก 5 นาที คะแนนจะ * 1 และ เมื่อเลือก 3 นาที คะแนนจะ * 2 )</span></p>
+            <p style="font-size:20px;color:red;">*เมื่อเริ่มแล้วกรุณา เช็คคำตอบทุกครั้งก่อนที่จะกดตกลงเพราะไม่สามารถย้อนกลับได้ </p>
         </div>
         <br>
         <div >
             <div class="card mb-3" style="max-width: 800px;margin: auto" >
-                <div class="row g-0" style="background-color:#fff9f5;">
+                <div class="row g-0" style="background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
                     <div class="col-md-4">
                     <img src="https://html.com/wp-content/uploads/flamingo.webp" class="img-fluid rounded-start" >
                     </div>
                     <div class="col-md-8">
                     <div class="card-body" >
                         <h5 class="card-title">Easy</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <p class="card-text">ระดับง่ายเหมาะสำหรับผู้ที่ต้องการฝึกเริ่ม</p>
+                       
                     </div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class   @click="timerstart(3)" >
+                    <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="button-54"   @click="timerstart(3)" >
                         3 นาที
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class   @click="timerstart(5)" >
+                    <a class="button-54"   @click="timerstart(5)" >
                         5 นาที
                     </a>
+                    <br> <br>
                     </div>
                 </div>
             </div>
@@ -40,42 +42,46 @@
                     <div class="col-md-4">
                     <img src="https://html.com/wp-content/uploads/flamingo.webp" class="img-fluid rounded-start" >
                     </div>
-                    <div class="col-md-8" style="background-color:#fff9f5;">
+                    <div class="col-md-8" style="background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
                     <div class="card-body">
                         <h5 class="card-title">Normal</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <p class="card-text">เพิ่มความยากขึ้นมาเล็กน้อย อาจต้องใช้เวลาเพิ่มขึ้นในการทำ </p>
+                       
                     </div>
+                    <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class   @click="timerstart2(3)" >
+                    <a class="button-54"   @click="timerstart2(3)" >
                         3 นาที
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class   @click="timerstart2(5)" >
+                    <a class="button-54"   @click="timerstart2(5)" >
                         5 นาที
                     </a>
+                    <br> <br>
                     </div>
                 </div>
             </div>
             <div class="card mb-3" style="max-width: 800px;margin: auto">
-                <div class="row g-0" style="background-color:#fff9f5;">
+                <div class="row g-0" style="background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
                     <div class="col-md-4">
                     <img src="https://html.com/wp-content/uploads/flamingo.webp" class="img-fluid rounded-start" >
                     </div>
                     <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">Hard</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <p class="card-text">ยากสุดๆแนะนำว่าอย่ามาเล่น</p>
+                       
                     </div>
+                    <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class   @click="timerstart3(3)" >
+                    <a class="button-54"   @click="timerstart3(3)" >
                         3 นาที
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class   @click="timerstart3(5)" >
+                    <a class="button-54"   @click="timerstart3(5)" >
                         5 นาที
                     </a>
+                    <br> <br>
                     </div>
                 </div>
             </div>
@@ -210,7 +216,38 @@ export default {
 }
 </script>
 <style scoped>
-    p {
-        margin-left: 5%;
-    }
+p {
+    margin-left: 8%;
+}
+/* CSS */
+.button-54 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-54:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .button-54 {
+    padding: 0.25em 0.75em;
+  }
+}
+
+
 </style>

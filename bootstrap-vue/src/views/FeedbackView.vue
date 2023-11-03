@@ -1,7 +1,7 @@
 <template>
   <div style="background-color:#fff9f5;height: 90vb;">
     <MyNavBar />
-    <h1 style="text-align: center;margin-top: 1%;">ข้อเสนอแนะแก่ผู้พัฒนา</h1>
+    <h1 style="text-align: center;margin-top: 1%;color: black;">ข้อเสนอแนะแก่ผู้พัฒนา</h1>
     <div style="margin-left: 20%;margin-right: 20%;">
       <textarea rows="5" v-model="text" name="text"
         :class="v$.text.$error === true ? 'text-fields-error' : 'text-fields'"></textarea>

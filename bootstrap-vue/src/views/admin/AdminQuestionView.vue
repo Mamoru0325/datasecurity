@@ -5,21 +5,21 @@
         <br>
         <div class="row" >
             <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
-                <img src="https://html.com/wp-content/uploads/flamingo.webp" class="card-img-top" alt="..." style="margin-top: 5%">
+                <img  src="https://m.media-amazon.com/images/I/71SgSx51bbL.__AC_SY300_SX300_QL70_FMwebp_.jpg" class="card-img-top" alt="..." height="300" style="margin-top: 5%">
                 <div class="card-body">
                     <h5 class="card-title">การถอดรหัสแบบซีซาร์</h5>
                    <a class="btn btn-primary" style="color:#000000" @click="getLink('caesar')">ดูข้อมูล</a>
                 </div>
             </div>
             <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
-                <img src="https://html.com/wp-content/uploads/flamingo.webp" class="card-img-top" alt="..." style="margin-top: 5%">
+                <img src="../../assets/Screenshot 2023-11-03 233535.png" class="card-img-top" alt="..." height="300" style="margin-top: 5%">
                 <div class="card-body">
                     <h5 class="card-title">การถอดรหัสแบบ Vigenere</h5>
                     <a class="btn btn-primary" style="color:#000000" @click="getLink('vigenere')">ดูข้อมูล</a>
                 </div>
             </div>
             <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
-                <img src="https://html.com/wp-content/uploads/flamingo.webp" class="card-img-top" alt="..." style="margin-top: 5%">
+                <img  src="../../assets/Screenshot 2023-11-03 233250.png" class="card-img-top" alt="..." height="300" style="margin-top: 5%">
                 <div class="card-body">
                     <h5 class="card-title">การถอดรหัสแบบ Permutation</h5>
                     <a class="btn btn-primary" style="color:#000000" @click="getLink('permutation')">ดูข้อมูล</a>

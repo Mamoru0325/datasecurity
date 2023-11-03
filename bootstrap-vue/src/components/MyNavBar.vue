@@ -71,8 +71,8 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/login" class="nav-link">
-              <font-awesome-icon icon="sign-in-alt"  style="color: #FFF;"/> Login
+            <router-link to="/login" class="nav-link" style="color: #FFF;">
+              <font-awesome-icon icon="sign-in-alt" /> Login
             </router-link>
           </li>
         </div>

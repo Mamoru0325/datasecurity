@@ -4,11 +4,14 @@
   <!-- <h1 style="text-align: center;">เกมถอดรหัส</h1> -->
   <br>
   <br>
-        <h1 style="text-align: center;color:red;">Timer - {{this.timer}}</h1>
+  
+  <font-awesome-icon icon="alarm-clock" size="2xs" />
+  
+        <h1 style="text-align: center;color:red;font-family: Lucida Console, Courier New, monospace;"><font-awesome-icon icon="clock" />  Timer  {{this.timer}}</h1>
     <div class="row">
       <div class="col-8">
         
-        <div style="text-align: left; margin-left: 20%;background-color:#fff9f5;border-radius:20px;" >
+        <div style="text-align: left; margin-left: 20%;background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;" >
           
            <!--<h2 >กฎการเล่น</h2>
             
@@ -18,19 +21,22 @@
             <!-- <h1 style="text-align:center;color:#212529">โจทย์ </h1> -->
           <h2 v-for="(da, index) in this.datas" :key="da">
                 <div v-if="index+1 == this.no">
-                <br> ข้อที่ {{ index+1 }} ชนิดการเข้ารหัส {{da.type}} ข้อความที่ต้องถอด"{{da.cipherText}}"
+                <br>&nbsp;&nbsp; ข้อที่ {{ index+1 }} ชนิดการเข้ารหัส {{da.type}} <br>&nbsp;&nbsp; ข้อความที่ต้องถอด"{{da.cipherText}}"
                 </div>  
           </h2>
         <br>
         <br>
         
+        
           <!-- <h2>จงเติมคำตอบ</h2> -->
         </div>
+        <br>
+        <br>
           <div style="text-align:center;margin-left: 20%;">
             <textarea rows="3" id="ans" value="" style="background-color:#FFF ;"></textarea>
             <br>
         <br>
-            <button @click="createFeedback()" >Submit</button>
+            <a @click="createFeedback()" class="button-54">Submit</a>
           </div>
         <br>
         <br>
@@ -89,6 +95,33 @@ export default {
         clearTimeout(interval)
         clearInterval(interval)
         this.saveno = Number(localStorage.getItem("no")) + 1;
+      const token = this.$store.state.auth.user.accessToken;
+      
+      let point = {
+        scoreboardId: this.datas[this.no - 1].scoreboardId,
+        cipherId: this.datas[this.no - 1].cipherId,
+        plainText: document.getElementById("ans").value,
+        time: localStorage.getItem("timer"),
+      };
+      console.log("Number(localStorage.getItem(no)) + 1 == 10 ----" + localStorage.getItem("no"))
+      //alert(this.saveno);
+      if (this.saveno >= 11) {
+        //console.log(point)
+        //alert(this.saveno);
+        axios.post(`http://localhost:8080/api/scoreboard/`, point, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+          .then(() => {
+            //this.setScore2();
+            //alert("checksuss"+this.saveno);
+            this.$router.push("/user/scorepoint");
+          },
+          (error) => {
+            alert("2");
+            console.log(error)
+          })
+      }else{
+        console.log("error");
+      }
+        this.saveno = Number(localStorage.getItem("no")) + 1;
         console.log("saveno" + this.saveno)
         localStorage.setItem('no', this.saveno);
         console.log("p-" + this.timer)
@@ -99,12 +132,16 @@ export default {
         console.log("vale" + y);
         localStorage.setItem('datas', JSON.stringify(this.datas));
         console.log(this.datas[this.no - 1].cipherText);
+        if (this.saveno <11) {
         this.$router.go(0);
+        }
         if (this.level == 3) {
           localStorage.setItem('timer', 180);
         } else {
           localStorage.setItem('timer', 300);
         }
+
+
       } else if(this.timer>0 && (this.$route.fullPath == "/user/timeslow/5" || this.$route.fullPath == "/user/timeslow/3")){
         this.timer--
         localStorage.setItem('timer', this.timer);
@@ -114,7 +151,7 @@ export default {
         clearInterval(interval)
         localStorage.removeItem("timer");
       }
-    }, 1000)
+    }, 10)
 
     return {
       //timerset: localStorage.setItem('timer', 180),
@@ -307,4 +344,33 @@ button:hover {
 p {
   margin-left: 5%;
 }
+.button-54 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-54:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .button-54 {
+    padding: 0.25em 0.75em;
+  }
+}
+
 </style>
