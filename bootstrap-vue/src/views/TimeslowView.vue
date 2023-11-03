@@ -1,84 +1,55 @@
 <template lang="">
-    <MyNavBar />
-    <div id="outer">
-    <div>
+  <MyNavBar />
+  <div class="center">
+    <div class="row">
+      <div class="col-8">
         <br>
         <h1 style="text-align: center;">เกมถอดรหัส</h1>
         <h1 style="text-align: center;color:red;">เวลาคงเหลือ - {{this.timer}}</h1>
+        <h1 style="text-align: center;color:blue;">คุณได้คะเเนน- {{this.score2}}</h1>
         <br>
-        <div style="text-align: left; margin-left: 25%">
+        <div style="text-align: left; margin-left: 20%" >
             <h2 >กฎการเล่น</h2>
             <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
             <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
             <p>- sadasdasdsadsadsadsadsadasdasdadadsa</p>
-           <h2 v-for="(da, index) in this.datas" :key="da">
+          <h2 v-for="(da, index) in this.datas" :key="da">
                 <div v-if="index+1 == this.no">
                 โจทย์{{ index+1 }} {{da.type}} {{da.cipherText}}
                 </div>  
-            </h2>
+          </h2>
         
-            <h2>จงเติมคำตอบ</h2>
-        
-        <!--     <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0">
-        <thead style="border: 100cm;">
-          <tr>
-            <th scope="col">No. </th>
-            <th scope="col">cipherText</th>
-            <th scope="col">type</th>
-            <th scope="col">type</th>
-          </tr>
-        </thead>
-        <tbody v-for="(item, index) in paginatedData" :key="index">
-          <tr>
-            <th scope="row">{{ this.startInt + index + 1 }}</th>
-            <td>{{ item.cipherText}}</td>
-            <td>{{ item.type }}</td>
-            <textarea rows="3" id="ans" value=""></textarea>
-            <td>{{ date(item.date) }}</td>
-          </tr>
-        </tbody>
-        
-            </table>
-       -->
-        
-      
+          <h2>จงเติมคำตอบ</h2>
         </div>
-      <div style="margin-left: 20%;margin-right: 20%;">
-    <!-- <pagination :currentPage="currentPage" :totalPages="totalPages" @page-changed="changePage" /> -->
-        <textarea rows="3" id="ans" value=""></textarea>
-        
-        <a   @click="createFeedback" href="/user/timeslow/1">Submit</a>
+          <div style="text-align:center;margin-left: 20%">
+            <textarea rows="3" id="ans" value=""></textarea>
+            
+            <button @click="createFeedback()" >Submit</button>
+          </div>
+        <br>
+        <br>
       </div>
-        
-        <br>
-        
-        <br>
-        
+      <div class="col-4" v-if="check">
+        <table class="table table-striped">
+          <thead style="border: 100cm;">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Username</th>
+              <th scope="col">Score</th>
+            </tr>
+          </thead>
+          <tbody v-for="(da, index) in this.data" :key="da">
+            <tr>
+              <th scope="row">{{ index+1 }}</th>
+              <td>{{ da.name }}</td>
+              <td>{{ da.score }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div>
-        <div class="container">
-      
-      <table class="table table-striped">
-        <thead style="border: 100cm;">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Score</th>
-          </tr>
-        </thead>
-        <tbody v-for="(da, index) in this.data" :key="da">
-          <tr>
-            <th scope="row">{{ index+1 }}</th>
-            <td>{{ da.userName }}</td>
-            <td>{{ da.score }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    </div>
-    
-</div>
-<MyButtonBar />
+  </div>
+  <MyButtonBar />
 </template>
 <script>
 import MyNavBar from '@/components/MyNavBar.vue'
@@ -94,138 +65,13 @@ export default {
   props: ['aboutNo'],
   components: {
     MyNavBar,
-    MyButtonBar,
-    //    Pagination
-    //Countdown
+    MyButtonBar
   },
   data() {
     let interval = setInterval(() => {
-      if (this.timer === 0) {
+      if (this.timer === 0 && (this.$route.fullPath == "/user/timeslow/5" || this.$route.fullPath == "/user/timeslow/3")) {
+        clearTimeout(interval)
         clearInterval(interval)
-      } else {
-        this.timer--
-        console.log(this.timer)
-        localStorage.setItem('timer', this.timer);
-      }
-    }, 1000)
-
-    return {
-      timerset: localStorage.setItem('timer', 180),
-      timer: localStorage.getItem("timer"),
-      score: "ระดับง่าย",
-      datas: [],
-      data: [],
-      no: localStorage.getItem("no"),
-      startInt: 0,
-      currentPage: 1,
-      itemsPerPage: 1,
-      totalItems: 100,
-      level:this.$route.params.no,
-    }
-    //console.log(this.$route.params.time)
-  },
-  computed: {
-    totalPages() {
-      return Math.ceil(this.datas.length / this.itemsPerPage);
-    },
-    paginatedData() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      //var retrievedObject = localStorage.getItem('datas');
-      //this.datas = JSON.parse(retrievedObject);
-      console.log(startIndex);
-      console.log(endIndex);
-      return this.datas.slice(startIndex, endIndex);
-    }
-  }, methods: {
-    async createFeedback() {
-      let x = localStorage.getItem("timer");
-      console.log("createFeedback" + document.getElementById("ans").value);
-      let point = {
-        scoreboardId: this.datas[this.no - 1].scoreboardId,
-        cipherId: this.datas[this.no - 1].cipherId,
-        plainText: document.getElementById("ans").value,
-        time: x,
-        
-      };
-      // if(this.$route.params.no==1){
-      //   this.point.time=this.point.time+120;
-      // }
-      
-      console.log("point" + JSON.stringify(point));
-      this.saveno = Number(localStorage.getItem("no")) + 1;
-      const token = this.$store.state.auth.user.accessToken;
-      if (Number(localStorage.getItem("no")) + 1 > 10) {
-        console.log("============================");
-        alert(this.datas[this.no - 1].scoreboardId);
-        axios.get(`http://localhost:8080/api/scoreboard/` + this.datas[this.no - 1].scoreboardId, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
-          .then((response) => {
-            this.data = response.data.body
-
-            console.log("point" + this.data.score);
-            
-            localStorage.setItem('point',  this.data.score);
-            //localStorage.removeItem("timer");
-            //localStorage.removeItem("no");
-            alert("send Feedback success data")
-            localStorage.removeItem("datas");
-            location.href = "/user/scorepoint"
-            //this.$router.push("/user");
-          },
-            (error) => {
-              //alert("send Feedback unsuccess");
-              console.log(error)
-            })
-
-      }
-      console.log("saveno" + this.saveno)
-      localStorage.setItem('no', this.saveno);
-      console.log("p-" + this.timer)
-      localStorage.setItem('timer', this.timer);
-      console.log("p-" + x + "no " + localStorage.getItem("no"))
-      var y = document.getElementById("ans").value;
-      console.log("vale" + y);
-      //alert("check" + y);
-      this.datas[this.no - 1].plaintext = document.getElementById("ans").value;
-      localStorage.setItem('datas', JSON.stringify(this.datas));
-      console.log(this.datas[this.no - 1].cipherText);
-
-      axios.post(`http://localhost:8080/api/scoreboard/`, point, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
-        .then(() => {
-          //alert("send Feedback success")
-          //this.$router.push("/user");
-        },
-          (error) => {
-            //alert("send Feedback unsuccess");
-            console.log(error)
-          })
-
-    }, changePage(newPage) {
-      this.currentPage = newPage;
-      this.startInt = (this.currentPage - 1) * this.itemsPerPage;
-    }, async getData() {
-      var retrievedObject = localStorage.getItem('datas');
-      console.log('retrievedObject: ', JSON.parse(retrievedObject));
-      this.datas = JSON.parse(retrievedObject);
-      const token = this.$store.state.auth.user.accessToken;
-      console.log(token)
-      console.log(this.id)
-
-      axios.get(`http://localhost:8080/api/scoreboard/scores/` + "easy", { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
-        .then((response) => {
-          this.data = response.data.body
-
-          console.log(this.data[0])
-        },
-          (error) => {
-            //alert("username or password is already used");
-            console.log(error)
-          })
-
-
-     
-      const myTimeout = setTimeout(myGreeting, 180000);
-      function myGreeting() {
         this.saveno = Number(localStorage.getItem("no")) + 1;
         console.log("saveno" + this.saveno)
         localStorage.setItem('no', this.saveno);
@@ -235,17 +81,146 @@ export default {
         console.log("p-" + x + "no " + localStorage.getItem("no"))
         var y = document.getElementById("ans").value;
         console.log("vale" + y);
-        //alert("check" + y);
-        //this.datas[this.no - 1].plaintext = document.getElementById("ans").value;
         localStorage.setItem('datas', JSON.stringify(this.datas));
         console.log(this.datas[this.no - 1].cipherText);
-        location.href = "/user/timeslow/1/1800/0"
+        this.$router.go(0);
+        if (this.level == 3) {
+          localStorage.setItem('timer', 180);
+        } else {
+          localStorage.setItem('timer', 300);
+        }
+      } else if(this.timer>0 && (this.$route.fullPath == "/user/timeslow/5" || this.$route.fullPath == "/user/timeslow/3")){
+        this.timer--
+        localStorage.setItem('timer', this.timer);
       }
-      console.log(myTimeout);
+      else{
+        clearTimeout(interval)
+        clearInterval(interval)
+        localStorage.removeItem("timer");
+      }
+    }, 1000)
+
+    return {
+      //timerset: localStorage.setItem('timer', 180),
+      timer: localStorage.getItem("timer"),
+      score: "ระดับง่าย",
+      datas: [],
+      data: [],
+      no: localStorage.getItem("no"),
+      startInt: 0,
+      currentPage: 1,
+      itemsPerPage: 1,
+      totalItems: 100,
+      level: this.$route.params.no,
+      score2: 0,
+    }
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.datas.length / this.itemsPerPage);
+    },
+    paginatedData() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.datas.slice(startIndex, endIndex);
+    }, check() {
+      if (this.saveno > 10) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }, methods: {
+    async createFeedback() {
+      let x = localStorage.getItem("timer");
+      if (this.$route.params.no == 3) {
+        x = Number(x) * 2;
+      }
+
+      console.log("createFeedback" + document.getElementById("ans").value);
+      let point = {
+        scoreboardId: this.datas[this.no - 1].scoreboardId,
+        cipherId: this.datas[this.no - 1].cipherId,
+        plainText: document.getElementById("ans").value,
+        time: x,
+      };
+
+      console.log("point" + JSON.stringify(point));
+      this.saveno = Number(localStorage.getItem("no")) + 1;
+      const token = this.$store.state.auth.user.accessToken;
+      console.log("Number(localStorage.getItem(no)) + 1 == 10 ----" + localStorage.getItem("no"))
+      
+      if (this.saveno > 10) {
+        console.log(point)
+        axios.post(`http://localhost:8080/api/scoreboard/`, point, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+          .then(() => {
+            this.setScore2();
+            this.$router.push("/user/scorepoint");
+          },
+          (error) => {
+            console.log(error)
+          })
+      } else {
+        this.getData();
+        console.log("saveno" + this.saveno)
+        localStorage.setItem('no', this.saveno);
+        console.log("p-" + this.timer)
+        localStorage.setItem('timer', this.timer);
+        console.log("p-" + x + "no " + localStorage.getItem("no"))
+        var y = document.getElementById("ans").value;
+        console.log("vale" + y);
+        this.datas[this.no - 1].plaintext = document.getElementById("ans").value;
+        localStorage.setItem('datas', JSON.stringify(this.datas));
+        console.log(this.datas[this.no - 1].cipherText);
+
+        axios.post(`http://localhost:8080/api/scoreboard/`, point, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+          .then(() => {
+          },
+            (error) => {
+              console.log(error)
+            })
+        
+        if (this.level == 3) {
+          localStorage.setItem('timer', 180);
+        } else {
+          localStorage.setItem('timer', 300);
+        }
+        this.$router.go(0);
+      }
+    }, changePage(newPage) {
+      this.currentPage = newPage;
+      this.startInt = (this.currentPage - 1) * this.itemsPerPage;
+    }, async getData() {
+      var retrievedObject = localStorage.getItem('datas');
+      this.datas = JSON.parse(retrievedObject);
+      const token = this.$store.state.auth.user.accessToken;
+    
+      axios.get(`http://localhost:8080/api/scoreboard/scores/` + "easy" + "/value/10", { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+        .then((response) => {
+          this.data = response.data.body
+
+          console.log(this.data)
+        },
+          (error) => {
+            console.log(error)
+          })
+    },setScore2(){
+      const token = this.$store.state.auth.user.accessToken;
+      axios.get(`http://localhost:8080/api/scoreboard/` + this.datas[0].scoreboardId, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+        .then((response) => {
+          this.score2 = response.data.body.score;
+          localStorage.setItem('point',  response.data.body.score);
+        },
+        (error) => {
+
+          console.log(error);
+          alert(error);
+        })
     }
 
   }, mounted() {
     this.getData()
+    this.setScore2()
   }
 
 }

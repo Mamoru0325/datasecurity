@@ -1,19 +1,10 @@
-<template lang="">
+<template>
     <MyNavBar />
-    <div id="outer">
+    <div class="container" style="height: 80vb;">
     <div>
         <br>
         <h1 style="text-align: center;">เกมถอดรหัส</h1>
         <h1 style="text-align: center;color:blue;">คุณได้คะเเนน- {{this.score2}}</h1>
-        <br>
-       
-    <!-- <pagination :currentPage="currentPage" :totalPages="totalPages" @page-changed="changePage" /> -->
-       
-        
-        <br>
-        
-        <br>
-        
     </div>
     
     </div>
@@ -31,7 +22,7 @@ import MyButtonBar from '@/components/MyButtonBar.vue'
 //import Countdown from 'vue3-countdown'
 
 export default {
-  name: 'GameView',
+  name: 'scorePoint',
   props: ['aboutNo'],
   components: {
     MyNavBar,
@@ -41,17 +32,14 @@ export default {
   },
   data() {
     
-
     return {
-      timerset: localStorage.setItem('timer', 180),
+      
       timer: localStorage.getItem("timer"),
       score: "ระดับง่าย",
       datas: [],
       data: [],
       no: localStorage.getItem("no"),
       score2:localStorage.getItem("point"),
-
-      
     }
     //console.log(this.$route.params.time)
   },
@@ -63,12 +51,13 @@ export default {
     localStorage.removeItem("point");
     localStorage.removeItem("timer");
     localStorage.removeItem("datas");
+    localStorage.removeItem("score2");
+    
     }
     
 
   }, mounted() {
     this.getData();
-    
   }
 
 }

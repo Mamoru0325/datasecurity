@@ -27,7 +27,7 @@
         <tbody v-for="(da, index) in this.data" :key="da">
           <tr>
             <th scope="row">{{ index+1 }}</th>
-            <td>{{ da.userName }}</td>
+            <td>{{ da.name }}</td>
             <td>{{ da.score }}</td>
           </tr>
         </tbody>
@@ -67,7 +67,7 @@ export default {
       console.log(token)
       console.log(this.id)
       
-      axios.get(`http://localhost:8080/api/scoreboard/scores/` + this.id , { headers: { "Content-Type": "application/json" ,"Authorization": 'Bearer '+token } })
+      axios.get(`http://localhost:8080/api/scoreboard/scores/`+this.id+'/value/20', { headers: { "Content-Type": "application/json" ,"Authorization": 'Bearer '+token } })
             .then((response) => {
               this.data = response.data.body
               

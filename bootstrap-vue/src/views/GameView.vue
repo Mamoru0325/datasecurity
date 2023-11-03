@@ -25,11 +25,11 @@
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class href="/user/timeslow/1"  @click="timerstart" >
+                    <a class   @click="timerstart(3)" >
                         3 นาที
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class href="/user/timeslow/2"  @click="timerstart" >
+                    <a class   @click="timerstart(5)" >
                         5 นาที
                     </a>
                     </div>
@@ -47,11 +47,11 @@
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class href="/user/timeslow/1"  @click="timerstart2" >
+                    <a class   @click="timerstart2(3)" >
                         3 นาที
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class href="/user/timeslow/2"  @click="timerstart2" >
+                    <a class   @click="timerstart2(5)" >
                         5 นาที
                     </a>
                     </div>
@@ -69,11 +69,11 @@
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class href="/user/timeslow/1"  @click="timerstart3" >
+                    <a class   @click="timerstart3(3)" >
                         3 นาที
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class href="/user/timeslow/2"  @click="timerstart3" >
+                    <a class   @click="timerstart3(5)" >
                         5 นาที
                     </a>
                     </div>
@@ -105,14 +105,18 @@ export default {
     props:{
         getNo:Function
     }, methods: {
-        async timerstart() {
+        async timerstart(value) {
+            console.log("1")
             localStorage.setItem('no',1);
-            //localStorage.setItem('timer',1800);
-           
-            this.id = "easy"
+            if(value==3){
+            localStorage.setItem('timer',180);
+        }else{
+            localStorage.setItem('timer',300);
+        }
+            console.log("2")
+            this.id = "easy";
             const token = this.$store.state.auth.user.accessToken;
-            //console.log(token)
-            axios.get(`http://localhost:8080/api/cipher/question/`+ this.id, { headers: { "Content-Type": "application/json" , "Authorization": 'Bearer ' + token } })
+            axios.get("http://localhost:8080/api/cipher/question/easy", { headers: { "Content-Type": "application/json" , "Authorization": 'Bearer ' + token } })
                 .then((response) => {
                     this.datas = response.data.body;
                     console.log("obj"+this.datas);
@@ -127,15 +131,21 @@ export default {
                     var retrievedObject = localStorage.getItem('datas');
 
                     console.log('retrievedObject: ', JSON.parse(retrievedObject));
+                    this.$router.push("/user/timeslow/"+value);
+                    // href="/user/user/timeslow/"+value
                     //console.log(this.datas[0].type)
                 },
                     (error) => {
                         alert("username or password is already used");
                         console.log(error)
                     })
-        },async timerstart2() {
+        },async timerstart2(value) {
             localStorage.setItem('no',1);
-            //localStorage.setItem('timer',1800);
+            if(value==3){
+            localStorage.setItem('timer',180);
+        }else{
+            localStorage.setItem('timer',300);
+        }
            
             this.id = "moderate"
             const token = this.$store.state.auth.user.accessToken;
@@ -155,15 +165,20 @@ export default {
                     var retrievedObject = localStorage.getItem('datas');
 
                     console.log('retrievedObject: ', JSON.parse(retrievedObject));
+                    this.$router.push("/user/timeslow/"+value);
                     //console.log(this.datas[0].type)
                 },
                     (error) => {
                         alert("username or password is already used");
                         console.log(error)
                     })
-        },async timerstart3() {
+        },async timerstart3(value) {
             localStorage.setItem('no',1);
-            localStorage.setItem('timer',1800);
+            if(value==3){
+            localStorage.setItem('timer',180);
+        }else{
+            localStorage.setItem('timer',300);
+        }
            
             this.id = "hard"
             const token = this.$store.state.auth.user.accessToken;
@@ -183,6 +198,7 @@ export default {
                     var retrievedObject = localStorage.getItem('datas');
 
                     console.log('retrievedObject: ', JSON.parse(retrievedObject));
+                    this.$router.push("/user/timeslow/"+value);
                     //console.log(this.datas[0].type)
                 },
                     (error) => {

@@ -49,12 +49,12 @@ const routes = [
         name: 'adminad',
         beforeEnter: requireAuth,
         component: () => import('../views/admin/AddadminView.vue')
-      },{
+      }, {
         path: 'feedback',
         name: 'adminfeedback',
         beforeEnter: requireAuth,
         component: () => import('../views/admin/FeedbackView.vue')
-      },{
+      }, {
         path: 'question',
         children: [
           {
@@ -62,17 +62,17 @@ const routes = [
             name: 'adminquestion',
             beforeEnter: requireAuth,
             component: () => import('../views/admin/AdminQuestionView.vue')
-          },{
+          }, {
             path: 'type/:type',
             name: 'typequestion',
             beforeEnter: requireAuth,
             component: () => import('../views/admin/TypeQuestionView.vue')
-          },{
+          }, {
             path: 'add/:type',
             name: 'Addquestion',
             beforeEnter: requireAuth,
             component: () => import('../views/admin/CreateQuestionView.vue')
-          },{
+          }, {
             path: 'edit/:type',
             name: 'Editquestion',
             beforeEnter: requireAuth,
@@ -80,16 +80,17 @@ const routes = [
           }
         ]
       }
-      
+
     ]
   },
   {
     path: '/user/',
+    //beforeEnter: [requireAuth,cleandata],
     children: [
       {
         path: '',
         name: 'userhome',
-        beforeEnter: requireAuth,
+        beforeEnter: [requireAuth, cleandata],
         component: HomeView
       },
       {
@@ -107,43 +108,43 @@ const routes = [
       {
         path: 'about',
         name: 'aboutuser',
-        beforeEnter: requireAuth,
+        beforeEnter: [requireAuth, cleandata],
         component: () => import('../views/AboutView.vue')
       },
       {
         path: 'game',
         name: 'game',
-        beforeEnter: requireAuth,
+        beforeEnter: [requireAuth, cleandata],
         component: () => import('../views/GameView.vue')
       },
       {
         path: 'score',
         name: 'score',
-        beforeEnter: requireAuth,
+        beforeEnter: [requireAuth, cleandata],
         component: () => import('../views/ScoreView.vue')
       },
       {
         path: 'cizar',
         name: 'cizar',
-        beforeEnter: requireAuth,
+        beforeEnter: [requireAuth, cleandata],
         component: () => import('../views/CizarView.vue')
       },
       {
         path: 'vigenere',
         name: 'vigenere',
-        beforeEnter: requireAuth,
+        beforeEnter: [requireAuth, cleandata],
         component: () => import('../views/VigenereView.vue')
       },
       {
         path: 'permutation',
         name: 'permutation',
-        beforeEnter: requireAuth,
+        beforeEnter: [requireAuth, cleandata],
         component: () => import('../views/PermutationView.vue')
       },
       {
         path: 'feedback',
         name: 'feedback',
-        beforeEnter: requireAuth,
+        beforeEnter: [requireAuth, cleandata],
         component: () => import('../views/FeedbackView.vue')
       }]
   }, { path: '/:pathMatch(.*)*', component: () => import('../components/Error404.vue') }
@@ -155,7 +156,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register/user', '/', '/about','/register/admin'];
+  const publicPages = ['/login', '/register/user', '/', '/about', '/register/admin'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 
@@ -193,5 +194,10 @@ function requireAuth(to, from, next) {
   } else {
     next();
   }
+}
+function cleandata() {
+  localStorage.removeItem("datas");
+  localStorage.removeItem("no");
+  localStorage.removeItem("timer");
 }
 export default router
