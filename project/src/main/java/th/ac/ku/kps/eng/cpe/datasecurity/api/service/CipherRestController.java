@@ -92,10 +92,9 @@ public class CipherRestController {
 				
 				String[] plainText = cipher.getPlainText().split(" ");
 				Shift_Cipher sc = new Shift_Cipher();
-				
 				for(int i = 0; i < plainText.length; i++) {
 					cipherText.append(sc.encrypt(plainText[i], Integer.parseInt(cipher.getCipherKey())));
-					if(i < plainText.length) {
+					if(i < plainText.length - 1) {
 						cipherText.append(" ");
 					}
 				}
@@ -107,7 +106,7 @@ public class CipherRestController {
 				
 				for(int i = 0; i < plainText.length; i++) {
 					cipherText.append(vc.encrypt(plainText[i], cipher.getCipherKey()));
-					if(i < plainText.length) {
+					if(i < plainText.length - 1) {
 						cipherText.append(" ");
 					}
 				}
@@ -303,7 +302,7 @@ public class CipherRestController {
 					
 					for(int i = 0; i < plainText.length; i++) {
 						cipherText.append(sc.encrypt(plainText[i], Integer.parseInt(cipher.getCipherKey())));
-						if(i < plainText.length) {
+						if(i < plainText.length - 1) {
 							cipherText.append(" ");
 						}
 					}
@@ -315,7 +314,7 @@ public class CipherRestController {
 					
 					for(int i = 0; i < plainText.length; i++) {
 						cipherText.append(vc.encrypt(plainText[i], cipher.getCipherKey()));
-						if(i < plainText.length) {
+						if(i < plainText.length - 1) {
 							cipherText.append(" ");
 						}
 					}
