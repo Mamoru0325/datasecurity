@@ -92,9 +92,7 @@ public class CipherRestController {
 				
 				String[] plainText = cipher.getPlainText().split(" ");
 				Shift_Cipher sc = new Shift_Cipher();
-				System.out.println(plainText.length);
 				for(int i = 0; i < plainText.length; i++) {
-					System.out.println(i);
 					cipherText.append(sc.encrypt(plainText[i], Integer.parseInt(cipher.getCipherKey())));
 					if(i < plainText.length - 1) {
 						cipherText.append(" ");
