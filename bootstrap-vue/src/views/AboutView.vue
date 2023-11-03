@@ -1,7 +1,7 @@
 <template>
-  <div class="about">
+  <div class="about" style="background-color:#fff9f5;">
     <MyNavBar />
-    <div class="container">
+    <div class="container" >
       <div class="row justify-content-center">
         <div class="col-12 col-sm-8 col-lg-6">
           <!-- Section Heading-->

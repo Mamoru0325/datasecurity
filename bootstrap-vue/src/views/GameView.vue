@@ -1,5 +1,5 @@
 <template lang="">
-    <div>
+    <div style="background-color:#fff9f5;">
         <MyNavBar />
         <br>
         <h1 style="text-align: center;">เกมถอดรหัส</h1>
@@ -14,12 +14,12 @@
         <br>
         <div >
             <div class="card mb-3" style="max-width: 800px;margin: auto" >
-                <div class="row g-0">
+                <div class="row g-0" style="background-color:#fff9f5;">
                     <div class="col-md-4">
                     <img src="https://html.com/wp-content/uploads/flamingo.webp" class="img-fluid rounded-start" >
                     </div>
                     <div class="col-md-8">
-                    <div class="card-body">
+                    <div class="card-body" >
                         <h5 class="card-title">Easy</h5>
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
@@ -40,7 +40,7 @@
                     <div class="col-md-4">
                     <img src="https://html.com/wp-content/uploads/flamingo.webp" class="img-fluid rounded-start" >
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8" style="background-color:#fff9f5;">
                     <div class="card-body">
                         <h5 class="card-title">Normal</h5>
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="card mb-3" style="max-width: 800px;margin: auto">
-                <div class="row g-0">
+                <div class="row g-0" style="background-color:#fff9f5;">
                     <div class="col-md-4">
                     <img src="https://html.com/wp-content/uploads/flamingo.webp" class="img-fluid rounded-start" >
                     </div>
