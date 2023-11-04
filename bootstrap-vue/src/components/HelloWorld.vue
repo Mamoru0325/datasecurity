@@ -20,7 +20,7 @@
           <h5 class="card-title">การถอดรหัสแบบ Vigenere</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
             content.</p>
-          <RouterLink to="/vigenere" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <RouterLink to="/user/vigenere" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
         </div>
       </div>
       <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
@@ -30,7 +30,7 @@
           <h5 class="card-title">การถอดรหัสแบบ Permutation</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
             content.</p>
-          <RouterLink to="/permutation" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <RouterLink to="/user/permutation" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
         </div>
       </div>
     </div>

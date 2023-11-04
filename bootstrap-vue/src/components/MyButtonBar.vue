@@ -8,7 +8,7 @@
                 </p>
             </div>
             <div style="margin: auto;">
-                asdasdasdasd
+               
             </div>
         </div>
     </nav>

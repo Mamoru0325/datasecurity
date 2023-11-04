@@ -169,7 +169,7 @@ export default {
         const token = this.$store.state.auth.user.accessToken;
         axios.post("http://localhost:8080/api/cipher/precreate", data, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
           .then((response) => {
-            if (response.data.body.cipherText == (this.plainText + " ")) {
+            if (response.data.body.cipherText == this.plainText) {
               alert("คำตอบถูกต้อง")
             }
             else {

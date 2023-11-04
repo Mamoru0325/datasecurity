@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color:#fff9f5;height:75vb;">
+  <div style="background-color:#fff9f5;height:90vb;">
     <MyNavBar />
     <br>
     <div class="row">
@@ -34,8 +34,8 @@
       </table>
     </div>
     <br>
-    <MyButtonbarBar class="bottom" />
   </div>
+  <MyButtonbarBar />
 </template>
 <script>
 import MyNavBar from '@/components/MyNavBar.vue'
@@ -67,7 +67,7 @@ export default {
       console.log(token)
       console.log(this.id)
       
-      axios.get(`http://localhost:8080/api/scoreboard/scores/`+this.id+'/value/20', { headers: { "Content-Type": "application/json" ,"Authorization": 'Bearer '+token } })
+      axios.get(`http://localhost:8080/api/scoreboard/scores/`+this.id+'/value/10', { headers: { "Content-Type": "application/json" ,"Authorization": 'Bearer '+token } })
             .then((response) => {
               this.data = response.data.body
               
