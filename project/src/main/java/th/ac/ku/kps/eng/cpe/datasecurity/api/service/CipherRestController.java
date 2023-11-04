@@ -73,7 +73,7 @@ public class CipherRestController {
 
 	@PostMapping("/precreate")
 	@SecurityRequirement(name = "Bearer Authentication")
-	@PreAuthorize("hasRole('User') or hasRole('Admin')")
+	@PreAuthorize("hasRole('Admin')")
 	public ResponseEntity<Response<?>> preCreate(@RequestBody String question) {
 		Response<ObjectNode> res = new Response<>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -117,7 +117,7 @@ public class CipherRestController {
 				String plainText = cipher.getPlainText().replace(" ", "");
 
 				int[] pi = new int[key.length];
-
+				
 				for (int i = 0; i < key.length; i++) {
 					pi[i] = Integer.parseInt(key[i]);
 				}
@@ -318,6 +318,7 @@ public class CipherRestController {
 							cipherText.append(" ");
 						}
 					}
+					responObject.put("key", cipher.getCipherKey());
 
 				} else if (cipher.getType().getTypeName().equals("permutation")) {
 
@@ -332,6 +333,7 @@ public class CipherRestController {
 
 					Permutation_Cipher pc = new Permutation_Cipher(pi);
 					cipherText.append(pc.encrypt(plainText));
+					responObject.put("length", key.length);
 
 				}
 				responObject.put("cipherText", cipherText.toString());
