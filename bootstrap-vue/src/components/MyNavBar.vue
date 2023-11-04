@@ -36,19 +36,19 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item" >หน้ารวม</a></RouterLink>
+              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item" >แบบทดสอบ</a></RouterLink>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
             <li>
-              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item">ระดับง่าย</a></RouterLink>
+              <RouterLink class="dropdown-item" to="/user/cizar"><a class="dropdown-item">การถอดรหัสแบบซีซาร์</a></RouterLink>
             </li>
             <li>
-              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item">ระดับกลาง</a></RouterLink>
+              <RouterLink class="dropdown-item" to="/user/vigenere"><a class="dropdown-item">การถอดรหัสแบบ Vigenere</a></RouterLink>
             </li>
             <li>
-              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item">ระดับยาก</a></RouterLink>
+              <RouterLink class="dropdown-item" to="/user/permutation"><a class="dropdown-item">การถอดรหัสแบบ Permutation</a></RouterLink>
             </li>
           </ul>
         </li>
