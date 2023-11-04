@@ -1,5 +1,5 @@
 <template>
-    <div class="vertical-center">
+    <div class="vertical-center" style="background-color:#fff9f5;">
         <div class="container center">
             <div id="notfound" class="text-center ">
                 <h1>404 Error Page</h1>
