@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import store from '@/store/index.js';
 
 const routes = [
   {
@@ -160,8 +159,7 @@ router.beforeEach((to, from, next) => {
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 
-  // trying to access a restricted page + not logged in
-  // redirect to login page
+
   if (authRequired && !loggedIn) {
     next('/');
   } else {
@@ -170,16 +168,16 @@ router.beforeEach((to, from, next) => {
 });
 
 function checkAuth(to, from, next) {
-  const loggedIn = localStorage.getItem('user');
+  const loggedIn = JSON.parse(localStorage.getItem('user'));
   if (loggedIn) {
-    if (store.state.auth.user.roles[0] === 'ROLE_User')
-      next({
-        path: "/user",
-      });
-    if (store.state.auth.user.roles[0] === 'ROLE_Admin')
-      next({
-        path: "/admin",
-      });
+    if (loggedIn.roles[0] === 'ROLE_User')
+      next(
+        "/user"
+      );
+    if (loggedIn.roles[0] === 'ROLE_Admin')
+      next(
+        "/admin"
+      );
   } else {
     next();
   }
