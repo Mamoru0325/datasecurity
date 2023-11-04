@@ -254,7 +254,7 @@ export default {
       this.datas = JSON.parse(retrievedObject);
       const token = this.$store.state.auth.user.accessToken;
     
-      axios.get(`http://localhost:8080/api/scoreboard/scores/` + "easy" + "/value/10", { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+      axios.get(`http://localhost:8080/api/scoreboard/scores/` + this.datas[0].level + "/value/10", { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
         .then((response) => {
           this.data = response.data.body
 

@@ -128,7 +128,7 @@ export default {
                 .then((response) => {
                     this.datas = response.data.body;
                     console.log("obj"+this.datas);
-                    alert("---");
+                    //alert("---");
                     for (let i = 0; i < 3; i++) {
                        // this.datas[i].plaintext="";
                     }
@@ -162,7 +162,7 @@ export default {
                 .then((response) => {
                     this.datas = response.data.body;
                     console.log("obj"+this.datas);
-                    alert("---");
+                    //alert("---");
                     for (let i = 0; i < 3; i++) {
                        // this.datas[i].plaintext="";
                     }
@@ -195,13 +195,13 @@ export default {
                 .then((response) => {
                     this.datas = response.data.body;
                     console.log("obj"+this.datas);
-                    alert("---");
+                    //alert("---");
                     for (let i = 0; i < 10; i++) {
                        // this.datas[i].plaintext="";
                     }
                     console.log("obj"+this.datas);
                     localStorage.setItem('datas', JSON.stringify(this.datas));
-                    alert("new data");
+                    //alert("new data");
                     // Retrieve the object from storage
                     var retrievedObject = localStorage.getItem('datas');
 

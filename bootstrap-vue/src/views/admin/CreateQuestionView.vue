@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color:#fff9f5;">
     <MyNavBar />
     <br>
     <div class="container" style="height: 80vb;">

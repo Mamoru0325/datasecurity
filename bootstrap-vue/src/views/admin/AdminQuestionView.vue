@@ -1,5 +1,6 @@
 <template>
     <MyNavBar />
+    <div style="background-color:#fff9f5;">
     <div class="hello" style="height: 80dvb;">
         <h1 style="text-align: center;margin-top: 2%;">โจทย์คำถามที่ใช้งาน</h1>
         <br>
@@ -27,6 +28,7 @@
             </div>
         </div>
     </div>
+</div>
     <MyButtonBar />
 </template>
   

@@ -1,5 +1,5 @@
 <template>
-    <div class="pagination">
+    <div class="pagination" style="background-color:#fff9f5;">
         <button @click="goToPage(1)" :disabled="currentPage === 1">First</button>
         <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">Previous</button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>
