@@ -6,10 +6,12 @@
         <br>
         <div style="text-align: left; margin-left: 22%;">
             <h2 style="font-size:30;margin-left: 5%">กฎการเล่น</h2>
-            <p style="font-size:20px">- ศึกษาวิธีการเข้ารหัส - ถอดรหัส ก่อนเริ่มเล่นน</p>
-            <p style="font-size:20px">- เรื่องระดับความยาก โดยมี - ระดับ Easy Normal Hard</p>
-            <p style="font-size:20px">- เลือกเวลาที่ต้องการคือ ข้อละ 3 นาที เเละ 5 นาที <span style="color: red"><br>(โดยเวลาที่มีให้เลือก 3 และ 5 นาทีเป็นความท้าทายที่ให้เลือก นั้น เมื่อเลือก 5 นาที คะแนนจะ * 1 และ เมื่อเลือก 3 นาที คะแนนจะ * 2 )</span></p>
-            <p style="font-size:20px;color:red;">*เมื่อเริ่มแล้วกรุณา เช็คคำตอบทุกครั้งก่อนที่จะกดตกลงเพราะไม่สามารถย้อนกลับได้ </p>
+            <p style="font-size:20px">- ศึกษาวิธีการถอดรหัสก่อนเริ่มเล่น</p>
+            <p style="font-size:20px">- เรื่องระดับความยาก โดยมี - ระดับ ง่าย ปานกลาง ยาก</p>
+            <p style="font-size:20px">- เลือกเวลาที่ต้องการคือ ข้อละ 3 นาที เเละ 5 นาที </p>
+            <p style="font-size:20px">- โดยเมื่อเลือก 3 นาที คะแนนจะเป็น 2 เท่าของเวลาที่คงเหลือ และ</p>
+            <p style="font-size:20px">  เมื่อเลือก 5 นาที คะแนนจะเป็นเวลาที่คงเหลือ</p>
+            <p style="font-size:20px;color:red;">*เมื่อเริ่มแล้วกรุณาเช็คคำตอบทุกครั้งก่อนที่จะกดตกลงเพราะไม่สามารถย้อนกลับได้ </p>
         </div>
         <br>
         <div >
@@ -20,7 +22,7 @@
                     </div>
                     <div class="col-md-8">
                     <div class="card-body" >
-                        <h5 class="card-title">Easy</h5>
+                        <h5 class="card-title">ระดับง่าย</h5>
                         <p class="card-text">เหมาะสำหรับผู้เริ่มต้น</p>
                        
                     </div>
@@ -44,7 +46,7 @@
                     </div>
                     <div class="col-md-8" style="background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
                     <div class="card-body">
-                        <h5 class="card-title">Normal</h5>
+                        <h5 class="card-title">ระดับปานกลาง</h5>
                         <p class="card-text">เหมาะสำหรับผู้คนที่เริ่มมีคล่องในการถอดรหัส</p>
                        
                     </div>
@@ -68,7 +70,7 @@
                     </div>
                     <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">Hard</h5>
+                        <h5 class="card-title">ระดับยาก</h5>
                         <p class="card-text">เหมาะสำหรับผู้คนที่ชำนาญในการถอดรหัส</p>
                        
                     </div>
