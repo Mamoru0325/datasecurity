@@ -10,7 +10,8 @@
           <h5 class="card-title">การถอดรหัสแบบซีซาร์</h5>
           <p class="card-text"> เป็นการแทนค่าแต่ละตัวอักษรด้วยสัญลักษณ์เพียงตัวเดียว เป็นวิธีทีง่ายที่สุด
             ใช้มาตั้งแต่สมัยจูเลียส ซีซาร์</p>
-          <RouterLink to="/user/cizar" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <RouterLink to="/admin/cizar" v-if="showAdmin"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <RouterLink to="/user/cizar" v-if="showUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
         </div>
       </div>
       <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
@@ -18,9 +19,10 @@
           style="margin-top: 3%">
         <div class="card-body">
           <h5 class="card-title">การถอดรหัสแบบ Vigenere</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <RouterLink to="/user/vigenere" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <p class="card-text">Vigenere cipher เป็นการเข้ารหัสแบบซีเคร็ทคีย์ (Secret Key) 
+          ที่อาศัยพื้นฐานเดียวกันกับ Caesar</p>
+          <RouterLink to="/admin/vigenere" v-if="showAdmin"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <RouterLink to="/user/vigenere" v-if="showUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
         </div>
       </div>
       <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
@@ -28,9 +30,9 @@
           style="margin-top: 3%">
         <div class="card-body">
           <h5 class="card-title">การถอดรหัสแบบ Permutation</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <RouterLink to="/user/permutation" v-if="currentUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <p class="card-text">การเข้ารหัสข้อมูล Permutation หรือ Columnar Transposition Cipher(สำหรับเล่นบนเว็บนี้)</p>
+          <RouterLink to="/admin/permutation" v-if="showAdmin"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <RouterLink to="/user/vigenere" v-if="showUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
         </div>
       </div>
     </div>
@@ -49,6 +51,20 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    showAdmin() {
+      if (this.currentUser && this.currentUser.roles[0] === 'ROLE_Admin') {
+        return true;
+      }
+
+      return false;
+    },
+    showUser() {
+      if (this.currentUser && this.currentUser.roles[0] === 'ROLE_User') {
+        return true;
+      }
+
+      return false;
     }
   }
 }
