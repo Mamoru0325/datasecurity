@@ -32,7 +32,7 @@
           <h5 class="card-title">การถอดรหัสแบบ Permutation</h5>
           <p class="card-text">การเข้ารหัสข้อมูล Permutation หรือ Columnar Transposition Cipher(สำหรับเล่นบนเว็บนี้)</p>
           <RouterLink to="/admin/permutation" v-if="showAdmin"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
-          <RouterLink to="/user/vigenere" v-if="showUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
+          <RouterLink to="/user/permutation" v-if="showUser"><a class="btn btn-primary" style="color:#000000">อ่านเพิ่มเติม</a></RouterLink>
         </div>
       </div>
     </div>
