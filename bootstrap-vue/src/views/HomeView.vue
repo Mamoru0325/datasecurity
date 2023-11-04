@@ -5,13 +5,13 @@
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 90%;margin: auto;">
       <div class="carousel-inner" >
         <div class="carousel-item active" >
-          <img src="https://html.com/wp-content/uploads/flamingo.webp" class="d-block w-100"  height="500" alt="...">
+          <img src="../assets/020.png" class="d-block w-100"  height="500" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="https://html.com/wp-content/uploads/flamingo.webp" class="d-block w-100" height="500" alt="...">
+          <img src="../assets/020.png" class="d-block w-100" height="500" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="https://html.com/wp-content/uploads/flamingo.webp" class="d-block w-100" height="500" alt="...">
+          <img src="../assets/020.png" class="d-block w-100" height="500" alt="...">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
