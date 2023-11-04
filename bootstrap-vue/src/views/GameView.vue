@@ -18,7 +18,7 @@
             <div class="card mb-3" style="max-width: 800px;margin: auto" >
                 <div class="row g-0" style="background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
                     <div class="col-md-4">
-                    <img src="https://html.com/wp-content/uploads/flamingo.webp" class="img-fluid rounded-start" >
+                    <img  style="height:176px;weight:266px;margin-left: 16%;" src="https://cdn-icons-png.flaticon.com/512/822/822123.png" class="img-fluid rounded-start" >
                     </div>
                     <div class="col-md-8">
                     <div class="card-body" >
@@ -40,11 +40,11 @@
                 </div>
             </div>
             <div class="card mb-3" style="max-width: 800px;margin: auto">
-                <div class="row g-0">
+                <div class="row g-0" style="background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
                     <div class="col-md-4">
-                    <img src="https://html.com/wp-content/uploads/flamingo.webp" class="img-fluid rounded-start" >
+                    <img style="height:176px;weight:266px;margin-left: 16%;" src="https://cdn-icons-png.flaticon.com/128/5125/5125536.png" class="img-fluid rounded-start" >
                     </div>
-                    <div class="col-md-8" style="background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
+                    <div class="col-md-8" >
                     <div class="card-body">
                         <h5 class="card-title">ระดับปานกลาง</h5>
                         <p class="card-text">เหมาะสำหรับผู้คนที่เริ่มมีคล่องในการถอดรหัส</p>
@@ -66,7 +66,7 @@
             <div class="card mb-3" style="max-width: 800px;margin: auto">
                 <div class="row g-0" style="background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
                     <div class="col-md-4">
-                    <img src="https://html.com/wp-content/uploads/flamingo.webp" class="img-fluid rounded-start" >
+                    <img style="height:176px;margin-left: 16%;" src="https://cdn-icons-png.flaticon.com/512/2213/2213729.png" class="img-fluid rounded-start" >
                     </div>
                     <div class="col-md-8">
                     <div class="card-body">
