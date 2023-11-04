@@ -21,7 +21,7 @@
                     <div class="col-md-8">
                     <div class="card-body" >
                         <h5 class="card-title">Easy</h5>
-                        <p class="card-text">ระดับง่ายเหมาะสำหรับผู้ที่ต้องการฝึกเริ่ม</p>
+                        <p class="card-text">เหมาะสำหรับผู้เริ่มต้น</p>
                        
                     </div>
                     <br>
@@ -45,7 +45,7 @@
                     <div class="col-md-8" style="background-color:#fff9f5;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
                     <div class="card-body">
                         <h5 class="card-title">Normal</h5>
-                        <p class="card-text">เพิ่มความยากขึ้นมาเล็กน้อย อาจต้องใช้เวลาเพิ่มขึ้นในการทำ </p>
+                        <p class="card-text">เหมาะสำหรับผู้คนที่เริ่มมีคล่องในการถอดรหัส</p>
                        
                     </div>
                     <br>
@@ -69,7 +69,7 @@
                     <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">Hard</h5>
-                        <p class="card-text">ยากสุดๆแนะนำว่าอย่ามาเล่น</p>
+                        <p class="card-text">เหมาะสำหรับผู้คนที่ชำนาญในการถอดรหัส</p>
                        
                     </div>
                     <br>
@@ -194,12 +194,12 @@ export default {
                     this.datas = response.data.body;
                     console.log("obj"+this.datas);
                     alert("---");
-                    for (let i = 0; i < 3; i++) {
+                    for (let i = 0; i < 10; i++) {
                        // this.datas[i].plaintext="";
                     }
                     console.log("obj"+this.datas);
                     localStorage.setItem('datas', JSON.stringify(this.datas));
-                    
+                    alert("new data");
                     // Retrieve the object from storage
                     var retrievedObject = localStorage.getItem('datas');
 

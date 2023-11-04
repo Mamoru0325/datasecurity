@@ -22,6 +22,12 @@
           <h2 v-for="(da, index) in this.datas" :key="da">
                 <div v-if="index+1 == this.no">
                 <br>&nbsp;&nbsp; ข้อที่ {{ index+1 }} ชนิดการเข้ารหัส {{da.type}} <br>&nbsp;&nbsp; ข้อความที่ต้องถอด"{{da.cipherText}}"
+                <div v-if="da.type=='vigenere'">
+                  <br>&nbsp;&nbsp; key : {{da.key}}
+                </div>
+                <div v-if="da.type=='permutation'">
+                  <br>&nbsp;&nbsp; lenght : {{da.length}}
+                </div>
                 </div>  
           </h2>
         <br>
@@ -151,7 +157,7 @@ export default {
         clearInterval(interval)
         localStorage.removeItem("timer");
       }
-    }, 10)
+    }, 1000)
 
     return {
       //timerset: localStorage.setItem('timer', 180),

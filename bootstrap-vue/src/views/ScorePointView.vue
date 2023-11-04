@@ -23,7 +23,7 @@
       
       <h1 style="text-align: center;color:blue;">คุณได้คะเเนน {{ this.score2 }}</h1>
       <br><br>
-      <h2 style="text-align: center;color:rgb(0, 0, 0);"><RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item" >ย้อนกลับหน้ารวม</a></RouterLink></h2>
+      <button class="button-54"><RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item" >ย้อนกลับหน้ารวม</a></RouterLink></button>
     </div>
 
   </div>
@@ -131,13 +131,14 @@ input::placeholder {
 }
 
 button {
-  width: 100%;
+  width: 30%;
   padding: 10px;
   border: none;
   background: #1c87c9;
   font-size: 16px;
   font-weight: 400;
   color: #fff;
+  margin-left: 35%;
 }
 
 button:hover {
@@ -147,4 +148,33 @@ button:hover {
 p {
   margin-left: 5%;
 }
+.button-54 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-54:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .button-54 {
+    padding: 0.25em 0.75em;
+  }
+}
+
 </style>
