@@ -1,6 +1,6 @@
 <template lang="">
   <MyNavBar />
-  <div class="center" style="background-color:#fff9f5;height:75vb;" > 
+  <div class="center" style="background-color:#fff9f5;" > 
   <!-- <h1 style="text-align: center;">เกมถอดรหัส</h1> -->
   <br>
   <br>
