@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="/" class="navbar-brand">เกมถอดรหัส</a>
+    <a href="/" class="navbar-brand">Cryptofer</a>
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
       <div class="navbar-nav mr-auto">
         <li class="nav-item" v-if="!currentUser">

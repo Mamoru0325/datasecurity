@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1 style="text-align: center;">ยินดีต้อนรับสู่ เว็บเกมถอดรหัส</h1>
+    <h1 style="text-align: center;">ยินดีต้อนรับสู่ Cryptofer</h1>
     <br>
     <div class="row">
       <div class="card" style="width: 25rem; margin: auto; border: 1px solid #000;">
