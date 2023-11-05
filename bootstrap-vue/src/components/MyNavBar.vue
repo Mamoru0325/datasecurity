@@ -36,19 +36,19 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item" >แบบทดสอบ</a></RouterLink>
+              <RouterLink class="dropdown-item" to="/user/game"><a class="dropdown-item" >เกมถอดรหัส</a></RouterLink>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
             <li>
-              <RouterLink class="dropdown-item" to="/user/cizar"><a class="dropdown-item">การถอดรหัสแบบซีซาร์</a></RouterLink>
+              <RouterLink class="dropdown-item" to="/user/cizar"><a class="dropdown-item">สอนถอดรหัสแบบซีซาร์</a></RouterLink>
             </li>
             <li>
-              <RouterLink class="dropdown-item" to="/user/vigenere"><a class="dropdown-item">การถอดรหัสแบบ Vigenere</a></RouterLink>
+              <RouterLink class="dropdown-item" to="/user/vigenere"><a class="dropdown-item">สอนถอดรหัสแบบ Vigenere</a></RouterLink>
             </li>
             <li>
-              <RouterLink class="dropdown-item" to="/user/permutation"><a class="dropdown-item">การถอดรหัสแบบ Permutation</a></RouterLink>
+              <RouterLink class="dropdown-item" to="/user/permutation"><a class="dropdown-item">สอนถอดรหัสแบบ Permutation</a></RouterLink>
             </li>
           </ul>
         </li>
