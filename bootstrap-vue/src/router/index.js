@@ -5,29 +5,29 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    beforeEnter: checkAuth,
+    beforeEnter: [checkAuth,cleandata],
     component: HomeView
   },
   {
     path: '/about',
     name: 'about',
-    beforeEnter: checkAuth,
+    beforeEnter: [checkAuth,cleandata],
     component: () => import('../views/AboutView.vue')
   },
   {
     path: '/login',
-    beforeEnter: checkAuth,
+    beforeEnter: [checkAuth,cleandata],
     component: () => import('../views/Login/LoginView.vue'),
     // beforeEnter: checkLogin
   },
   {
     path: '/register/user',
-    beforeEnter: checkAuth,
+    beforeEnter: [checkAuth,cleandata],
     component: () => import('../views/Login/RegisterView.vue')
   },
   {
     path: '/register/admin',
-    beforeEnter: checkAuth,
+    beforeEnter: [checkAuth,cleandata],
     component: () => import('../views/Login/AdminRegisterView.vue')
   },
   {
@@ -229,5 +229,6 @@ function cleandata() {
   localStorage.removeItem("datas");
   localStorage.removeItem("no");
   localStorage.removeItem("timer");
+  localStorage.removeItem("point");
 }
 export default router
