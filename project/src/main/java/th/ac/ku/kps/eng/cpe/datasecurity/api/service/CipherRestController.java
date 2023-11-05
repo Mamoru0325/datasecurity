@@ -85,7 +85,7 @@ public class CipherRestController {
 			Type type = typeService.findById(typeId);
 			Cipher cipher = mapper.readValue(question, Cipher.class);
 			cipher.setType(type);
-
+			cipher.setPlainText(cipher.getPlainText().toLowerCase());
 			StringBuilder cipherText = new StringBuilder();
 
 			if (type.getTypeName().equals("caesar")) {
@@ -159,6 +159,7 @@ public class CipherRestController {
 			int typeId = jsonNode.get("type").asInt();
 			Type type = typeService.findById(typeId);
 			Cipher cipher = mapper.readValue(question, Cipher.class);
+			cipher.setPlainText(cipher.getPlainText().toLowerCase());
 			cipher.setType(type);
 			cipher = cipherService.save(cipher);
 			responseObject = mapper.valueToTree(cipher);
@@ -191,6 +192,7 @@ public class CipherRestController {
 			Type type = typeService.findById(typeId);
 			Cipher cipher = cipherService.findById(cipherId);
 			Cipher _cipher = mapper.readValue(question, Cipher.class);
+			_cipher.setPlainText(_cipher.getPlainText().toLowerCase());
 			cipher.clone(_cipher);
 			cipher.setType(type);
 			cipher = cipherService.save(cipher);
