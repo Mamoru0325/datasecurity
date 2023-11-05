@@ -19,7 +19,7 @@
           <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s"
             style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
             <!-- Team Thumb-->
-            <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+            <div class="advisor_thumb"><img src="../assets/unnamed.jpg" height="350" width="320" alt="">
               <!-- Social Info-->
               
             </div>
@@ -35,13 +35,13 @@
           <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.3s"
             style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
             <!-- Team Thumb-->
-            <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+            <div class="advisor_thumb"><img src="../assets/asd.jpg" height="350" width="320" alt="">
               <!-- Social Info-->
               
             </div>
             <!-- Team Details-->
             <div class="single_advisor_details_info">
-              <h5>Nazrul Islam</h5>
+              <h5>นาย ประวีร์	งามจารุกิจ</h5>
               <p class="designation">Frontend Developer</p>
             </div>
           </div>
@@ -51,14 +51,14 @@
           <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.4s"
             style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
             <!-- Team Thumb-->
-            <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+            <div class="advisor_thumb"><img src="../assets/ApplicationPhoto.jpg" height="350" width="320" alt="">
               <!-- Social Info-->
               
             </div>
             <!-- Team Details-->
             <div class="single_advisor_details_info">
-              <h5>Riyadh Khan</h5>
-              <p class="designation">Developer</p>
+              <h5>นาย ปวีณวิชญ์	ท่าดี</h5>
+              <p class="designation">Backend Developer</p>
             </div>
           </div>
         </div>
