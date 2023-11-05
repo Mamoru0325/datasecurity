@@ -28,9 +28,9 @@ public class Permutation_Cipher {
 		String[] x_substrings = new String[cnt];
 		
 		if(x.length() % pi.length != 0 ) {
-			diff = (x.length() % pi.length)+1;
+			diff = pi.length - (x.length() % pi.length);
 		}
-		
+		System.out.println(diff+" : "+ pi.length);
 		for(int i = 0, idx = 0; i < x.length(); i+=pi.length)
 		{
 
@@ -45,6 +45,7 @@ public class Permutation_Cipher {
 					randomString.append(randomLowercaseLetter);
 				}
 				x_substrings[idx] = x_substrings[idx] + randomString.toString();
+				System.out.println(x_substrings[idx]);
 			}
 			idx++;
 
