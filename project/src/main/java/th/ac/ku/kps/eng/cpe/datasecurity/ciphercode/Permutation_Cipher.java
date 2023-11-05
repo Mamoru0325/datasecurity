@@ -23,20 +23,19 @@ public class Permutation_Cipher {
 	/* e_k(x) = pi(x_i) */
 	public String encrypt(String x)
 	{
-		
 		// Split x into substrings
 		int cnt = (int)Math.ceil((double)x.length() / pi.length);
 		String[] x_substrings = new String[cnt];
 		
 		if(x.length() % pi.length != 0 ) {
-			diff = cnt - (x.length() % pi.length);
+			diff = (x.length() % pi.length)+1;
 		}
 		
 		for(int i = 0, idx = 0; i < x.length(); i+=pi.length)
 		{
 
 			x_substrings[idx] = x.substring(i, Math.min(i + pi.length, x.length()));
-			if(x_substrings[idx].length() != cnt) {
+			if(x_substrings[idx].length() != pi.length) {
 				
 				StringBuilder randomString = new StringBuilder(diff);
 				
