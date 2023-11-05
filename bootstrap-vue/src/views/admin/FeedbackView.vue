@@ -101,7 +101,7 @@ export default {
       this.currentPage = newPage;
       this.startInt = (this.currentPage - 1) * this.itemsPerPage;
     },date(value){
-      console.log(value)
+      //console.log(value)
       const today = new Date(value);
       const yyyy = today.getFullYear();
       let mm = today.getMonth() + 1; // Months start at 0!
@@ -118,22 +118,22 @@ export default {
       if(this.month && this.year){
         axios.get("http://localhost:8080/api/feedback/month/"+this.month+" /year/"+this.year , { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
           .then((response) => {
-            console.log(response.data.body);
+            //console.log(response.data.body);
             this.data = response.data.body
           },
             (error) => {
               alert("username or password is already used");
-              console.log(error)
+             console.log(error)
             })
       }else{
         axios.get("http://localhost:8080/api/feedback/" , { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
           .then((response) => {
-            console.log(response.data.body);
+           //console.log(response.data.body);
             this.data = response.data.body
           },
             (error) => {
               alert("username or password is already used");
-              console.log(error)
+             console.log(error)
             })
       }
     },async getYear() {

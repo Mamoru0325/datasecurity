@@ -121,7 +121,7 @@ export default {
                 axios.post("http://localhost:8080/api/cipher/precreate", data, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
                     .then((response) => {
                         this.CipherText = response.data.body.cipherText
-                        console.log(response.data.body)
+                        //console.log(response.data.body)
                     },
                         (error) => {
                             alert("Error");
@@ -148,11 +148,11 @@ export default {
                     cipherKey: this.Key,
                     level: this.score
                 };
-                console.log(data)
+                //console.log(data)
                 const token = this.$store.state.auth.user.accessToken;
                 axios.put("http://localhost:8080/api/cipher/", data, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
                     .then(() => {
-                        console.log("Created Success")
+                        //console.log("Created Success")
                         this.$router.push("/admin/question/type/" + this.type)
                     },
                         (error) => {

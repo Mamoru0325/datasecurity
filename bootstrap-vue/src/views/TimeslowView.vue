@@ -109,10 +109,10 @@ export default {
         plainText: document.getElementById("ans").value,
         time: localStorage.getItem("timer"),
       };
-      console.log("Number(localStorage.getItem(no)) + 1 == 10 ----" + localStorage.getItem("no"))
+      //console.log("Number(localStorage.getItem(no)) + 1 == 10 ----" + localStorage.getItem("no"))
       //alert(this.saveno);
       if (this.saveno >= 11) {
-        //console.log(point)
+        ////console.log(point)
         //alert(this.saveno);
         axios.post(`http://localhost:8080/api/scoreboard/`, point, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
           .then(() => {
@@ -125,19 +125,19 @@ export default {
             console.log(error)
           })
       }else{
-        console.log("error");
+        //console.log("error");
       }
         this.saveno = Number(localStorage.getItem("no")) + 1;
-        console.log("saveno" + this.saveno)
+        //console.log("saveno" + this.saveno)
         localStorage.setItem('no', this.saveno);
-        console.log("p-" + this.timer)
+        //console.log("p-" + this.timer)
         localStorage.setItem('timer', this.timer);
-        let x = localStorage.getItem("timer");
-        console.log("p-" + x + "no " + localStorage.getItem("no"))
-        var y = document.getElementById("ans").value;
-        console.log("vale" + y);
+        localStorage.getItem("timer");
+        //console.log("p-" + x + "no " + localStorage.getItem("no"))
+        document.getElementById("ans").value;
+        //console.log("vale" + y);
         localStorage.setItem('datas', JSON.stringify(this.datas));
-        console.log(this.datas[this.no - 1].cipherText);
+        //console.log(this.datas[this.no - 1].cipherText);
         if (this.saveno <11) {
         this.$router.go(0);
         }
@@ -196,7 +196,7 @@ export default {
         x = Number(x) * 2;
       }
 
-      console.log("createFeedback" + document.getElementById("ans").value);
+      //console.log("createFeedback" + document.getElementById("ans").value);
       let point = {
         scoreboardId: this.datas[this.no - 1].scoreboardId,
         cipherId: this.datas[this.no - 1].cipherId,
@@ -204,13 +204,13 @@ export default {
         time: x,
       };
 
-      console.log("point" + JSON.stringify(point));
+      //console.log("point" + JSON.stringify(point));
       this.saveno = Number(localStorage.getItem("no")) + 1;
       const token = this.$store.state.auth.user.accessToken;
-      console.log("Number(localStorage.getItem(no)) + 1 == 10 ----" + localStorage.getItem("no"))
+      //console.log("Number(localStorage.getItem(no)) + 1 == 10 ----" + localStorage.getItem("no"))
       
       if (this.saveno > 10) {
-        console.log(point)
+        //console.log(point)
         axios.post(`http://localhost:8080/api/scoreboard/`, point, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
           .then(() => {
             this.setScore2();
@@ -221,16 +221,16 @@ export default {
           })
       } else {
         this.getData();
-        console.log("saveno" + this.saveno)
+        //console.log("saveno" + this.saveno)
         localStorage.setItem('no', this.saveno);
-        console.log("p-" + this.timer)
+        //console.log("p-" + this.timer)
         localStorage.setItem('timer', this.timer);
-        console.log("p-" + x + "no " + localStorage.getItem("no"))
-        var y = document.getElementById("ans").value;
-        console.log("vale" + y);
+        //console.log("p-" + x + "no " + localStorage.getItem("no"))
+        document.getElementById("ans").value;
+        //console.log("vale" + y);
         this.datas[this.no - 1].plaintext = document.getElementById("ans").value;
         localStorage.setItem('datas', JSON.stringify(this.datas));
-        console.log(this.datas[this.no - 1].cipherText);
+        //console.log(this.datas[this.no - 1].cipherText);
 
         axios.post(`http://localhost:8080/api/scoreboard/`, point, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
           .then(() => {
@@ -258,7 +258,7 @@ export default {
         .then((response) => {
           this.data = response.data.body
 
-          console.log(this.data)
+          //console.log(this.data)
         },
           (error) => {
             console.log(error)
@@ -272,7 +272,7 @@ export default {
         },
         (error) => {
 
-          console.log(error);
+          //console.log(error);
           alert(error);
         })
     }

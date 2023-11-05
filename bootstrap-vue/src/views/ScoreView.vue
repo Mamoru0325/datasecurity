@@ -64,14 +64,14 @@ export default {
         this.id = "hard"
       }
       const token = this.$store.state.auth.user.accessToken;
-      console.log(token)
-      console.log(this.id)
+      //console.log(token)
+      //console.log(this.id)
       
       axios.get(`http://localhost:8080/api/scoreboard/scores/`+this.id+'/value/10', { headers: { "Content-Type": "application/json" ,"Authorization": 'Bearer '+token } })
             .then((response) => {
               this.data = response.data.body
               
-              console.log(this.data[0])
+              //console.log(this.data[0])
             },
               (error) => {
                 alert("username or password is already used");

@@ -42,7 +42,7 @@ export default {
         let feedback = {
           text: this.text
         };
-        console.log(feedback)
+        //console.log(feedback)
         const token = this.$store.state.auth.user.accessToken;
         axios.post(`http://localhost:8080/api/feedback/`,feedback, { headers: { "Content-Type": "application/json","Authorization": 'Bearer '+token } })
           .then(() => {

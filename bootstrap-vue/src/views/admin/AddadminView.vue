@@ -71,7 +71,7 @@ export default {
             this.currentPage = newPage;
             this.startInt = (this.currentPage - 1) * this.itemsPerPage;
         }, date(value) {
-            console.log(value)
+            //console.log(value)
             const today = new Date(value);
             const yyyy = today.getFullYear();
             let mm = today.getMonth() + 1; // Months start at 0!
@@ -88,7 +88,7 @@ export default {
             axios.get("http://localhost:8080/api/user/", { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
                 .then((response) => {
                     this.data = response.data.body
-                    console.log(this.data)
+                    //console.log(this.data)
                 },
                     (error) => {
                         alert("username or password is already used");

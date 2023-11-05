@@ -105,112 +105,105 @@ export default {
         MyNavBar,
         MyButtonBar,
         //Send
-    },data(){
-        localStorage.setItem('timer',180);
-        return{
+    }, data() {
+        localStorage.setItem('timer', 180);
+        return {
+            id : ""
         }
     },
-    props:{
-        getNo:Function
+    props: {
+        getNo: Function
     }, methods: {
         async timerstart(value) {
-            console.log("1")
-            localStorage.setItem('no',1);
-            if(value==3){
-            localStorage.setItem('timer',180);
-        }else{
-            localStorage.setItem('timer',300);
-        }
-            console.log("2")
+            //console.log("1")
+            localStorage.setItem('no', 1);
+            if (value == 3) {
+                localStorage.setItem('timer', 180);
+            } else {
+                localStorage.setItem('timer', 300);
+            }
+            //console.log("2")
             this.id = "easy";
             const token = this.$store.state.auth.user.accessToken;
-            axios.get("http://localhost:8080/api/cipher/question/easy", { headers: { "Content-Type": "application/json" , "Authorization": 'Bearer ' + token } })
+            axios.get("http://localhost:8080/api/cipher/question/easy", { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
                 .then((response) => {
                     this.datas = response.data.body;
-                    console.log("obj"+this.datas);
+                    //console.log("obj"+this.datas);
                     //alert("---");
                     for (let i = 0; i < 3; i++) {
-                       // this.datas[i].plaintext="";
+                        // this.datas[i].plaintext="";
                     }
-                    console.log("obj"+this.datas);
+                    //console.log("obj"+this.datas);
                     localStorage.setItem('datas', JSON.stringify(this.datas));
-                    
-                    // Retrieve the object from storage
-                    var retrievedObject = localStorage.getItem('datas');
 
-                    console.log('retrievedObject: ', JSON.parse(retrievedObject));
-                    this.$router.push("/user/timeslow/"+value);
+                    // Retrieve the object from storage
+                     localStorage.getItem('datas');
+
+                    //console.log('retrievedObject: ', JSON.parse(retrievedObject));
+                    this.$router.push("/user/timeslow/" + value);
                     // href="/user/user/timeslow/"+value
-                    //console.log(this.datas[0].type)
+                    ////console.log(this.datas[0].type)
                 },
                     (error) => {
-                        alert("username or password is already used");
+                        alert("error");
                         console.log(error)
                     })
-        },async timerstart2(value) {
-            localStorage.setItem('no',1);
-            if(value==3){
-            localStorage.setItem('timer',180);
-        }else{
-            localStorage.setItem('timer',300);
-        }
-           
-            this.id = "moderate"
+        }, async timerstart2(value) {
+            localStorage.setItem('no', 1);
+            if (value == 3) {
+                localStorage.setItem('timer', 180);
+            } else {
+                localStorage.setItem('timer', 300);
+            }
+
+            this.id = "moderate";
             const token = this.$store.state.auth.user.accessToken;
-            //console.log(token)
-            axios.get(`http://localhost:8080/api/cipher/question/`+ this.id, { headers: { "Content-Type": "application/json" , "Authorization": 'Bearer ' + token } })
+            ////console.log(token)
+            axios.get(`http://localhost:8080/api/cipher/question/` + this.id, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
                 .then((response) => {
                     this.datas = response.data.body;
-                    console.log("obj"+this.datas);
-                    //alert("---");
-                    for (let i = 0; i < 3; i++) {
-                       // this.datas[i].plaintext="";
-                    }
-                    console.log("obj"+this.datas);
-                    localStorage.setItem('datas', JSON.stringify(this.datas));
-                    
-                    // Retrieve the object from storage
-                    var retrievedObject = localStorage.getItem('datas');
 
-                    console.log('retrievedObject: ', JSON.parse(retrievedObject));
-                    this.$router.push("/user/timeslow/"+value);
-                    //console.log(this.datas[0].type)
+                    localStorage.setItem('datas', JSON.stringify(this.datas));
+
+                    localStorage.getItem('datas');
+
+                    this.$router.push("/user/timeslow/" + value);
                 },
                     (error) => {
-                        alert("username or password is already used");
+                        alert("error");
                         console.log(error)
                     })
-        },async timerstart3(value) {
-            localStorage.setItem('no',1);
-            if(value==3){
-            localStorage.setItem('timer',180);
-        }else{
-            localStorage.setItem('timer',300);
-        }
-           
+        }, async timerstart3(value) {
+            localStorage.setItem('no', 1);
+            if (value == 3) {
+                localStorage.setItem('timer', 180);
+            } else {
+                localStorage.setItem('timer', 300);
+            }
+
             this.id = "hard"
             const token = this.$store.state.auth.user.accessToken;
-            //console.log(token)
-            axios.get(`http://localhost:8080/api/cipher/question/`+ this.id, { headers: { "Content-Type": "application/json" , "Authorization": 'Bearer ' + token } })
+            ////console.log(token)
+            axios.get(`http://localhost:8080/api/cipher/question/` + this.id, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
                 .then((response) => {
                     this.datas = response.data.body;
-                    console.log("obj"+this.datas);
+                    //console.log("obj"+this.datas);
                     //alert("---");
                     for (let i = 0; i < 10; i++) {
-                       // this.datas[i].plaintext="";
+                        // this.datas[i].plaintext="";
                     }
-                    console.log("obj"+this.datas);
+                    //console.log("obj"+this.datas);
                     localStorage.setItem('datas', JSON.stringify(this.datas));
                     //alert("new data");
                     // Retrieve the object from storage
-                    var retrievedObject = localStorage.getItem('datas');
+                    localStorage.getItem('datas');
 
-                    console.log('retrievedObject: ', JSON.parse(retrievedObject));
-                    this.$router.push("/user/timeslow/"+value);
-                    //console.log(this.datas[0].type)
+                    //console.log('retrievedObject: ', JSON.parse(retrievedObject));
+                    this.$router.push("/user/timeslow/" + value);
+                    ////console.log(this.datas[0].type)
                 },
                     (error) => {
-                        alert("username or password is already used");
+                        alert("error");
                         console.log(error)
                     })
         }
@@ -221,35 +214,34 @@ export default {
 p {
     margin-left: 8%;
 }
+
 /* CSS */
 .button-54 {
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
-  letter-spacing: 2px;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #000;
-  cursor: pointer;
-  border: 3px solid;
-  padding: 0.25em 0.5em;
-  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
-  position: relative;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    cursor: pointer;
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .button-54:active {
-  box-shadow: 0px 0px 0px 0px;
-  top: 5px;
-  left: 5px;
+    box-shadow: 0px 0px 0px 0px;
+    top: 5px;
+    left: 5px;
 }
 
 @media (min-width: 768px) {
-  .button-54 {
-    padding: 0.25em 0.75em;
-  }
+    .button-54 {
+        padding: 0.25em 0.75em;
+    }
 }
-
-
 </style>

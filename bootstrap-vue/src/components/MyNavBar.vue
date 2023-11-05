@@ -124,7 +124,7 @@ export default {
   methods: {
     logOut() {
       const token = this.$store.state.auth.user.accessToken;
-      console.log("token" + token)
+      //console.log("token" + token)
       axios.post(API_URL + 'signout',"" ,{ headers: { "Authorization": 'Bearer ' + token } })
       
       this.$store.dispatch('auth/signout');
