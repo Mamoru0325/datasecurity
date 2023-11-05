@@ -34,7 +34,7 @@
         <h4>แบบฝึกหัดเพื่อทดสอบความเข้าใจ <span style="color: red;"> (ลำดับตัวอักษร a b c d e f g h I j k l m n o p q r s
             t
             u v w x y z) </span> <br></h4>
-        <p>1.ให้ทำการเข้ารหัสข้อความนี้ " morning " <span style="color: red;"> Key = "3,1,2" คือ ตำแหน่ง 1 ไป ช่อง 2 ตำแหน่ง 2 ไป ช่อง 3 ตำแหน่ง 3 ไป ช่อง 1 </span></p>
+        <p>1.ให้ทำการเข้ารหัสข้อความนี้ " mornin " <span style="color: red;"> Key = "3,1,2" คือ ตำแหน่ง 1 ไป ช่อง 2 ตำแหน่ง 2 ไป ช่อง 3 ตำแหน่ง 3 ไป ช่อง 1 </span></p>
         <div class="row" style="margin-left: 18%;margin-top: 2%;">
           <div class="col-md-10">
             <input type="text" class="form-control" aria-label="plainText" id="plainText" v-model="plainText"
@@ -111,7 +111,7 @@ export default {
     async tranfrom() {
       let data = {
         type: 3,
-        plainText: "morning",
+        plainText: "mornin",
         cipherKey: "3,1,2",
         level: this.score
       };
@@ -129,13 +129,14 @@ export default {
       if (!this.v$.$error) {
         let data = {
           type: 3,
-          plainText: "morning",
-          cipherKey: "3,2,1",
+          plainText: "mornin",
+          cipherKey: "3,1,2",
           level: this.score
         };
         const token = this.$store.state.auth.user.accessToken;
         axios.post("http://localhost:8080/api/cipher/precreate", data, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
           .then((response) => {
+            
             if (response.data.body.cipherText == this.plainText) {
               alert("คำตอบถูกต้อง")
             }
