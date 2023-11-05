@@ -30,7 +30,7 @@
           </p>
         </div>
         <div class="col">
-          <label for="Key" class="form-label">Key</label>
+          <label for="Key" class="form-label">Key<span style="color: red;" v-if="currentCaesar"> (กรณี Caesar ให้พิมพ์เฉพาะตัวเลข)</span><span style="color: red;" v-if="currentVir"> (Vigenere ให้พิมพ์เป็นตัวอักษร )</span> <span style="color: red;" v-if="currentPer"> (Permutation Key = "3,1,2" คือ ตำแหน่ง 1 ไป ช่อง 2 ตำแหน่ง 2 ไป ช่อง 3 ตำแหน่ง 3 ไป ช่อง 1 )</span></label>
           <input type="text" class="form-control" placeholder="Key" aria-label="Key" id="Key" v-model="Key" :class="v$.Key.$error === true ? 'text-fields-error' : 'text-fields'">
           <p class="text-red-500 text-xs font-thin" v-for="error of v$.Key.$errors" :key="error.$uid">
             {{ error.$message }}
@@ -83,6 +83,24 @@ export default {
   computed: {
     currentUser() {
       return this.$route.params
+    },currentCaesar(){
+      if(this.type == "caesar"){
+        return true;
+      }else{
+        return false;
+      }
+    },currentPer(){
+      if(this.type == "permutation"){
+        return true;
+      }else{
+        return false;
+      }
+    },currentVir(){
+      if(this.type == "vigenere"){
+        return true;
+      }else{
+        return false;
+      }
     }
   }, methods: {
     async tranfrom() {

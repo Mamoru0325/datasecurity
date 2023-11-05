@@ -4,7 +4,7 @@
         <br>
         <div class="container" style="height: 80vb;">
             <div>
-                <h1 style="text-align: center;">เพิ่มโจทย์ ({{ this.type }})</h1>
+                <h1 style="text-align: center;">แก้ไขโจทย์ ({{ this.type }})</h1>
             </div>
             <div class="row" style="margin-top: 2%;">
                 <div class="col-md-8">
@@ -23,14 +23,17 @@
             <div class="row">
                 <div class="col">
                     <label for="plainText" class="form-label">PlainText</label>
-                    <input type="text" class="form-control" aria-label="plainText" id="plainText"
-                        v-model="plainText" :class="v$.plainText.$error === true ? 'text-fields-error' : 'text-fields'">
+                    <input type="text" class="form-control" aria-label="plainText" id="plainText" v-model="plainText"
+                        :class="v$.plainText.$error === true ? 'text-fields-error' : 'text-fields'">
                     <p class="text-red-500 text-xs font-thin" v-for="error of v$.plainText.$errors" :key="error.$uid">
                         {{ error.$message }}
                     </p>
                 </div>
                 <div class="col">
-                    <label for="Key" class="form-label">Key</label>
+                    <label for="Key" class="form-label">Key<span style="color: red;" v-if="currentCaesar"> (กรณี Caesar
+                            ให้พิมพ์เฉพาะตัวเลข)</span><span style="color: red;" v-if="currentVir"> (Vigenere
+                            ให้พิมพ์เป็นตัวอักษร )</span> <span style="color: red;" v-if="currentPer"> (Permutation Key =
+                            "3,1,2" คือ ตำแหน่ง 1 ไป ช่อง 2 ตำแหน่ง 2 ไป ช่อง 3 ตำแหน่ง 3 ไป ช่อง 1 )</span></label>
                     <input type="text" class="form-control" aria-label="Key" id="Key" v-model="Key"
                         :class="v$.Key.$error === true ? 'text-fields-error' : 'text-fields'">
                     <p class="text-red-500 text-xs font-thin" v-for="error of v$.Key.$errors" :key="error.$uid">
@@ -85,6 +88,24 @@ export default {
     computed: {
         currentUser() {
             return this.$route.params
+        }, currentCaesar() {
+            if (this.type == "caesar") {
+                return true;
+            } else {
+                return false;
+            }
+        }, currentPer() {
+            if (this.type == "permutation") {
+                return true;
+            } else {
+                return false;
+            }
+        }, currentVir() {
+            if (this.type == "vigenere") {
+                return true;
+            } else {
+                return false;
+            }
         }
     }, methods: {
         async tranfrom() {
@@ -142,7 +163,7 @@ export default {
         }, setValues() {
             this.id = this.$route.params.type
             const token = this.$store.state.auth.user.accessToken;
-            axios.get("http://localhost:8080/api/cipher/"+this.id, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
+            axios.get("http://localhost:8080/api/cipher/" + this.id, { headers: { "Content-Type": "application/json", "Authorization": 'Bearer ' + token } })
                 .then((response) => {
                     this.type = response.data.body.type
                     this.plainText = response.data.body.plainText
@@ -150,10 +171,10 @@ export default {
                     this.score = response.data.body.level
                     this.setTypeId();
                 },
-                (error) => {
-                    this.$router.push("/admin/question/")
-                    console.log(error)
-                })
+                    (error) => {
+                        this.$router.push("/admin/question/")
+                        console.log(error)
+                    })
         }
     },
     mounted() {
@@ -191,5 +212,4 @@ textarea {
 
 p {
     color: #f90000;
-}
-</style>
+}</style>
