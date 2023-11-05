@@ -15,11 +15,6 @@ const routes = [
     component: () => import('../views/AboutView.vue')
   },
   {
-    path: '/profile',
-    name: 'MyProfile',
-    component: () => import('../components/Profile.vue')
-  },
-  {
     path: '/login',
     beforeEnter: checkAuth,
     component: () => import('../views/Login/LoginView.vue'),
